@@ -1,1 +1,0 @@
-# demir-kasyan.github.io
