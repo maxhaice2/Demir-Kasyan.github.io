@@ -2,6 +2,18 @@
 <html>
 <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
 <script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.8/aframe/build/aframe-ar.js"></script>
+  <body style='margin : 0px; overflow: hidden;'>
+    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+      <a-assets>
+            <audio id="sound" src="url(http://d.zaix.ru/hrPv.mp3)" preload="auto"></audio>
+        </a-assets>
+      <a-marker preset="hiro">
+        <a-gltf-model src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" soundhandler></a-gltf-model>
+      </a-marker>
+      <a-entity sound="src:#sound" autoplay="true"></a-entity>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
   <script>
     AFRAME.registerComponent('soundhandler', {
     tick: function () {
@@ -15,16 +27,4 @@
      }
 });
   </script>
-  <body style='margin : 0px; overflow: hidden;'>
-    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
-      <a-assets>
-            <audio id="sound" src="url(http://d.zaix.ru/hrPv.mp3)" preload="auto"></audio>
-        </a-assets>
-      <a-marker preset="hiro">
-        <a-gltf-model src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" soundhandler></a-gltf-model>
-      </a-marker>
-      <a-entity sound="src:#sound" autoplay="true"></a-entity>
-      <a-entity camera></a-entity>
-    </a-scene>
-  </body>
 </html>
