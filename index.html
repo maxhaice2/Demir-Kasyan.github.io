@@ -6,7 +6,7 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    alert("update6");
+    //alert("update7");
     AFRAME.registerComponent('clicked', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
@@ -16,7 +16,7 @@
     AFRAME.registerComponent('clicked_v2', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
-          alert("click_v2 done");
+            document.querySelector('#card-model').setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
         });
 }});
     AFRAME.registerComponent('clicked_v3', {
