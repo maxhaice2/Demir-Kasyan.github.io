@@ -13,8 +13,8 @@
     AFRAME.registerComponent('cursor-listener', {
 init: function () {
 this.el.addEventListener('click', function (evt) {
-  alert('I was clicked at: ', evt.detail.intersection.point);
-    this.el.
+  alert('I was clicked at: PROCOPA GIVE MONEY', evt.detail.intersection.point);
+
  });
 }
 });
@@ -25,6 +25,7 @@ this.el.addEventListener('click', function (evt) {
   <a-marker preset='hiro' cursor='rayOrigin: mouse'>
    <a-gltf-model id="animated-marker" cursor-listener src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" >
       <a-animation attribute="rotation"
+                   begin="click"
                dur="3000"
                to="0 180 0">
         </a-animation>
