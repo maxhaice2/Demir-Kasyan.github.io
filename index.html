@@ -12,6 +12,7 @@
         init: function () {
             this.el.addEventListener('click', function (evt) {
                  alert('PROCOPA GIVE MONEY', evt.detail.intersection.point);
+                this.el.emit('anim');
                     });}
     });
 </script>
@@ -19,15 +20,9 @@
 <body>
 <a-scene embedded arjs='trackingMethod: best; debugUIEnabled: false;'>
   <a-marker preset='hiro' cursor='rayOrigin: mouse'>
-   <a-gltf-model id="animated-marker" scale="60" cursor-listener src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" >
-      <a-animation attribute="rotation"
-                   begin="click"
-               dur="3000"
-               to="0 180 0">
-        </a-animation>
-      </a-gltf-model>
-   
-    </a-marker>
+    <a-gltf-model id="animated-marker" scale="60" cursor-listener src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" ></a-gltf-model>
+  </a-marker>
+   <a-animation begin="anim" attribute="rotation" dur="3000" to="0 180 0"></a-animation>
   <a-camera-static/>
   </a-scene>
   </body>
