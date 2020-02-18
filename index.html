@@ -14,6 +14,7 @@
 init: function () {
 this.el.addEventListener('click', function (evt) {
   alert('I was clicked at: ', evt.detail.intersection.point);
+    this.el.
  });
 }
 });
@@ -22,7 +23,13 @@ this.el.addEventListener('click', function (evt) {
 <body>
 <a-scene embedded arjs='trackingMethod: best; debugUIEnabled: false;'>
   <a-marker preset='hiro' cursor='rayOrigin: mouse'>
-   <a-gltf-model id="animated-marker" cursor-listener scale="3.2" src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" ></a-gltf-model>
+   <a-gltf-model id="animated-marker" cursor-listener src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" >
+      <a-animation attribute="rotation"
+               dur="3000"
+               to="0 180 0">
+        </a-animation>
+      </a-gltf-model>
+   
     </a-marker>
   <a-camera-static/>
   </a-scene>
