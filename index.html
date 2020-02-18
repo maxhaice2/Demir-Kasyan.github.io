@@ -8,11 +8,11 @@
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    alert("lol")
+    alert("lol2")
     AFRAME.registerComponent('cursor-listener', {
         init: function () {
             this.el.addEventListener('click', function (evt) {
-                 alert('PROCOPA GIVE MONEY1', evt.detail.intersection.point);
+                 alert('PROCOPA GIVE MONEY', evt.detail.intersection.point);
                  this.el.emit('anim');
                  var audio = new Audio('http://d.zaix.ru/hrTf.mp3');
                      audio.play();
@@ -24,7 +24,7 @@
 <body>
 <a-scene embedded arjs='trackingMethod: best; debugUIEnabled: false;'>
   <a-marker preset='hiro' cursor='rayOrigin: mouse'>
-    <a-gltf-model id="animated-marker" scale="20 20 20" cursor-listener src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" >
+    <a-gltf-model id="animated-marker" scale="10" cursor-listener src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" >
       <a-animation begin="anim" attribute="rotation" dur="3000" to="0 180 0"></a-animation>
       </a-gltf-model>
   </a-marker>
