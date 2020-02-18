@@ -9,19 +9,19 @@
     alert("update4");
     AFRAME.registerComponent('clicked', {
     init: function() {
-        this.el.addEventListener('click', function(ev, target){
+        this.el.addEventListener('mousedown', function(ev, target){
           alert("click done");
         });
 }});
     AFRAME.registerComponent('clicked_v2', {
     init: function() {
-        this.el.addEventListener('click', function(ev, target){
+        this.el.addEventListener('mousedown', function(ev, target){
           alert("click_v2 done");
         });
 }});
     AFRAME.registerComponent('clicked_v3', {
     init: function() {
-        this.el.addEventListener('click', function(ev, target){
+        this.el.addEventListener('mousedown', function(ev, target){
           alert("click_v3 done");
         });
 }});
