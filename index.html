@@ -4,28 +4,28 @@
 <script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.8/aframe/build/aframe-ar.js"></script>
   <body style='margin : 0px; overflow: hidden;'>
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
-      <a-assets>
-            <audio id="sound" src="url(http://d.zaix.ru/hrTf.mp3)" preload="auto"></audio>
-        </a-assets>
-      <a-marker preset="hiro">
-        <a-gltf-model src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" soundhandler></a-gltf-model>
+      <a-marker markerhandler cursor="rayOrigin: mouse" id="animated-marker" preset="hiro">
+        <a-gltf-model id="animated-model" scale="0.5" src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" ></a-gltf-model>
       </a-marker>
-      <a-entity sound="src:#sound" autoplay="true"></a-entity>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-entity camera></a-entity>
+     <a-entity camera></a-entity>
     </a-scene>
   </body>
   <script>
-    AFRAME.registerComponent('soundhandler', {
-    tick: function () {
-           var entity = document.querySelector('[sound]');
-         if (document.querySelector('a-marker').object3D.visible == true) {
-            entity.components.sound.playSound();
-        } else {
-            entity.components.sound.pauseSound();
-        }
+    AFRAME.registerComponent('markerhandler', {
 
-     }
-});
+    init: function() {
+        const animatedMarker = document.querySelector("#animated-marker");
+        const aEntity = document.querySelector("#animated-model");
+
+        // every click, we make our model grow in size :)
+        animatedMarker.addEventListener('click', function(ev, target){
+            const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
+            if (aEntity && intersectedElement === aEntity) {
+                const scale = aEntity.getAttribute('scale');
+                Object.keys(scale).forEach((key) => scale[key] = scale[key] + 1);
+                aEntity.setAttribute('scale', scale);
+            }
+        });
+}});
   </script>
 </html>
