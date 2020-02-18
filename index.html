@@ -11,7 +11,7 @@
     AFRAME.registerComponent('cursor-listener', {
         init: function () {
             this.el.addEventListener('click', function (evt) {
-                 alert('PROCOPA GIVE MONEY', evt.detail.intersection.point);
+                 alert('PROCOPA GIVE MONEY1', evt.detail.intersection.point);
                  this.el.emit('anim');
                  var audio = new Audio('http://d.zaix.ru/hrTf.mp3');
                      audio.play();
