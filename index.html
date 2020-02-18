@@ -48,9 +48,9 @@
          init: function() {
     const marker = document.querySelector('#marker');
     const box = document.querySelector('#card-model');
-      marker.addEventListener('mousedown', function(ev, target) {
-      	box.setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
-
+      marker.addEventListener('mousedown', function(evt) {
+      	//box.setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
+          alert('pizdec')
     } 
 
   });
