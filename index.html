@@ -3,32 +3,33 @@
     <head>
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     </head>
-    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.8/aframe/build/aframe-ar.js"></script>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    
+    <!-- import events.js script -->
     <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    alert("lol2saddddd")
     AFRAME.registerComponent('cursor-listener', {
-        init: function () {
-            this.el.addEventListener('click', function (evt) {
-                 alert('PROCOPA GIVE MONEY', evt.detail.intersection.point);
-                 this.el.emit('anim');
-                 var audio = new Audio('http://d.zaix.ru/hrTf.mp3');
-                     audio.play();
-                    });}
-    });
-    
+init: function () {
+this.el.addEventListener('click', function (evt) {
+  alert('I was clicked at: ', evt.detail.intersection.point);
+ });
+}
+});
 </script>
 </head>  
 <body>
 <a-scene embedded arjs='trackingMethod: best; debugUIEnabled: false;'>
   <a-marker preset='hiro' cursor='rayOrigin: mouse'>
-    <a-gltf-model id="animated-marker" scale="4 4 4" cursor-listener src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" >
-      <a-animation begin="anim" attribute="rotation" dur="3000" to="0 180 0"></a-animation>
-      </a-gltf-model>
-  </a-marker>
-  <a-camera-static/> 
+   <a-gltf-model id="animated-marker" cursor-listener src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0"
+               animation=" begin='click' attribute='rotation'
+               dur='3000'
+               to='0 180 0'>
+    </a-gltf-model>
+   
+    </a-marker>
+  <a-camera-static/>
   </a-scene>
   </body>
   </html>
