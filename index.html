@@ -6,11 +6,12 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    //alert("update7");
+    alert("update1");
     AFRAME.registerComponent('clicked', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
-          alert("click done");
+          //this.el.setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
+            alert('entity');
         });
 }});
     AFRAME.registerComponent('clicked_v2', {
@@ -22,13 +23,13 @@
     AFRAME.registerComponent('clicked_v3', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
-          alert("click_v3 done");
+          alert("fgml");
         });
 }});
 </script>
   <body style='margin : 0px; overflow: hidden;'>
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
-      <a-marker clicked_v2 cursor="fuse: false; rayOrigin: mouse" emitevents="true" type="barcode" value="6" id="animated-marker" preset="hiro">
+      <a-marker cursor="fuse: false; rayOrigin: mouse" emitevents="true" type="barcode" value="6" id="animated-marker" preset="hiro">
         <a-entity clicked cursor-listener rotation="90 0 0">
           <a-gltf-model emitevents="true" id="card-model" src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)"
           clicked_v3 scale="10 10 10">
