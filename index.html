@@ -12,7 +12,7 @@
         this.el.addEventListener('mousedown', function(ev, target){
             let model = document.querySelector('#card-model');
             if(model.object3D.visible == true && ev.detail.cursorEl){
-               model..setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
+               model.setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
              }
         });
 }});
