@@ -1,34 +1,33 @@
 <!doctype HTML>
 <html>
-<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
-<script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.8/aframe/build/aframe-ar.js"></script>
-<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-<script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
-  <body style='margin : 0px; overflow: hidden;'>
-    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
-      <a-marker markerhandler cursor="rayOrigin: mouse" id="animated-marker" preset="hiro">
-        <a-gltf-model id="animated-model" scale="0.9" src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)" rotation="-90 0 0" ></a-gltf-model>
-      </a-marker>
-     <a-entity camera></a-entity>
-    </a-scene>
-  </body>
-  <script>
-    AFRAME.registerComponent('markerhandler', {
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    </head>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    
+    <!-- import events.js script -->
+    <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
+    
+    <body style='margin : 0px; overflow: hidden;'>
+        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
+        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
-    init: function() {
-        const animatedMarker = document.querySelector("#animated-marker");
-        const aEntity = document.querySelector("#animated-model");
+        <a-assets>
+            <a-asset-item id="animated-asset" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/models/CesiumMan.gltf"></a-asset-item>
+        </a-assets>
 
-        // every click, we make our model grow in size :)
-        animatedMarker.addEventListener('click', function(ev, target){
-          alert("click");
-            const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
-            if (aEntity && intersectedElement === aEntity) {
-                const scale = aEntity.getAttribute('scale');
-                Object.keys(scale).forEach((key) => scale[key] = scale[key] + 1);
-                aEntity.setAttribute('scale', scale);
-            }
-        });
-}});
-  </script>
+        <a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" type='barcode' value='6'>
+            <a-entity
+                id="animated-model"
+                gltf-model="#animated-asset"
+                scale="2">
+            </a-entity>
+        </a-marker>
+
+        <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
+        <a-entity camera></a-entity>
+        </a-scene>
+    </body>
 </html>
