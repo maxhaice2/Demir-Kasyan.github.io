@@ -7,12 +7,14 @@
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
     alert("update5");
-    AFRAME.registerComponent('click', {
+    AFRAME.registerComponent('handler', {
     init: function() {
         this.el.addEventListener('click', function(ev, target){
             const model = document.querySelector('#card-model');
             const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
+            consol.log("isn")
             if (model && intersectedElement === model) {
+                alert('lol')
                  model.setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
             }
               
@@ -22,10 +24,10 @@
 </script>
   <body style='margin : 0px; overflow: hidden;'>
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
-      <a-marker click clickcursor="fuse: false; rayOrigin: mouse" emitevents="true" type="barcode" value="6" id="animated-marker" preset="hiro">
+      <a-marker handler clickcursor="fuse: false; rayOrigin: mouse" emitevents="true" type="barcode" value="6" id="animated-marker" preset="hiro">
         <a-entity rotation="90 0 0">
           <a-gltf-model id="card-model" src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)"
-          clicked_v3 scale="10 10 10">
+          scale="10 10 10">
         </a-gltf-model>
     </a-entity>
       </a-marker>
