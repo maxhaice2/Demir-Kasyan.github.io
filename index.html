@@ -6,11 +6,10 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    alert('p');
+    alert('2');
     AFRAME.registerComponent('clicked', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
-            alert('catch');
             document.querySelector('#card-model').setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
             new Audio('sound.mp3').play();
         });
@@ -22,12 +21,12 @@
   <a-marker clicked preset='hiro' cursor='rayOrigin: mouse'>
     <a-entity clicked>
     <a-gltf-model rotation="90 0 0" id="card-model" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
-          scale="10 10 10">
+          scale="7 7 7">
         </a-gltf-model> 
     </a-entity>
       <a-entity orientation="0 1 0" click>
     <a-gltf-model rotation="90 0 0" id="card-model" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
-          scale="10 10 10">
+          scale="7 7 7">
         </a-gltf-model> 
     </a-entity>
   </a-marker>
