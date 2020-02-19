@@ -6,12 +6,11 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    alert('6');
     AFRAME.registerComponent('clicked', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
-            document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
-            document.querySelector('#card-model2').setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
+            document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
+            document.querySelector('#card-model2').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
             new Audio('sound.mp3').play();
         });
 }});
