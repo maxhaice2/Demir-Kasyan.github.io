@@ -1,20 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>&lt;model-viewer&gt; Augmented Reality</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no,
+  minimum-scale=1.0, maximum-scale=1.0">
+  <script type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js">
+  </script>
+  <script nomodule
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
+  </script>
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script>
+  <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
 
-<!doctype HTML>
-<html>  
-<script type="module"
-  src="https://unpkg.com/@google/model-viewer@0.3.1/dist/model-viewer.js">
-</script>
+  <script src="https://unpkg.com/resize-observer-polyfill@1.5.1/dist/ResizeObserver.js"></script>
 
-<script nomodule
-  src="https://unpkg.com/@google/model-viewer@0.3.1/dist/model-viewer-legacy.js">
-</script>
-    <script>
-        alert("lolicon");
-    </script>
+
+</head>
 <body>
-    <model-viewer src="https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf" 
-              ar
-              alt="A 3D model of a rocket">
-</model-viewer>
-  </body>
-  </html>
+  <model-viewer src="https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf""
+                ar
+                auto-rotate 
+                camera-controls 
+                shadow-intensity="1" 
+                alt="A 3D model of a rocket" background-color="#70BCD1">
+                  
+  </model-viewer>
+</body>
+</html>
