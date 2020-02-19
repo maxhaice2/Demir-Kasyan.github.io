@@ -6,46 +6,31 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    alert("update0002");
-    AFRAME.registerComponent('cursor-listener', {
-        init: function () {
-            this.el.addEventListener('click', function (evt) {
-                alert('I was clicked at: ', evt.detail.intersection.point);
-            });
-        }
-    });
+    alert('pizdec');
+    AFRAME.registerComponent('clicked', {
+    init: function() {
+        this.el.addEventListener('mousedown', function(ev, target){
+            this.el.setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
+            new Audio("sound.mp3").play();
+        });
+}});
 </script>
 </head>  
 <body>
-<a-scene id="scene" cursor="fuse: false; rayOrigin: mouse;" embedded arjs="debugUIEnabled: false; trackingMethod: best; sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+<a-scene embedded arjs="debugUIEnabled: false; trackingMethod: best; sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
   <a-marker preset='hiro' cursor='rayOrigin: mouse'>
-    <a-entity cursor-listener>
-    <a-gltf-model cursor-listener rotation="90 0 0" id="card-model" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
+    <a-entity click>
+    <a-gltf-model rotation="90 0 0" id="card-model" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
           scale="10 10 10">
-        </a-gltf-model>  
+        </a-gltf-model> 
+    </a-entity>
+      <a-entity orientation="0 1 0" click>
+    <a-gltf-model rotation="90 0 0" id="card-model" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
+          scale="10 10 10">
+        </a-gltf-model> 
     </a-entity>
   </a-marker>
   <a-camera-static/>
   </a-scene>
   </body>
-<script>
-    let allow_clicks = false;
-document.querySelector("#scene")
-      .addEventListener('markerFound', (evt) => {
-               allow_clicks = true
-      });
-
-document.querySelector("#scene")
-      .addEventListener('markerLost', (evt) => {
-                allow_clicks = false
-      });
-
-document.querySelector("#card-model")
-      .addEventListener('click', (evt) => {
-           if (allow_clicks){
-               alert('Done!');
-            document.querySelector('#card-model').setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
-           }           
-      });
-</script>
   </html>
