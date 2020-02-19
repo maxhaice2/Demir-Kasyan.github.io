@@ -9,11 +9,14 @@
     alert("update3");
     AFRAME.registerComponent('click', {
     init: function() {
-        this.el.addEventListener('mousedown', function(ev, target){
-            let model = document.querySelector('#card-model');
-            if(model.object3D.visible == true && ev.detail.cursorEl){
-               model.setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
-             }
+        this.el.addEventListener('click', function(ev, target){
+            const model = document.querySelector('#card-model');
+            const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
+            if (model && intersectedElement === model) {
+                 model.setAttribute('animation', 'property: rotation; dur: 4000; to: -180 0 0; loop: false');
+            }
+              
+             
         });
 }});
 </script>
