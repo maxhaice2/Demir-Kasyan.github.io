@@ -1,32 +1,10 @@
 
 <!doctype HTML>
-<html>
-<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
-<script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.8/aframe/build/aframe-ar.js"></script>
-<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-<script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
-<script>
-    AFRAME.registerComponent('clicked', {
-    init: function() {
-        this.el.addEventListener('mousedown', function(ev, target){
-            document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
-            document.querySelector('#card-model2').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
-            new Audio('sound.mp3').play();
-        });
-}});
-</script>
-</head>  
+<html>  
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+<script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
 <body>
-<a-scene embedded arjs="debugUIEnabled: false; trackingMethod: best; sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
-  <a-marker clicked preset='hiro' cursor='rayOrigin: mouse'>
-    <a-gltf-model position="-1 0 0" rotation="90 0 0" id="card-model1" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
-          scale="7 7 7">
-        </a-gltf-model> 
-    <a-gltf-model position="1 0 0" rotation="90 0 0" id="card-model2" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
-          scale="7 7 7">
-    </a-entity>
-  </a-marker>
-  <a-camera-static/>
-  </a-scene>
+    <model-viewer ar src="https://cdn.glitch.com/162a6be2-293d-4554-8610-6011a9f71fef%2FChairExp.glb?1557485499409"
+                  auto-rotate camera-controls alt="Chair" background-color="#455A64"></model-viewer>
   </body>
   </html>
