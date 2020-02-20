@@ -6,17 +6,14 @@
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-    alert('let me fly to end this world');
     let num = 0;
     let sound = new Audio('sound.mp3');
     AFRAME.registerComponent('clicked', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
-            alert('pojalusta zavali ebalo');
             if(num++ !== 0){
-            
-            document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
-            document.querySelector('#card-model2').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
+                document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
+                document.querySelector('#card-model2').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
             if(sound.paused){
               sound.play();
             }
@@ -37,7 +34,7 @@
   <a-camera-static/>
   </a-scene>
     <script>
-        document.querySelector('#marker').trigger('mousedown');
+        document.querySelector('#marker').mousedown();
     </script>
   </body>
 
