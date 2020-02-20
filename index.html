@@ -5,7 +5,8 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    alert('let me go');
+    alert('let me go to sky');
+    let num = 0;
     let sound = new Audio('sound.mp3');
     AFRAME.registerComponent('clicked', {
     init: function() {
@@ -19,7 +20,6 @@
             }
             } });
 }});
-    document.querySelector('#marker').click();
 </script>
 </head>  
 <body>
@@ -35,6 +35,9 @@
   </a-marker>
   <a-camera-static/>
   </a-scene>
+    <script>
+        document.querySelector('#marker').click();
+    </script>
   </body>
 
   </html>
