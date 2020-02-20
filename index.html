@@ -5,16 +5,21 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    //let sound = new Audio('sound.mp3');
+    alert('s');
+    let num = 0;
+    let sound = new Audio('sound.mp3');
     AFRAME.registerComponent('clicked', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
+            if(num++ === 0){
+                sound.play();
+                sound.play();
+            }
             document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
             document.querySelector('#card-model2').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
-           new Audio('sound.mp3').play();
-            //if(sound.paused){
-              //  sound.play();
-            //}
+            if(sound.paused){
+              sound.play();
+            }
         });
 }});
 </script>
