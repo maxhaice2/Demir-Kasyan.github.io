@@ -11,7 +11,7 @@
         this.el.addEventListener('mousedown', function(ev, target){
             document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
             document.querySelector('#card-model2').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
-            if(!(sound.duration > 0 && !sound.paused)){
+            if(sound.paused){
                 sound.play();
             }
         });
