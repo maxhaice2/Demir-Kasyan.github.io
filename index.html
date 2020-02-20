@@ -11,6 +11,7 @@
     AFRAME.registerComponent('clicked', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
+            alert('pojalusta zavali ebalo');
             if(num++ !== 0){
             
             document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
