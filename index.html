@@ -5,7 +5,7 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    alert('let me go');
+    alert('let me die');
     let num = 0;
     let sound = new Audio('sound.mp3');
     AFRAME.registerComponent('clicked', {
@@ -23,7 +23,6 @@
 </script>
 </head>  
 <body>
-    <p id = 'p'></p>
 <a-scene embedded arjs="debugUIEnabled: false; trackingMethod: best; sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
   <a-marker clicked id = 'marker' preset='hiro' cursor='rayOrigin: mouse'>
     <a-gltf-model position="-0.5 0 0" rotation="90 0 0" id="card-model1" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
