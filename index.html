@@ -5,7 +5,6 @@
 <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
 <script>
-    document.getElementById('p').onclick();
     let num = 0;
     let sound = new Audio('sound.mp3');
     AFRAME.registerComponent('clicked', {
@@ -36,4 +35,7 @@
   <a-camera-static/>
   </a-scene>
   </body>
+<scipt>
+    document.getElementById('p').onclick();
+    </script>
   </html>
