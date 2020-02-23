@@ -11,31 +11,24 @@
     AFRAME.registerComponent('clicked', {
     init: function() {
         this.el.addEventListener('mousedown', function(ev, target){
-            if(num++ !== 0){
-                document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
-                document.querySelector('#card-model2').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
             if(sound.paused){
               sound.play();
             }
-            } });
+                document.querySelector('#card-model1').setAttribute('animation', 'property: rotation; dur: 4000; to: -90 0 0; loop: false');
+        });
 }});
 </script>
 </head>  
 <body>
 <a-scene embedded arjs="debugUIEnabled: false; trackingMethod: best; sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
   <a-marker clicked id = 'marker' preset='hiro' cursor='rayOrigin: mouse'>
-    <a-gltf-model position="-0.5 0 0" rotation="90 0 0" id="card-model1" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
-          scale="5 5 5">
+    <a-gltf-model rotation="90 0 0" id="card-model1" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
+          scale="7 7 7">
         </a-gltf-model> 
-    <a-gltf-model position="0.5 0 0" rotation="90 0 0" id="card-model2" src="url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card_v2.gltf)"
-          scale="5 5 5">
     </a-entity>
   </a-marker>
   <a-camera-static/>
   </a-scene>
-    <script>
-        document.querySelector('#marker').mousedown();
-    </script>
   </body>
 
   </html>
