@@ -79,8 +79,7 @@
 
 			}
 			function motion(event){
-	console.log(oldVelocity);
-	if(oldVelocity == undefined){
+	if(oldVelocity.x == 0){
 					raycaster.ray.origin.copy( controls.getObject().position );
 					raycaster.ray.origin.y -= 10;
 					var time = performance.now();
