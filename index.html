@@ -231,9 +231,9 @@ function motion(event){
 					raycaster.ray.origin.y -= 10;
 					var time = performance.now();
 					var delta = ( time - prevTime ) / 1000;
-					
-					controls.moveRight( - (event.accelerationIncludingGravity.x-x)*delta);
-					controls.moveForward(- (event.accelerationIncludingGravity.z-z)*delta)
+
+					controls.moveRight( - (event.accelerationIncludingGravity.x-x)*delta*300.0);
+					controls.moveForward(- (event.accelerationIncludingGravity.z-z)*delta*300.0)
 	}
 					x = event.accelerationIncludingGravity.x;
 					y = event.accelerationIncludingGravity.y;
