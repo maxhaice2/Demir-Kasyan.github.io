@@ -1,9 +1,22 @@
-<script>
-	let accelerometer = new Accelerometer({frequency: 60});
+<html>
+  <head>
+    <title>
+      &&TARO CARDS&&
+    </title>
+    <script>
+      window.addEventListener(
+        'deviceorientation',handleOrientation);
+      
+      function handleOrientation(event){
+        let output = document.getElementById("output");
 
-accelerometer.addEventListener('reading', event => {
-  alert("Acceleration along the X-axis " + event.acceleration.x+"\nAcceleration along the Y-axis " + event.acceleration.y
-  +"\nAcceleration along the Z-axis " + event.acceleration.z);
-});
-accelerometer.start();
-</script>
+        let properties = "";
+
+        for(let i in event){
+          properties+=i+": "+event[i]+"<br>"
+        }
+        output.innerHTML = properties;
+      }
+    </script>
+  </head>
+</html>
