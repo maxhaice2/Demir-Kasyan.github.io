@@ -8,12 +8,14 @@
         'deviceorientation',handleOrientation);
       
       function handleOrientation(event){
-        let output = document.getElementById("output");
+        var output = document.getElementById(
+          "output");
 
-        let properties = "";
+        var properties = "";
 
-        for(let i in event){
-          properties+=i+": "+event[i]+"<br>"
+        for(var i in event){
+          properties+=i+": "+event[i]+
+          "<br>"
         }
         output.innerHTML = properties;
       }
