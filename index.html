@@ -43,18 +43,6 @@
 
 				var position = floorGeometry.attributes.position;
 
-				for ( var i = 0, l = position.count; i < l; i ++ ) {
-
-					vertex.fromBufferAttribute( position, i );
-
-					vertex.x += Math.random() * 20 - 10;
-					vertex.y += Math.random() * 2;
-					vertex.z += Math.random() * 20 - 10;
-
-					position.setXYZ( i, vertex.x, vertex.y, vertex.z );
-
-				}
-
 				floorGeometry = floorGeometry.toNonIndexed(); // ensure each face has unique vertices
 
 				position = floorGeometry.attributes.position;
@@ -127,19 +115,19 @@ if(window.DeviceMotionEvent){
 }
 function motion(event){
 
-	if(x!=0){
+	if(oldVelocity.x!=0){
 					raycaster.ray.origin.copy( controls.getObject().position );
 					raycaster.ray.origin.y -= 10;
 					var time = performance.now();
 					var delta = ( time - prevTime ) / 1000;
 
-					controls.moveRight( - (event.accelerationIncludingGravity.x-x)*delta*300.0);
-					controls.moveForward(- (event.accelerationIncludingGravity.z-z)*delta*300.0)
+					controls.moveRight( - (event.accelerationIncludingGravity.x-oldVelocity.x)*delta*300.0);
+					controls.moveForward(- (event.accelerationIncludingGravity.z-oldVelocity.z)*delta*300.0)
 					renderer.render( scene, camera );
 	}
-					x = event.accelerationIncludingGravity.x;
-					y = event.accelerationIncludingGravity.y;
-					z = event.accelerationIncludingGravity.z;
+					oldVelocity.x = event.accelerationIncludingGravity.x;
+					oldVelocityy = event.accelerationIncludingGravity.y;
+					oldVelocityz = event.accelerationIncludingGravity.z;
 }
 		</script>
 	</body>
