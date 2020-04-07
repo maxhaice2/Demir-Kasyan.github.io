@@ -23,7 +23,6 @@
 			var oldVelocity = new THREE.Vector3();
 			
 			init();
-			//animate();
 
 			function init() {
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -71,40 +70,6 @@
 
 			}
 
-			function animate() {
-
-				requestAnimationFrame( animate );
-
-				if ( controls.isLocked === true ) {
-
-					raycaster.ray.origin.copy( controls.getObject().position );
-					raycaster.ray.origin.y -= 10;
-
-					velocity.x -= velocity.x * 10.0;
-					velocity.z -= velocity.z * 10.0;
-
-					velocity.y -= 9.8 * 100.0; // 100.0 = mass
-
-					direction.z = Number( moveForward ) - Number( moveBackward );
-					direction.x = Number( moveRight ) - Number( moveLeft );
-					direction.normalize(); // this ensures consistent movements in all directions
-
-					if ( moveForward || moveBackward ) velocity.z -= direction.z * 400.0;
-					if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0;
-
-					controls.moveRight( - velocity.x);
-					controls.moveForward( - velocity.z);
-
-					controls.getObject().position.y += ( velocity.y);
-
-					prevTime = time;
-
-				}
-
-				renderer.render( scene, camera );
-
-			}
-
 		</script>
 		<script>
 			let accelerometer = new Accelerometer({frequency: 60});
@@ -114,8 +79,8 @@ if(window.DeviceMotionEvent){
   console.log("DeviceMotionEvent is not supported");
 }
 function motion(event){
-
-	if(oldVelocity.x!=0){
+	console.log(oldVelocity);
+	if(oldVelocity == undefined){
 					raycaster.ray.origin.copy( controls.getObject().position );
 					raycaster.ray.origin.y -= 10;
 					var time = performance.now();
@@ -126,8 +91,8 @@ function motion(event){
 					renderer.render( scene, camera );
 	}
 					oldVelocity.x = event.accelerationIncludingGravity.x;
-					oldVelocityy = event.accelerationIncludingGravity.y;
-					oldVelocityz = event.accelerationIncludingGravity.z;
+					oldVelocity.y = event.accelerationIncludingGravity.y;
+					oldVelocity.z = event.accelerationIncludingGravity.z;
 }
 		</script>
 	</body>
