@@ -1,24 +1,91 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      &&TARO CARDS&&
-    </title>
-    <script>
-      window.addEventListener(
-        'deviceorientation',handleOrientation);
-      
-      function handleOrientation(event){
-        var output = document.getElementById(
-          "output");
+<head>
+<title>Accelerometer</title>
+<meta name="viewport" content="width=device-width,user-scalable=yes" />
+<style>
+.shape {
+ position: absolute;
+ width: 50px;
+ height: 50px;
+ -webkit-radius: 50px;
+ margin:0;
+ padding:0;
+}
+#sphere1{
+ border-radius: 50px;
+ background-color: blue;
+}
+#sphere2{
+ background-color: red;
+}
+</style>
+</head>
+<body>
+<div id="content">
+    <div class ="shape" id="sphere1"></div>
+  <div class ="shape" id="sphere2"></div>
+  <div>some text or other html</div>
+</div>
+<script type="text/javascript">
+var x1 = 0, y1 = 0,
+  x2 = 0, y2 = 0,
+  vx1 = 0, vy1 = 0,
+  vx2 = 0, vy2 = 0,
+  ax1 = 0, ay1 = 0;
 
-        var properties = "";
 
-        for(var i in event){
-          properties+=i+": "+event[i]+
-          "<br>"
-        }
-        output.innerHTML = properties;
-      }
-    </script>
-  </head>
+var sphere1 = document.getElementById("sphere1");
+var sphere2 = document.getElementById("sphere2");
+
+if (window.DeviceMotionEvent != undefined) {
+ window.ondevicemotion = function(e) {
+  ax1 = event.accelerationIncludingGravity.x * 5;
+  ay1 = event.accelerationIncludingGravity.y * 5;
+ }
+ setInterval( function() {
+  var landscapeOrientation = window.innerWidth/window.innerHeight > 1;
+  if ( landscapeOrientation) {
+   vx1 = vx1 + ay1;
+   vy1 = vy1 + ax1;
+  vx2 = vx2 + ay1;
+   vy2 = vy2 + ax1;
+  } else {
+   vy1 = vy1 - ay1;
+   vx1 = vx1 + ax1;
+  vy2 = vy2 - ay1;
+   vx2 = vx2 + ax1;
+  }
+  vx1 = vx1 * 0.98;
+  vy1 = vy1 * 0.98;
+  y1 = parseInt(y1 + vy1 / 50);
+  x1 = parseInt(x1 + vx1 / 50);
+ 
+ vx2 = vx2 * 0.98;
+  vy2 = vy2 * 0.98;
+  y2 = parseInt(y2 + vy2 / 30);
+  x2 = parseInt(x2 + vx2 / 30);
+
+  boundingBoxCheck();
+
+  sphere1.style.top = y1 + "px";
+  sphere1.style.left = x1 + "px";
+ sphere2.style.top = y2 + "px";
+  sphere2.style.left = x2 + "px";
+
+ }, 25);
+}
+function boundingBoxCheck(){
+ if (x1<0) { x1 = 0; vx1 = -vx1; }
+ if (y1<0) { y1 = 0; vy1 = -vy1; }
+ if (x1>document.documentElement.clientWidth-50) { x1 = document.documentElement.clientWidth-50; vx1 = -vx1; }
+ if (y1>document.documentElement.clientHeight-50) { y1 = document.documentElement.clientHeight-50; vy1 = -vy1; }
+ if (x2<0) { x2 = 0; vx2 = -vx2; }
+ if (y2<0) { y2 = 0; vy2 = -vy2; }
+ if (x2>document.documentElement.clientWidth-50) { x2 = document.documentElement.clientWidth-50; vx2 = -vx2; }
+ if (y2>document.documentElement.clientHeight-50) { y2 = document.documentElement.clientHeight-50; vy2 = -vy2; }
+}
+</script>
+</body>
+
 </html>
