@@ -91,29 +91,7 @@
 				scene = new THREE.Scene();
 
 				controls = new PointerLockControls( camera, document.body );
-
-				var blocker = document.getElementById( 'blocker' );
-				var instructions = document.getElementById( 'instructions' );
-
-				instructions.addEventListener( 'click', function () {
-
-					controls.lock();
-
-				}, false );
-
-				controls.addEventListener( 'lock', function () {
-
-					instructions.style.display = 'none';
-					blocker.style.display = 'none';
-
-				} );
-
-				controls.addEventListener( 'unlock', function () {
-
-					blocker.style.display = 'block';
-					instructions.style.display = '';
-
-				} );
+				controls.lock();
 
 				scene.add( controls.getObject() );
 
@@ -185,16 +163,15 @@
 	if(oldVelocity.x == null){
 					raycaster.ray.origin.copy( controls.getObject().position );
 					raycaster.ray.origin.y -= 10;
-					var time = performance.now();
-					var delta = ( time - prevTime ) / 1000;
 
-					controls.moveRight( - (event.accelerationIncludingGravity.x-oldVelocity.x)*delta*300.0);
-					controls.moveForward(- (event.accelerationIncludingGravity.z-oldVelocity.z)*delta*300.0)
+					controls.moveRight( - (event.accelerationIncludingGravity.x-oldVelocity.x)*100.0);
+					controls.moveForward(- (event.accelerationIncludingGravity.z-oldVelocity.z)*100.0)
 					renderer.render( scene, camera );
 	}
 					oldVelocity.x = event.accelerationIncludingGravity.x;
 					oldVelocity.y = event.accelerationIncludingGravity.y;
 					oldVelocity.z = event.accelerationIncludingGravity.z;
+					alert(oldVelocity);
 }
 		</script>
 	</body>
