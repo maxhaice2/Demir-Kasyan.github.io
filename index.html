@@ -4,7 +4,6 @@
 		<title>three.js - example accelerometer</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="main.css">
 	</head>
 	<body>
 
@@ -79,7 +78,7 @@
 
 			}
 			function motion(event){
-	if(oldVelocity.x == 0){
+	if(oldVelocity.x == null){
 					raycaster.ray.origin.copy( controls.getObject().position );
 					raycaster.ray.origin.y -= 10;
 					var time = performance.now();
