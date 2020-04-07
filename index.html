@@ -177,14 +177,14 @@
 			}
 				function motion(event){
   
-  
+
 			if(!oldVelocity.x == null){
 		raycaster.ray.origin.copy( controls.getObject().position );
 		raycaster.ray.origin.y -= 10;
-				alert("ok")
-		controls.getObject().position.x+= (event.accelerationIncludingGravity.x-oldVelocity.x)*100.0);
+				alert("ok");
+		controls.getObject().position.x+= (event.accelerationIncludingGravity.x-oldVelocity.x)*100.0;
 		//controls.getObject.position.x+=event
-		controls.getObject().position.z+= (event.accelerationIncludingGravity.z-oldVelocity.z)*100.0)
+		controls.getObject().position.z+= (event.accelerationIncludingGravity.z-oldVelocity.z)*100.0;
 		renderer.render( scene, camera );
 			}
 		oldVelocity.x = event.accelerationIncludingGravity.x;
