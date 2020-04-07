@@ -20,7 +20,6 @@
 
 			var prevTime = performance.now();
 			var velocity = new THREE.Vector3();
-			var oldVelocity = new THREE.Vector3();
 			
 			init();
 
@@ -72,7 +71,8 @@
 
 		</script>
 		<script>
-			let accelerometer = new Accelerometer({frequency: 60});
+
+let oldVelocity = new THREE.Vector3();
 if(window.DeviceMotionEvent){
   window.addEventListener("devicemotion", motion, false);
 }else{
