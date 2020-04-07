@@ -112,7 +112,7 @@
 
 			}
 			function motion(event){
-	if(oldVelocity.x == null){
+	if(!oldVelocity.x == null){
 					raycaster.ray.origin.copy( controls.getObject().position );
 					raycaster.ray.origin.y -= 10;
 
