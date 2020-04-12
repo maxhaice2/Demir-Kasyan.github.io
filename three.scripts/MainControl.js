@@ -33,7 +33,7 @@ var MainControl = function ( object ) {
 	var onDeviceOrientationChangeEvent = function ( event ) {
 
 		scope.deviceOrientation = event;
-
+		console.log("its work&coffeandsuckmilk")
 	};
 
 	var onScreenOrientationChangeEvent = function () {
@@ -104,9 +104,6 @@ var MainControl = function ( object ) {
         if ( window.DeviceMotionEvent ) {
 
             window.addEventListener( 'devicemotion', onDeviceMotionChangeEvent, false );
-			
-			let motion = scope.deviceMotion;
-			
 
         } else {
             console.error("Somethingwrongbabe");
