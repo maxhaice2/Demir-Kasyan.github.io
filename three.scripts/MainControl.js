@@ -65,9 +65,9 @@ var MainControl = function ( object ) {
 	this.move = function ( distance ) {
 
 
-		vec.setFromMatrixColumn( camera.matrix, 0 );
+		vec.setFromMatrixColumn( object.matrix, 0 );
 
-		camera.position.addScaledVector( vec, distance );
+		object.position.addScaledVector( vec, distance );
 
 	};
 
