@@ -8,7 +8,8 @@
 	</head>
 	<body>
 		<script >
-			let x, y , z;
+			function onC ( event) {
+				let x, y , z;
 			 if ( window.DeviceMotionEvent ) {
 	
 				window.addEventListener( 'devicemotion', (event)=>{
@@ -23,7 +24,6 @@
 			} else {
 			console.error("Somethingwrongbabe");
 			}
-			function onC ( event) {
 				alert(x+" | "+z+"|"+y);
 			}
 		</script>
