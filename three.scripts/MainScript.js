@@ -27,7 +27,7 @@ var camera, scene, renderer, control, loader;
 
 				scene.add( camera );
                 
-                loader.load( './Card.gltf', function ( data ) {
+                loader.load( '../three.models/Card.gltf', function ( data ) {
 					 var object = data.scene;
 					 
 						object.position.set(1.0, 10.0, 0.0);
