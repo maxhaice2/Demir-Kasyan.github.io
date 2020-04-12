@@ -17,8 +17,12 @@ var camera, scene, renderer, control, loader;
 
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 				camera.position.y = 10;
-				camera.lookAt( 1.0, 10.0, 0.0 );
 
+			
+				scene = new THREE.Scene();
+			
+				var light = new THREE.AmbientLight(0xFFFFFF, 1);
+				scene.add(light);
 				scene = new THREE.Scene();
 
 				control = new MainControl( camera );
@@ -27,15 +31,24 @@ var camera, scene, renderer, control, loader;
 
 				scene.add( camera );
                 
-                loader.load( '../three.models/Card.gltf', function ( data ) {
-					 var object = data.scene;
+                // loader.load( '../three.models/Card.gltf', function ( data ) {
+				// 	 var object = data.scene;
 					 
-						object.position.set(1.0, 10.0, 0.0);
+				// 		object.position.set(1.0, 10.0, 0.0);
 						
-                        scene.add( object );
-                });
+                //         scene.add( object );
+                // });
 
-
+				{
+					const sphereRadius = 3;
+					const sphereWidthDivisions = 32;
+					const sphereHeightDivisions = 16;
+					const sphereGeo = new THREE.SphereBufferGeometry(sphereRadius, sphereWidthDivisions, sphereHeightDivisions);
+					const sphereMat = new THREE.MeshPhongMaterial({color: '#CA8'});
+					   const mesh = new THREE.Mesh(sphereGeo, sphereMat);
+					   mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
+					scene.add(mesh);
+				}
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
