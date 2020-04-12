@@ -7,23 +7,24 @@
 		
 	</head>
 	<body>
-		<script >
+		<script>	
+		let x, y , z;
+			if ( window.DeviceMotionEvent ) {
+   
+			   window.addEventListener( 'devicemotion', (event)=>{
+				   x = event.accelerationIncludingGravity.x;
+   
+				   y = event.accelerationIncludingGravity.y;
+   
+				   z = event.accelerationIncludingGravity.z;
+				   console.log(z)
+			   }, false );
+   
+		   } else {
+		   console.error("Somethingwrongbabe");
+		   }
 			function onC ( event) {
-				let x, y , z;
-			 if ( window.DeviceMotionEvent ) {
-	
-				window.addEventListener( 'devicemotion', (event)=>{
-					x = event.accelerationIncludingGravity.x;
-	
-					y = event.accelerationIncludingGravity.y;
-	
-					z = event.accelerationIncludingGravity.z;
-	
-				}, false );
-	
-			} else {
-			console.error("Somethingwrongbabe");
-			}
+			
 				alert(x+" | "+z+"|"+y);
 			}
 		</script>
