@@ -73,6 +73,8 @@ var MainControl = function ( object ) {
 
             window.addEventListener( 'devicemotion', onDeviceMotionChangeEvent, false );
 			
+			let motion = scope.deviceMotion;
+			
 			if( motion ) {
 
 				vec = new Vector3(motion.accelerationIncludingGravity.x, 
