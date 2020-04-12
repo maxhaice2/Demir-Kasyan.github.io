@@ -9,7 +9,7 @@ var MainControl = function ( object ) {
 
 	var scope = this;
 
-	var quiet, velocity, vec = new Vector3();
+	var velocity, vec = new Vector3();
 
 	this.object = object;
 	this.object.rotation.reorder( 'YXZ' );
@@ -105,13 +105,6 @@ var MainControl = function ( object ) {
 			
 			let motion = scope.deviceMotion;
 			
-			if( motion ) {
-
-				quiet = new Vector3(motion.accelerationIncludingGravity.x, 
-					motion.accelerationIncludingGravity.y,
-					motion.accelerationIncludingGravity.z);
-
-			}
 
         } else {
             console.error("Somethingwrongbabe");
