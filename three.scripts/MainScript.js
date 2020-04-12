@@ -4,7 +4,7 @@ import { GLTFLoader } from '../three.addons/three.gltfLoader.js';
 import { MainControl } from './MainControl.js';
 
 
-var camera, scene, renderer, control, loader, mesh;
+var camera, scene, renderer, raycaster, control, loader, mesh;
 
 
 			
