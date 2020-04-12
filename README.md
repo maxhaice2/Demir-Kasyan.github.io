@@ -1,4 +1,3 @@
-# Demir-Kasyan.github.io
-Recreating AR on the web
+# Recreating AR on the web
 
 Using three.js, gyroscope and accelerometer are the future of ar web technologies.
