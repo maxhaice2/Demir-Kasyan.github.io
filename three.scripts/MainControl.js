@@ -9,7 +9,7 @@ var MainControl = function ( object ) {
 
 	var scope = this;
 
-	var velocity, vec = new Vector3();
+	var velocity = new Vector3(), vec = new Vector3();
 
 	var prevTime;
 
