@@ -1,4 +1,4 @@
-import * as THREE from 'three.addons/three.module.js';
+import * as THREE from './three.addons/three.module.js';
 import { GLTFLoader } from '/three.addons/three.gltfLoader.js';
 
 import { MainControl } from './MainControl.js';

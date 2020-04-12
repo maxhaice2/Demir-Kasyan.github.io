@@ -3,7 +3,7 @@ import {
 	MathUtils,
 	Quaternion,
 	Vector3
-} from "./three.module.js";
+} from "./three.addons/three.module.js";
 
 var MainControl = function ( object ) {
 
