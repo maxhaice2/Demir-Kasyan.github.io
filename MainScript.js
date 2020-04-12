@@ -10,17 +10,12 @@ var camera, scene, renderer, control, loader;
             
             init();
             animate();
-            // if(window.DeviceMotionEvent){
-			// 	console.log(camera.position);
-  			//     window.addEventListener("devicemotion", motion, false);
-			// }else{
-  			// 	console.log("DeviceMotionEvent is not supported");
-            // }
 
 			function init() {
 
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 				camera.position.y = 10;
+				camera.lookAt( 1.0, 10.0, 0.0 );
 
 				scene = new THREE.Scene();
 
@@ -73,10 +68,12 @@ var camera, scene, renderer, control, loader;
 				var floor = new THREE.Mesh( floorGeometry, floorMaterial );
 				scene.add( floor );
                 
-                loader.crossOrigin = true;
+                //loader.crossOrigin = true;
                 loader.load( './Card.gltf', function ( data ) {
-                     var object = data.scene;
-                        object.position.set(0.0, 10.0, -1.0);
+					 var object = data.scene;
+					 
+						object.position.set(1.0, 10.0, 0.0);
+						
                         scene.add( object );
                 });
 
