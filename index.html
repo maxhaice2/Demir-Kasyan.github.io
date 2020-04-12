@@ -7,26 +7,27 @@
 		
 	</head>
 	<body>
-		<button onclick="onC();">Кнопка с текстом</button>
 		<script type="module" >
-			let x, y , z;
-			 if ( window.DeviceMotionEvent ) {
+		let x, y , z;
+		 if ( window.DeviceMotionEvent ) {
 
-				window.addEventListener( 'devicemotion', (event)=>{
-					x = event.accelerationIncludingGravity.x;
+			window.addEventListener( 'devicemotion', (event)=>{
+				x = event.accelerationIncludingGravity.x;
 
-					y = event.accelerationIncludingGravity.y;
+				y = event.accelerationIncludingGravity.y;
 
-					z = event.accelerationIncludingGravity.z;
+				z = event.accelerationIncludingGravity.z;
 
-				}, false );
+			}, false );
 
-			} else {
-			console.error("Somethingwrongbabe");
-			}
-			function onC () {
-				alert(x+" | "+z+"|"+y);
-			}
-		</script>
+		} else {
+		console.error("Somethingwrongbabe");
+		}
+		function onC () {
+			alert(x+" | "+z+"|"+y);
+		}
+	</script>
+		<button onclick="onC();">Кнопка с текстом</button>
+		
 	</body>
 </html>
