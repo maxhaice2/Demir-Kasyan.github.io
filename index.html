@@ -8,25 +8,25 @@
 	</head>
 	<body>
 		<script type="module" >
-		let x, y , z;
-		 if ( window.DeviceMotionEvent ) {
-
-			window.addEventListener( 'devicemotion', (event)=>{
-				x = event.accelerationIncludingGravity.x;
-
-				y = event.accelerationIncludingGravity.y;
-
-				z = event.accelerationIncludingGravity.z;
-
-			}, false );
-
-		} else {
-		console.error("Somethingwrongbabe");
-		}
-		function onC () {
-			alert(x+" | "+z+"|"+y);
-		}
-	</script>
+			let x, y , z;
+			 if ( window.DeviceMotionEvent ) {
+	
+				window.addEventListener( 'devicemotion', (event)=>{
+					x = event.accelerationIncludingGravity.x;
+	
+					y = event.accelerationIncludingGravity.y;
+	
+					z = event.accelerationIncludingGravity.z;
+	
+				}, false );
+	
+			} else {
+			console.error("Somethingwrongbabe");
+			}
+			function onC ( event) {
+				alert(x+" | "+z+"|"+y);
+			}
+		</script>
 		<button onclick="onC();">Кнопка с текстом</button>
 		
 	</body>
