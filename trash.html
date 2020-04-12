@@ -58,9 +58,9 @@
 
 		<script type="module">
 
-			import * as THREE from './three.module.js';
+			import * as THREE from '../build/three.module.js';
 
-			import { PointerLockControls } from './PointerLockControls.js';
+			import { PointerLockControls } from './jsm/controls/PointerLockControls.js';
 
 			var camera, scene, renderer, controls;
 
@@ -89,12 +89,12 @@
 				camera.position.y = 10;
 
 				scene = new THREE.Scene();
-				// scene.background = new THREE.Color( 0xffffff );
-				// scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
+				scene.background = new THREE.Color( 0xffffff );
+				scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
 
-				// var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
-				// light.position.set( 0.5, 1, 0.75 );
-				// scene.add( light );
+				var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
+				light.position.set( 0.5, 1, 0.75 );
+				scene.add( light );
 
 				controls = new PointerLockControls( camera, document.body );
 
@@ -231,35 +231,35 @@
 
 				// objects
 
-				// var boxGeometry = new THREE.BoxBufferGeometry( 20, 20, 20 );
-				// boxGeometry = boxGeometry.toNonIndexed(); // ensure each face has unique vertices
+				var boxGeometry = new THREE.BoxBufferGeometry( 20, 20, 20 );
+				boxGeometry = boxGeometry.toNonIndexed(); // ensure each face has unique vertices
 
-				// position = boxGeometry.attributes.position;
-				// colors = [];
+				position = boxGeometry.attributes.position;
+				colors = [];
 
-				// for ( var i = 0, l = position.count; i < l; i ++ ) {
+				for ( var i = 0, l = position.count; i < l; i ++ ) {
 
-				// 	color.setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-				// 	colors.push( color.r, color.g, color.b );
+					color.setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+					colors.push( color.r, color.g, color.b );
 
-				// }
+				}
 
-				// boxGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+				boxGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
 
-				// for ( var i = 0; i < 500; i ++ ) {
+				for ( var i = 0; i < 500; i ++ ) {
 
-				// 	var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: true } );
-				// 	boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+					var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: true } );
+					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
 
-				// 	var box = new THREE.Mesh( boxGeometry, boxMaterial );
-				// 	box.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
-				// 	box.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
-				// 	box.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
+					var box = new THREE.Mesh( boxGeometry, boxMaterial );
+					box.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
+					box.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
+					box.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
 
-				// 	scene.add( box );
-				// 	objects.push( box );
+					scene.add( box );
+					objects.push( box );
 
-				// }
+				}
 
 				//
 
@@ -292,13 +292,13 @@
 					raycaster.ray.origin.copy( controls.getObject().position );
 					raycaster.ray.origin.y -= 10;
 
-					var intersections = raycaster.intersectObjects( objects );//пересечения
+					var intersections = raycaster.intersectObjects( objects );
 
-					var onObject = intersections.length > 0;//если на объекте
+					var onObject = intersections.length > 0;
 
-					var time = performance.now();//
+					var time = performance.now();
 					var delta = ( time - prevTime ) / 1000;
-	
+
 					velocity.x -= velocity.x * 10.0 * delta;
 					velocity.z -= velocity.z * 10.0 * delta;
 
@@ -310,7 +310,7 @@
 
 					if ( moveForward || moveBackward ) velocity.z -= direction.z * 400.0 * delta;
 					if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
-					console.log('velocity.x ' + velocity.x);
+
 					if ( onObject === true ) {
 
 						velocity.y = Math.max( 0, velocity.y );
@@ -319,7 +319,6 @@
 					}
 
 					controls.moveRight( - velocity.x * delta );
-					console.log(-velocity.x*delta);
 					controls.moveForward( - velocity.z * delta );
 
 					controls.getObject().position.y += ( velocity.y * delta ); // new behavior
@@ -341,29 +340,6 @@
 
 			}
 
-		</script>
-		<script>
-			// let accelerometer = new Accelerometer({frequency: 60});
-
-// accelerometer.addEventListener('reading', event => {
-//   console.log("Acceleration along the X-axis " + event.acceleration.x);
-//   console.log("Acceleration along the Y-axis " + event.acceleration.y);
-//   console.log("Acceleration along the Z-axis " + event.acceleration.z);
-//   alert('event');
-// });
-if(window.DeviceMotionEvent){
-  // window.addEventListener("devicemotion", motion, false);
-  console.log('motion works');
-}else{
-  console.log("DeviceMotionEvent is not supported");
-}
-function motion(event){
-  alert("Accelerometer: "
-    + event.accelerationIncludingGravity.x + ", "
-    + event.accelerationIncludingGravity.y + ", "
-    + event.accelerationIncludingGravity.z
-  );	
-}
 		</script>
 	</body>
 </html>

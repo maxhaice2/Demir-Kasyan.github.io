@@ -1,6 +1,8 @@
-import * as THREE from './three.module.js';
+import * as THREE from 'three.addons/three.module.js';
+import { GLTFLoader } from '/three.addons/three.gltfLoader.js';
+
 import { MainControl } from './MainControl.js';
-import { GLTFLoader } from './GLTFLoader.js';
+
 
 var camera, scene, renderer, control, loader;
 
@@ -24,51 +26,7 @@ var camera, scene, renderer, control, loader;
                 loader = new GLTFLoader();
 
 				scene.add( camera );
-
-
-				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
-
-				// floor
-
-				var floorGeometry = new THREE.PlaneBufferGeometry( 2000, 2000, 100, 100 );
-				floorGeometry.rotateX( - Math.PI / 2 );
-
-				// vertex displacement
-
-				var position = floorGeometry.attributes.position;
-
-				for ( var i = 0, l = position.count; i < l; i ++ ) {
-
-					vertex.fromBufferAttribute( position, i );
-
-					vertex.x += Math.random() * 20 - 10;
-					vertex.y += Math.random() * 2;
-					vertex.z += Math.random() * 20 - 10;
-
-					position.setXYZ( i, vertex.x, vertex.y, vertex.z );
-
-				}
-
-				floorGeometry = floorGeometry.toNonIndexed(); // ensure each face has unique vertices
-
-				position = floorGeometry.attributes.position;
-				var colors = [];
-
-				for ( var i = 0, l = position.count; i < l; i ++ ) {
-
-					color.setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					colors.push( color.r, color.g, color.b );
-
-				}
-
-				floorGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-
-				var floorMaterial = new THREE.MeshBasicMaterial( { vertexColors: true } );
-
-				var floor = new THREE.Mesh( floorGeometry, floorMaterial );
-				scene.add( floor );
                 
-                //loader.crossOrigin = true;
                 loader.load( './Card.gltf', function ( data ) {
 					 var object = data.scene;
 					 
@@ -82,9 +40,7 @@ var camera, scene, renderer, control, loader;
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.body.appendChild( renderer.domElement );
-
-				//
-                
+				
 				window.addEventListener( 'resize', onWindowResize, false );
 			}
 

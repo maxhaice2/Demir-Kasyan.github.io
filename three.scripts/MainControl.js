@@ -1,30 +1,32 @@
-/**
- * @author richt / http://richt.me
- * @author WestLangley / http://github.com/WestLangley
- *
- * W3C Device Orientation control (http://w3c.github.io/deviceorientation/spec-source-orientation.html)
- */
-
 import {
 	Euler,
 	MathUtils,
 	Quaternion,
 	Vector3
-} from "../../../build/three.module.js";
+} from "./three.module.js";
 
-var DeviceOrientationControls = function ( object ) {
+var MainControl = function ( object ) {
 
 	var scope = this;
+
+	var quiet, velocity, vec = new Vector3();
 
 	this.object = object;
 	this.object.rotation.reorder( 'YXZ' );
 
 	this.enabled = true;
 
-	this.deviceOrientation = {};
+    this.deviceOrientation = {};
+    this.deviceMotion = {};
 	this.screenOrientation = 0;
 
-	this.alphaOffset = 0; // radians
+	this.alphaOffset = 0;
+
+    var onDeviceMotionChangeEvent = function ( event ) {
+
+        scope.deviceMotion = event;
+
+    };
 
 	var onDeviceOrientationChangeEvent = function ( event ) {
 
@@ -37,8 +39,36 @@ var DeviceOrientationControls = function ( object ) {
 		scope.screenOrientation = window.orientation || 0;
 
 	};
+	
+	var setObjectPosition = function ( direction ) {
 
-	// The angles alpha, beta and gamma form a set of intrinsic Tait-Bryan angles of type Z-X'-Y''
+			var time = performance.now();
+
+			var delta = ( time - prevTime ) / 1000;
+		
+			velocity.x -= ( velocity.x * 10.0 * delta ) - ( direction.x * 400.0 * delta );
+
+			velocity.z -= ( velocity.z * 10.0 * delta ) - ( direction.z * 400.0 * delta );
+
+			velocity.y -= ( velocity.y * 10.0 * delta ) - ( direction.y * 400.0 * delta );
+
+			scope.move( - velocity.x * delta );
+			scope.move( - velocity.z * delta );
+			scope.move( - velocity.y * delta );
+
+			prevTime = time;
+		
+	};
+	
+	this.move = function ( distance ) {
+
+
+		vec.setFromMatrixColumn( camera.matrix, 0 );
+
+		camera.position.addScaledVector( vec, distance );
+
+	};
+
 
 	var setObjectQuaternion = function () {
 
@@ -48,17 +78,17 @@ var DeviceOrientationControls = function ( object ) {
 
 		var q0 = new Quaternion();
 
-		var q1 = new Quaternion( - Math.sqrt( 0.5 ), 0, 0, Math.sqrt( 0.5 ) ); // - PI/2 around the x-axis
+		var q1 = new Quaternion( - Math.sqrt( 0.5 ), 0, 0, Math.sqrt( 0.5 ) ); 
 
 		return function ( quaternion, alpha, beta, gamma, orient ) {
 
-			euler.set( beta, alpha, - gamma, 'YXZ' ); // 'ZXY' for the device, but 'YXZ' for us
+			euler.set( beta, alpha, - gamma, 'YXZ' ); 
 
-			quaternion.setFromEuler( euler ); // orient the device
+			quaternion.setFromEuler( euler );
 
-			quaternion.multiply( q1 ); // camera looks out the back of the device, not the top
+			quaternion.multiply( q1 ); 
 
-			quaternion.multiply( q0.setFromAxisAngle( zee, - orient ) ); // adjust for screen orientation
+			quaternion.multiply( q0.setFromAxisAngle( zee, - orient ) ); 
 
 		};
 
@@ -66,9 +96,26 @@ var DeviceOrientationControls = function ( object ) {
 
 	this.connect = function () {
 
-		onScreenOrientationChangeEvent(); // run once on load
+		onScreenOrientationChangeEvent(); 
 
-		// iOS 13+
+        
+        if ( window.DeviceMotionEvent ) {
+
+            window.addEventListener( 'devicemotion', onDeviceMotionChangeEvent, false );
+			
+			let motion = scope.deviceMotion;
+			
+			if( motion ) {
+
+				quiet = new Vector3(motion.accelerationIncludingGravity.x, 
+					motion.accelerationIncludingGravity.y,
+					motion.accelerationIncludingGravity.z);
+
+			}
+
+        } else {
+            console.error("Somethingwrongbabe");
+        }
 
 		if ( window.DeviceOrientationEvent !== undefined && typeof window.DeviceOrientationEvent.requestPermission === 'function' ) {
 
@@ -92,8 +139,7 @@ var DeviceOrientationControls = function ( object ) {
 			window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
 			window.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
 
-		}
-
+        }
 		scope.enabled = true;
 
 	};
@@ -112,7 +158,8 @@ var DeviceOrientationControls = function ( object ) {
 		if ( scope.enabled === false ) return;
 
 		var device = scope.deviceOrientation;
-
+		var motion = scope.deviceMotion;
+		
 		if ( device ) {
 
 			var alpha = device.alpha ? MathUtils.degToRad( device.alpha ) + scope.alphaOffset : 0; // Z
@@ -127,6 +174,26 @@ var DeviceOrientationControls = function ( object ) {
 
 		}
 
+        if( motion ){
+			let direction = new Vector3();
+
+			direction.z = Math.sign( motion.accelerationIncludingGravity.z - vec.z );
+
+			direction.x = Math.sign( motion.accelerationIncludingGravity.x - vec.x );
+
+			direction.y = Math.sign( motion.accelerationIncludingGravity.y - vec.y );
+
+			direction.normalize();
+
+			setObjectPosition( direction );
+
+
+        } else {
+
+            console.error("BIG DUMBASS");
+        
+        }
+        
 
 	};
 
@@ -140,4 +207,4 @@ var DeviceOrientationControls = function ( object ) {
 
 };
 
-export { DeviceOrientationControls };
+export { MainControl };
