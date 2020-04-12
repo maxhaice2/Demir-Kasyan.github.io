@@ -13,11 +13,6 @@ var camera, scene, renderer, control, loader, mesh;
             
             init();
             animate();
-
-			function init() {
-	
-				init();
-				animate();
 	
 				function init() {
 	
