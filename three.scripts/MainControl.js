@@ -11,6 +11,8 @@ var MainControl = function ( object ) {
 
 	var velocity, vec = new Vector3();
 
+	var prevTime;
+
 	this.object = object;
 	this.object.rotation.reorder( 'YXZ' );
 
