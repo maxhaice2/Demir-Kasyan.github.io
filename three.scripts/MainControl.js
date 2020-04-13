@@ -43,7 +43,7 @@ var MainControl = function ( object ) {
 	};
 	
 	var setObjectPosition = function ( direction ) {
-		if( direction.x != NaN && direction.y != NaN && direction.z != NaN )
+		if( direction.x == NaN && direction.y == NaN && direction.z == NaN ) return;
 			var time = performance.now();
 
 			var delta = ( time - prevTime ) / 1000;
