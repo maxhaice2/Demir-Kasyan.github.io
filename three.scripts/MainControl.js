@@ -48,18 +48,21 @@ var MainControl = function ( object ) {
 			var time = performance.now();
 
 			var delta = ( time - prevTime ) / 1000;
+			console.log(delta);
+			console.log(velocity);
+			console.log(direction);
+			return;
+			velocity.x -= velocity.x * 10 * delta;//0 * 10 * 0.112421
 
-			velocity.x -= velocity.x * 10.0 * delta;
+			velocity.y -= velocity.y * 10 * delta;
 
-			velocity.y -= velocity.y * 10.0 * delta;
+			velocity.z -= velocity.z * 10 * delta;
 
-			velocity.z -= velocity.z * 10.0 * delta;
+			if( direction.x != 0 )	velocity.x -=  direction.x * 50 * delta;
 
-			if( direction.x != 0 )	velocity.x -=  direction.x * 50.0 * delta;
+			if( direction.y != 0 )	velocity.y -=  direction.y * 50 * delta;
 
-			if( direction.y != 0 )	velocity.y -=  direction.y * 50.0 * delta;
-
-			if( direction.z != 0 )	velocity.z -=  direction.z * 50.0 * delta;
+			if( direction.z != 0 )	velocity.z -=  direction.z * 50 * delta;
 			
 			scope.move( - velocity.x * delta );
 			
@@ -73,7 +76,6 @@ var MainControl = function ( object ) {
 	
 	this.move = function ( distance ) {
 
-		console.log( distance );
 
 		vec.setFromMatrixColumn( object.matrix, 0 );
 
@@ -187,8 +189,6 @@ var MainControl = function ( object ) {
 			direction.y = Math.sign( motion.acceleration.y - old.y );
 
 			direction.normalize();
-
-			console.log( direction );
 
 			setObjectPosition( direction );
 
