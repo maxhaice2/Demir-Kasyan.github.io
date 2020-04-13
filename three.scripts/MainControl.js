@@ -9,7 +9,7 @@ var MainControl = function ( object ) {
 
 	var scope = this;
 
-	var velocity = new Vector3(), vec = new Vector3();
+	var old, velocity = new Vector3(), vec = new Vector3();
 
 	var prevTime;
 
@@ -169,15 +169,18 @@ var MainControl = function ( object ) {
 
 			let direction = new Vector3();
 
-			direction.z = Math.sign( motion.acceleration.z - vec.z );
+			direction.z = Math.sign( motion.acceleration.z - old.z );
 
-			direction.x = Math.sign( motion.acceleration.x - vec.x );
+			direction.x = Math.sign( motion.acceleration.x - old.x );
 
-			direction.y = Math.sign( motion.acceleration.y - vec.y );
+			direction.y = Math.sign( motion.acceleration.y - old.y );
 
 			direction.normalize();
 
 			setObjectPosition( direction );
+
+			old = new Vector3( motion.acceleration.x, motion.acceleration.y, motion.acceleration.z );
+
 		}
 	};
 
