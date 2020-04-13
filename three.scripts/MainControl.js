@@ -48,11 +48,11 @@ var MainControl = function ( object ) {
 
 			var delta = ( time - prevTime ) / 1000;
 		
-			velocity.x -= ( velocity.x * 10.0 * delta ) - ( direction.x * 400.0 * delta );
+			velocity.x -= ( velocity.x * 10.0 * delta ) - ( direction.x * 10.0 * delta );
 
-			velocity.z -= ( velocity.z * 10.0 * delta ) - ( direction.z * 400.0 * delta );
+			velocity.z -= ( velocity.z * 10.0 * delta ) - ( direction.z * 10.0 * delta );
 
-			velocity.y -= ( velocity.y * 10.0 * delta ) - ( direction.y * 400.0 * delta );
+			velocity.y -= ( velocity.y * 10.0 * delta ) - ( direction.y * 10.0 * delta );
 
 			scope.move( - velocity.x * delta );
 			scope.move( - velocity.z * delta );
@@ -165,7 +165,6 @@ var MainControl = function ( object ) {
 			setObjectQuaternion( scope.object.quaternion, alpha, beta, gamma, orient );
 
 		}
-		return;
 		if( motion.accelerationIncludingGravity === undefined ) return;
 
 			let direction = new Vector3();
