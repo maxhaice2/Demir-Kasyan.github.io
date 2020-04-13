@@ -51,9 +51,9 @@ var MainControl = function ( object ) {
 
 			velocity.x -= velocity.x * 10.0 * delta;
 
-			velocity.x -= velocity.x * 10.0 * delta;
+			velocity.y -= velocity.y * 10.0 * delta;
 
-			velocity.x -= velocity.x * 10.0 * delta;
+			velocity.z -= velocity.z * 10.0 * delta;
 
 
 			if( direction.x != 0 )	velocity.x -=  direction.x * 50.0 * delta;
