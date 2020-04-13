@@ -48,11 +48,11 @@ var MainControl = function ( object ) {
 
 			var delta = ( time - prevTime ) / 1000;
 		
-			velocity.x -= ( velocity.x * 10.0 * delta ) - ( direction.x * 10.0 * delta );
+			velocity.x = (( velocity.x * 10.0 * delta ) - ( 50.0 * delta )) *  direction.x;
 
-			velocity.z -= ( velocity.z * 10.0 * delta ) - ( direction.z * 10.0 * delta );
+			velocity.z = (( velocity.z * 10.0 * delta ) - (  50.0 * delta )) * direction.z;
 
-			velocity.y -= ( velocity.y * 10.0 * delta ) - ( direction.y * 10.0 * delta );
+			velocity.y = (( velocity.y * 10.0 * delta ) - ( 50.0 * delta )) *  direction.y;
 			console.log(velocity);
 			scope.move( - velocity.x * delta );
 			scope.move( - velocity.z * delta );
