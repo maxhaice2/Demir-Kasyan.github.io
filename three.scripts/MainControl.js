@@ -11,7 +11,7 @@ var MainControl = function ( object ) {
 
 	var old = new Vector3(), velocity = new Vector3(), vec = new Vector3();
 
-	var prevTime;
+	var prevTime = performance.now();
 
 	this.object = object;
 	this.object.rotation.reorder( 'YXZ' );
@@ -48,11 +48,8 @@ var MainControl = function ( object ) {
 			var time = performance.now();
 
 			var delta = ( time - prevTime ) / 1000;
-			console.log(delta);
-			console.log(velocity);
-			console.log(direction);
-			return;
-			velocity.x -= velocity.x * 10 * delta;//0 * 10 * 0.112421
+
+			velocity.x -= velocity.x * 10 * delta;
 
 			velocity.y -= velocity.y * 10 * delta;
 
