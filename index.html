@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>TARO CARDS: TEST_V0.1.7</title>
+		<title>TARO CARDS: TEST_V0.1.9 | TestACC</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
 	</head>
 	<body>
-		<script type="module" src="./three.scripts/MainScript.js"></script>
+		<script >
+			function onC ( event) {
+				let x, y , z;
+			 if ( window.DeviceMotionEvent ) {
+	
+				window.addEventListener( 'devicemotion', (event)=>{
+					x = event.acceleration.x;
+	
+					y = event.acceleration.y;
+	
+					z = event.acceleration.z;
+	
+				}, false );
+	
+			} else {
+			console.error("Somethingwrongbabe");
+			}
+				alert(x+" | "+z+"|"+y);
+			}
+		</script>
+		<button onclick="onC()">Кнопка с текстом</button>
+		
 	</body>
 </html>
