@@ -62,7 +62,7 @@ var MainControl = function ( object ) {
 
 			if( direction.z != 0 )	velocity.z -=  direction.z * 50.0 * delta;
 			
-			console.log(delta);
+			console.log( scope.object.position );
 			
 			console.log(velocity);
 			
