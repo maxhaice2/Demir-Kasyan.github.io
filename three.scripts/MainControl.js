@@ -165,7 +165,7 @@ var MainControl = function ( object ) {
 			setObjectQuaternion( scope.object.quaternion, alpha, beta, gamma, orient );
 
 		}
-		if( motion.accelerationIncludingGravity === undefined ) return;
+		if( !motion.accelerationIncludingGravity === undefined ) {
 
 			let direction = new Vector3();
 
@@ -178,7 +178,7 @@ var MainControl = function ( object ) {
 			direction.normalize();
 
 			setObjectPosition( direction );
-
+		}
 	};
 
 	this.dispose = function () {
