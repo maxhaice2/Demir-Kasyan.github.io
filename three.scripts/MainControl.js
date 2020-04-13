@@ -53,7 +53,7 @@ var MainControl = function ( object ) {
 			velocity.z -= ( velocity.z * 10.0 * delta ) - ( direction.z * 10.0 * delta );
 
 			velocity.y -= ( velocity.y * 10.0 * delta ) - ( direction.y * 10.0 * delta );
-
+			console.log(velocity);
 			scope.move( - velocity.x * delta );
 			scope.move( - velocity.z * delta );
 			//scope.move( - velocity.y * delta );
