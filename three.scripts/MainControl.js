@@ -165,15 +165,15 @@ var MainControl = function ( object ) {
 
 		}
 
-		if( motion.accelerationIncludingGravity != undefined ) {
+		if( motion.acceleration != undefined ) {
 
 			let direction = new Vector3();
 
-			direction.z = Math.sign( motion.accelerationIncludingGravity.z - vec.z );
+			direction.z = Math.sign( motion.acceleration.z - vec.z );
 
-			direction.x = Math.sign( motion.accelerationIncludingGravity.x - vec.x );
+			direction.x = Math.sign( motion.acceleration.x - vec.x );
 
-			direction.y = Math.sign( motion.accelerationIncludingGravity.y - vec.y );
+			direction.y = Math.sign( motion.acceleration.y - vec.y );
 
 			direction.normalize();
 
