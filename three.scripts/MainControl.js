@@ -43,7 +43,7 @@ var MainControl = function ( object ) {
 	};
 	
 	var setObjectPosition = function ( direction ) {
-
+		if( direction.x != NaN && direction.y != NaN && direction.z != NaN )
 			var time = performance.now();
 
 			var delta = ( time - prevTime ) / 1000;
@@ -57,13 +57,12 @@ var MainControl = function ( object ) {
 			scope.move( - velocity.x * delta );
 			scope.move( - velocity.z * delta );
 			scope.move( - velocity.y * delta );
-			console.log( scope.object.position );
+
 			prevTime = time;
 		
 	};
 	
 	this.move = function ( distance ) {
-
 
 		vec.setFromMatrixColumn( object.matrix, 0 );
 
@@ -165,7 +164,7 @@ var MainControl = function ( object ) {
 			setObjectQuaternion( scope.object.quaternion, alpha, beta, gamma, orient );
 
 		}
-		
+
 		if( motion.accelerationIncludingGravity != undefined ) {
 
 			let direction = new Vector3();
