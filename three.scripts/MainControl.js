@@ -166,8 +166,8 @@ var MainControl = function ( object ) {
 
 		}
 
-		if( motion.accelerationIncludingGravity.x === undefined ) return;
-		
+		if( motion.accelerationIncludingGravity === undefined ) return;
+			console.log('ok');
 			let direction = new Vector3();
 
 			direction.z = Math.sign( motion.accelerationIncludingGravity.z - vec.z );
