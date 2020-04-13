@@ -57,7 +57,7 @@ var MainControl = function ( object ) {
 			scope.move( - velocity.x * delta );
 			scope.move( - velocity.z * delta );
 			scope.move( - velocity.y * delta );
-
+			console.log( scope.object.position );
 			prevTime = time;
 		
 	};
