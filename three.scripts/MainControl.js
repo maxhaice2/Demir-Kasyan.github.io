@@ -43,20 +43,34 @@ var MainControl = function ( object ) {
 	};
 	
 	var setObjectPosition = function ( direction ) {
-		if( direction.x == NaN && direction.y == NaN && direction.z == NaN ) return;
+	//	if( direction.x == NaN && direction.y == NaN && direction.z == NaN ) return;
+
 			var time = performance.now();
 
 			var delta = ( time - prevTime ) / 1000;
-		
-			velocity.x = (( velocity.x * 10.0 * delta ) - ( 50.0 * delta )) *  direction.x;
 
-			velocity.z = (( velocity.z * 10.0 * delta ) - (  50.0 * delta )) * direction.z;
+			velocity.x -= velocity.x * 10.0 * delta;
 
-			velocity.y = (( velocity.y * 10.0 * delta ) - ( 50.0 * delta )) *  direction.y;
+			velocity.x -= velocity.x * 10.0 * delta;
+
+			velocity.x -= velocity.x * 10.0 * delta;
+
+
+			if( direction.x != 0 )	velocity.x -=  direction.x * 50.0 * delta;
+
+			if( direction.y != 0 )	velocity.y -=  direction.y * 50.0 * delta;
+
+			if( direction.z != 0 )	velocity.z -=  direction.z * 50.0 * delta;
+			
+			console.log(delta);
+			
 			console.log(velocity);
+			
 			scope.move( - velocity.x * delta );
+			
 			scope.move( - velocity.z * delta );
-			//scope.move( - velocity.y * delta );
+			
+			scope.move( - velocity.y * delta );
 
 			prevTime = time;
 		
