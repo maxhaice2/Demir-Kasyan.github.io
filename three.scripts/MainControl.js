@@ -165,7 +165,8 @@ var MainControl = function ( object ) {
 			setObjectQuaternion( scope.object.quaternion, alpha, beta, gamma, orient );
 
 		}
-		if( !motion.accelerationIncludingGravity === undefined ) {
+		console.log(motion+"|"+motion.accelerationIncludingGravity)
+		if( motion != undefined ) {
 
 			let direction = new Vector3();
 
