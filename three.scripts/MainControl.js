@@ -166,7 +166,8 @@ var MainControl = function ( object ) {
 
 		}
 
-        if( motion ){
+		if( motion.accelerationIncludingGravity.x === undefined ) return;
+		
 			let direction = new Vector3();
 
 			direction.z = Math.sign( motion.accelerationIncludingGravity.z - vec.z );
@@ -178,14 +179,6 @@ var MainControl = function ( object ) {
 			direction.normalize();
 
 			setObjectPosition( direction );
-
-
-        } else {
-
-            console.error("BIG DUMBASS");
-        
-        }
-        
 
 	};
 
