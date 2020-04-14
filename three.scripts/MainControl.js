@@ -48,17 +48,19 @@ var MainControl = function ( object ) {
 
 			var delta = ( time - prevTime ) / 1000;
 
+			var omega = 3500;
+
 			velocity.x -= velocity.x * 10 * delta;
 
 			velocity.y -= velocity.y * 10 * delta;
 
 			velocity.z -= velocity.z * 10 * delta;
 
-			if( direction.x != 0 )	velocity.x -=  direction.x * 500 * delta;
+			if( direction.x != 0 )	velocity.x -=  direction.x * omega * delta;
 
-			if( direction.y != 0 )	velocity.y -=  direction.y * 500 * delta;
+			if( direction.y != 0 )	velocity.y -=  direction.y * omega * delta;
 
-			if( direction.z != 0 )	velocity.z -=  direction.z * 500 * delta;
+			if( direction.z != 0 )	velocity.z -=  direction.z * omega * delta;
 			
 			scope.move( - velocity.x * delta );
 			
