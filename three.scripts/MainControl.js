@@ -180,15 +180,15 @@ var MainControl = function ( object ) {
 
 			let direction = new Vector3();
 
-			let x = Math.floor(motion.acceleration.x),
-				y = Math.floor(motion.acceleration.y),
-				z = Math.floor(motion.acceleration.z);
+			let x = Math.floor(motion.acceleration.x) - old.x,
+				y = Math.floor(motion.acceleration.y) - old.y,
+				z = Math.floor(motion.acceleration.z) - old.z;
 
-			direction.z = Math.sign( z - old.z );
+			direction.z = z > 1 || z < -1 ? Math.sign( z ) : 0;
 
-			direction.x = Math.sign( x - old.x );
+			direction.x = x > 1 || x < -1 ? Math.sign( x ) : 0;
 
-			direction.y = Math.sign( y - old.y );
+			direction.y = y > 1 || y < -1 ? Math.sign( y ) : 0;
 
 			direction.normalize();
 
