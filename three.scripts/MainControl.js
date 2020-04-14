@@ -178,17 +178,21 @@ var MainControl = function ( object ) {
 
 			let direction = new Vector3();
 
-			direction.z = Math.sign( motion.acceleration.z - old.z );
+			let x = Math.floor(motion.acceleration.x),
+				y = Math.floor(motion.acceleration.y),
+				z = Math.floor(motion.acceleration.z);
 
-			direction.x = Math.sign( motion.acceleration.x - old.x );
+			direction.z = Math.sign( z - old.z );
 
-			direction.y = Math.sign( motion.acceleration.y - old.y );
+			direction.x = Math.sign( x - old.x );
+
+			direction.y = Math.sign( y - old.y );
 
 			direction.normalize();
 
 			setObjectPosition( direction );
 
-			old = new Vector3( motion.acceleration.x, motion.acceleration.y, motion.acceleration.z );
+			old = new Vector3( x, y, z );
 
 		}
 	};
