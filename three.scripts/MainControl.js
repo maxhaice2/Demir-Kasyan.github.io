@@ -46,7 +46,7 @@ var MainControl = function ( object ) {
 
 			var time = performance.now();
 
-			var delta = ( time - prevTime ) / 1000;
+			var delta = 0.01;//( time - prevTime ) / 1000;
 
 			var omega = 750;
 			if( direction.x == 0 )
@@ -67,7 +67,7 @@ var MainControl = function ( object ) {
 				
 				//scope.move( - velocity.y * delta );
 
-				alert(velocity.z+"///////////"+delta);
+				alert(velocity.z+"///////////");
 				scope.move( - velocity.z * delta );
 
 			prevTime = time;
