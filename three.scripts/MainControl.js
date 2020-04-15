@@ -48,15 +48,17 @@ var MainControl = function ( object ) {
 
 			var omega = 750;
 			if( direction.x == 0 )
-				velocity.x -= velocity.x * delta * 0.8;
+				velocity.x -= velocity.x * delta * 0.001;
 			else 
 				velocity.x -=  direction.x * omega * delta;
+
 			if( direction.y == 0 )
-				velocity.y -= velocity.y * delta * 0.8;
+				velocity.y -= velocity.y * delta * 0.001;
 			else
 				velocity.y -=  direction.y * omega * delta;
+
 			if( direction.z == 0 )
-				velocity.z -= velocity.z * delta * 0.8;
+				velocity.z -= velocity.z * delta * 0.001;
 			else 
 				velocity.z -=  direction.z * omega * delta;
 
