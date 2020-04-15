@@ -187,7 +187,9 @@ var MainControl = function ( object ) {
 
 			direction.y = y > 1 || y < -1 ? Math.sign( y ) : 0;
 
+			alert(direction.x, direction.z);
 			direction.normalize();
+			alert(direction.x, direction.z);
 
 			setObjectPosition( direction );
 
