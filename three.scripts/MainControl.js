@@ -44,29 +44,37 @@ var MainControl = function ( object ) {
 	
 	var setObjectPosition = function ( direction ) {
 
-			var delta = 0.01;//( time - prevTime ) / 1000;
+			var delta = 0.1;//( time - prevTime ) / 1000;
 
-			var omega = 750;
-			if( direction.x == 0 )
-				velocity.x -= velocity.x * delta * 0.001;
-			else 
-				velocity.x -=  direction.x * omega * delta;
+			var omega = 250;
 
-			if( direction.y == 0 )
-				velocity.y -= velocity.y * delta * 0.001;
-			else
-				velocity.y -=  direction.y * omega * delta;
+			if(direction.x == 0)
+					scope.move( 0 );
+			else {
 
-			if( direction.z == 0 )
-				velocity.z -= velocity.z * delta * 0.001;
-			else 
-				velocity.z -=  direction.z * omega * delta;
+				velocity.x -= velocity.x * omega * delta;
 
-				scope.move( - velocity.x * delta );
-				
-				scope.move( - velocity.y * delta );
+				scope.move(- velocity.x * delta);
 
-				scope.move( - velocity.z * delta );
+			}
+			if(direction.x == 0)
+				scope.move( 0 );
+			else {
+
+				velocity.x -= velocity.x * omega * delta;
+
+				scope.move(- velocity.x * delta);
+
+			}
+			if(direction.x == 0)
+				scope.move( 0 );
+			else {
+
+				velocity.x -= velocity.x * omega * delta;
+
+				scope.move(- velocity.x * delta);
+
+			}
 		
 	};
 	
@@ -187,9 +195,7 @@ var MainControl = function ( object ) {
 
 			direction.y = y > 1 || y < -1 ? Math.sign( y ) : 0;
 
-			alert(direction.x+" d "+ direction.z);
 			direction.normalize();
-			alert(direction.x+" dh "+direction.z);
 
 			setObjectPosition( direction );
 
