@@ -190,9 +190,9 @@ var MainControl = function ( object ) {
 
 			let direction = new Vector3();
 
-			let x = Math.floor(motion.acceleration.x) - old.x,
-				y = Math.floor(motion.acceleration.y) - old.y,
-				z = Math.floor(motion.acceleration.z) - old.z;
+			let x = Math.round(motion.acceleration.x) - old.x,
+				y = Math.round(motion.acceleration.y) - old.y,
+				z = Math.round(motion.acceleration.z) - old.z;
 
 			direction.z = z > 1 || z < -1 ? Math.sign( z ) : 0;
 
