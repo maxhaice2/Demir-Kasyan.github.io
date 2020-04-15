@@ -44,7 +44,7 @@ var MainControl = function ( object ) {
 	
 	var setObjectPosition = function ( direction ) {
 
-			var delta = 0.001;//( time - prevTime ) / 1000;
+			var delta = 0.009;//( time - prevTime ) / 1000;
 
 			var omega = 750;
 			if( direction.x == 0 )
@@ -60,10 +60,10 @@ var MainControl = function ( object ) {
 			else 
 				velocity.z -=  direction.z * omega * delta;
 
-				//scope.move( - velocity.x * delta );
+				scope.move( - velocity.x * delta );
 
 				
-				//scope.move( - velocity.y * delta );
+				scope.move( - velocity.y * delta );
 
 				scope.move( - velocity.z * delta );
 		
