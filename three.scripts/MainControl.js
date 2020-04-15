@@ -49,21 +49,19 @@ var MainControl = function ( object ) {
 			var delta = ( time - prevTime ) / 1000;
 
 			var omega = 750;
-
-			velocity.x -= velocity.x * delta;
-
-			velocity.y -= velocity.y * delta;
-
-			velocity.z -= velocity.z * delta;
-
 			if( direction.x == 0 )
+				velocity.x -= velocity.x * delta;
+			else 
 				velocity.x -=  direction.x * omega * delta;
-			if( direction.y != 0 )
+			if( direction.y == 0 )
+				velocity.y -= velocity.y * delta;
+			else
 				velocity.y -=  direction.y * omega * delta;
-			if( direction.y != 0 )
-				velocity.y -=  direction.y * omega * delta;
+			if( direction.z == 0 )
+				velocity.z -= velocity.z * delta;
+			else 
+				velocity.z -=  direction.z * omega * delta;
 
-			
 				scope.move( - velocity.x * delta );
 
 				
@@ -80,7 +78,6 @@ var MainControl = function ( object ) {
 
 
 		vec.setFromMatrixColumn( object.matrix, 0 );
-		console.log(vec);
 
 		object.position.addScaledVector( vec, distance );
 
