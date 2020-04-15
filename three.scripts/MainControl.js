@@ -62,7 +62,7 @@ var MainControl = function ( object ) {
 			else 
 				velocity.z -=  direction.z * omega * delta;
 
-				scope.move( - velocity.x * delta );
+				//scope.move( - velocity.x * delta );
 
 				
 				//scope.move( - velocity.y * delta );
