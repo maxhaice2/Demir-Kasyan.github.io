@@ -44,7 +44,7 @@ var MainControl = function ( object ) {
 	
 	var setObjectPosition = function ( direction ) {
 
-			var delta = 0.01;//( time - prevTime ) / 1000;
+			var delta = 0.001;//( time - prevTime ) / 1000;
 
 			var omega = 750;
 			if( direction.x == 0 )
