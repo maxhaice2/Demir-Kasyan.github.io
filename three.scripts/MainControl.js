@@ -50,11 +50,11 @@ var MainControl = function ( object ) {
 
 			var omega = 500;
 
-			//velocity.x -= velocity.x * 10 * delta;
+			velocity.x -= velocity.x * 10 * delta;
 
-			//velocity.y -= velocity.y * 10 * delta;
+			velocity.y -= velocity.y * 10 * delta;
 
-			//velocity.z -= velocity.z * 10 * delta;
+			velocity.z -= velocity.z * 10 * delta;
 
 			if( direction.x != 0 ) {
 
