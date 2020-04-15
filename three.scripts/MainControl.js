@@ -44,8 +44,6 @@ var MainControl = function ( object ) {
 	
 	var setObjectPosition = function ( direction ) {
 
-			var time = performance.now();
-
 			var delta = 0.01;//( time - prevTime ) / 1000;
 
 			var omega = 750;
@@ -67,20 +65,16 @@ var MainControl = function ( object ) {
 				
 				//scope.move( - velocity.y * delta );
 
-				alert(velocity.z+"///////////");
 				scope.move( - velocity.z * delta );
-
-			prevTime = time;
 		
 	};
 	
 	this.move = function ( distance ) {
 
-		alert(distance);
 		vec.setFromMatrixColumn( object.matrix, 0 );
 
 		object.position.addScaledVector( vec, distance );
-		alert( object.position.x+"|"+object.position.z + "|" );
+
 	};
 
 
