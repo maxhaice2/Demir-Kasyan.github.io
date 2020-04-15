@@ -48,7 +48,7 @@ var MainControl = function ( object ) {
 
 			var delta = ( time - prevTime ) / 1000;
 
-			var omega = 3500;
+			var omega = 500;
 
 			//velocity.x -= velocity.x * 10 * delta;
 
@@ -56,17 +56,27 @@ var MainControl = function ( object ) {
 
 			//velocity.z -= velocity.z * 10 * delta;
 
-			if( direction.x != 0 )	velocity.x -=  direction.x * omega * delta;
+			if( direction.x != 0 ) {
 
-			if( direction.y != 0 )	velocity.y -=  direction.y * omega * delta;
+				velocity.x -=  direction.x * omega * delta;
 
-			if( direction.z != 0 )	velocity.z -=  direction.z * omega * delta;
-			
-			scope.move( - velocity.x * delta );
-			
-			scope.move( - velocity.z * delta );
-			
-			scope.move( - velocity.y * delta );
+				scope.move( - velocity.x * delta );
+
+			}
+			if( direction.y != 0 ) {
+
+				velocity.y -=  direction.y * omega * delta;
+
+				scope.move( - velocity.y * delta );
+
+			}
+			if( direction.y != 0 ) {
+
+				velocity.y -=  direction.y * omega * delta;
+
+				scope.move( - velocity.y * delta );
+
+			}
 
 			prevTime = time;
 		
