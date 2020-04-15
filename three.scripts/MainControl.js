@@ -65,9 +65,9 @@ var MainControl = function ( object ) {
 				scope.move( - velocity.x * delta );
 
 				
-				scope.move( - velocity.y * delta );
+				//scope.move( - velocity.y * delta );
 
-				
+				alert(velocity.z);
 				scope.move( - velocity.z * delta );
 
 			prevTime = time;
@@ -78,7 +78,7 @@ var MainControl = function ( object ) {
 
 		alert(distance);
 		vec.setFromMatrixColumn( object.matrix, 0 );
-		alert( vec.x+"|"+vec.z );
+
 		object.position.addScaledVector( vec, distance );
 		alert( object.position.x+"|"+object.position.z + "|" );
 	};
