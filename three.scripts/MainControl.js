@@ -79,7 +79,7 @@ var MainControl = function ( object ) {
 	};
 	
 	this.move = function ( distance ) {
-		console.log(object.matrix.elements);
+		alert(object.matrix.elements[0]+"\n"+object.matrix.elements[1]+"\n"+object.matrix.elements[2]);
 		vec.setFromMatrixColumn( object.matrix, 0 );
 
 		object.position.addScaledVector( vec, distance );
