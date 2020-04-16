@@ -43,7 +43,7 @@ var MainControl = function ( object ) {
 	};
 	var positionChanger = function ( direction ){
 
-		var omega = 250;
+		var omega = 2.5;
 
 		vec.setFromMatrixColumn( object.matrix, 0 );
 
