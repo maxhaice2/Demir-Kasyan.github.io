@@ -41,7 +41,20 @@ var MainControl = function ( object ) {
 		scope.screenOrientation = window.orientation || 0;
 
 	};
-	
+	var positionChanger = function ( direction ){
+
+		var omega = 250;
+
+		vec.setFromMatrixColumn( object.matrix, 0 );
+
+		vec.x *= direction.x;
+
+		vec.z *= direction.z;
+
+		vec.y *= direction.y;
+
+		object.position.addScaledVector( vec, omega );
+	};
 	var setObjectPosition = function ( direction ) {
 
 			var delta = 0.1;//( time - prevTime ) / 1000;
@@ -79,7 +92,7 @@ var MainControl = function ( object ) {
 	};
 	
 	this.move = function ( distance ) {
-		alert(object.matrix.elements[0]+"\n"+object.matrix.elements[1]+"\n"+object.matrix.elements[2]);
+
 		vec.setFromMatrixColumn( object.matrix, 0 );
 
 		object.position.addScaledVector( vec, distance );
@@ -197,7 +210,7 @@ var MainControl = function ( object ) {
 
 			direction.normalize();
 
-			setObjectPosition( direction );
+			positionChanger( direction );
 
 			old = new Vector3( x, y, z );
 
