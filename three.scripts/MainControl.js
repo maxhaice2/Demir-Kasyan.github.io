@@ -209,7 +209,9 @@ var MainControl = function ( object ) {
 
 			direction.normalize();
 
-			positionChanger( direction );
+			//positionChanger( direction );
+
+			setObjectPosition(direction);
 
 			old = new Vector3( x, y, z );
 
