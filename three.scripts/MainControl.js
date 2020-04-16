@@ -45,7 +45,7 @@ var MainControl = function ( object ) {
 	};
 	var setObjectPosition = function ( direction ) {
 
-		var omega = 750;
+		var omega = 20;
 
 		if(direction.x == 0)
 			velocity.x -= velocity.x * .9999;
