@@ -68,7 +68,7 @@ var MainControl = function ( object ) {
 			}
 			if(direction.x == 0)
 				scope.move( 0 );
-			else {
+			else {  
 
 				velocity.x -= velocity.x * omega * delta;
 
@@ -79,7 +79,7 @@ var MainControl = function ( object ) {
 	};
 	
 	this.move = function ( distance ) {
-
+		console.log(object.matrix);
 		vec.setFromMatrixColumn( object.matrix, 0 );
 
 		object.position.addScaledVector( vec, distance );
