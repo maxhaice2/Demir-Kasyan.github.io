@@ -43,15 +43,13 @@ var MainControl = function ( object ) {
 	};
 	var positionChanger = function ( direction ){
 
-		var omega = 2.5;
+		var omega = 1, delta = 10;
 
-		vec.setFromMatrixColumn( object.matrix, 0 );
+		vec.x += direction.x * delta;
 
-		vec.x *= direction.x;
+		vec.z += direction.z * delta;
 
-		vec.z *= direction.z;
-
-		vec.y *= direction.y;
+		vec.y += direction.y * delta;
 
 		object.position.addScaledVector( vec, omega );
 	};
