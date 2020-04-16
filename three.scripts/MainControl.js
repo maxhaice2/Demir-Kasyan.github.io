@@ -55,37 +55,38 @@ var MainControl = function ( object ) {
 	};
 	var setObjectPosition = function ( direction ) {
 
-			var delta = 0.1;//( time - prevTime ) / 1000;
+		
+		var delta = 0.1;//( time - prevTime ) / 1000;
 
-			var omega = 250;
+		var omega = 250;
 
-			if(direction.x == 0)
-					scope.move( 0 );
-			else {
-
-				velocity.x -= velocity.x * omega * delta;
-
-				scope.move(- velocity.x * delta);
-
-			}
-			if(direction.x == 0)
+		if(direction.x == 0)
 				scope.move( 0 );
-			else {
+		else {
 
-				velocity.x -= velocity.x * omega * delta;
+			velocity.x -= velocity.x * omega * delta;
 
-				scope.move(- velocity.x * delta);
+			scope.move(- velocity.x * delta);
 
-			}
-			if(direction.x == 0)
-				scope.move( 0 );
-			else {  
+		}
+		if(direction.z == 0)
+			scope.move( 0 );
+		else {
 
-				velocity.x -= velocity.x * omega * delta;
+			velocity.z -= velocity.z * omega * delta;
 
-				scope.move(- velocity.x * delta);
+			scope.move(- velocity.z * delta);
 
-			}
+		}
+		if(direction.y == 0)
+			scope.move( 0 );
+		else {
+
+			velocity.y -= velocity.y * omega * delta;
+
+			scope.move(- velocity.y * delta);
+
+		}
 		
 	};
 	
