@@ -58,7 +58,7 @@ var MainControl = function ( object ) {
 		
 		var delta = 0.1;//( time - prevTime ) / 1000;
 
-		var omega = 250;
+		var omega = 750;
 
 		if(direction.x == 0)
 				scope.move( 0 );
