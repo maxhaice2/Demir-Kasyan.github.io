@@ -11,6 +11,8 @@ var MainControl = function ( object ) {
 
 	var old = new Vector3(), velocity = new Vector3(), vec = new Vector3();
 
+	const THOUSENDS = 1000, ONE = 1;
+
 	var prevTime = performance.now();
 
 	this.object = object;
@@ -33,7 +35,7 @@ var MainControl = function ( object ) {
 	var onDeviceOrientationChangeEvent = function ( event ) {
 
 		scope.deviceOrientation = event;
-		console.log("its work&coffeandsuckmilk")
+		console.log("update v0.3.9")
 	};
 
 	var onScreenOrientationChangeEvent = function () {
@@ -41,60 +43,43 @@ var MainControl = function ( object ) {
 		scope.screenOrientation = window.orientation || 0;
 
 	};
-	var positionChanger = function ( direction ){
-
-		var omega = 1, delta = 10;
-
-		vec.x += direction.x * delta;
-
-		vec.z += direction.z * delta;
-
-		vec.y += direction.y * delta;
-
-		object.position.addScaledVector( vec, omega );
-	};
 	var setObjectPosition = function ( direction ) {
-
-		
-		var delta = 0.1;//( time - prevTime ) / 1000;
 
 		var omega = 750;
 
 		if(direction.x == 0)
-				scope.move( 0 );
+			velocity.x -= omega/10000;
 		else {
 
-			velocity.x -= velocity.x * omega * delta;
-
-			scope.move(- velocity.x * delta);
+			velocity.x -= direction.x * omega / 1000;
 
 		}
 		if(direction.z == 0)
-			scope.move( 0 );
+			velocity.z -= omega/10000;
 		else {
 
-			velocity.z -= velocity.z * omega * delta;
-
-			scope.move(- velocity.z * delta);
+			velocity.z -= direction.z * omega / 1000;
 
 		}
 		if(direction.y == 0)
-			scope.move( 0 );
+			velocity.y -= omega/10000;
 		else {
 
-			velocity.y -= velocity.y * omega * delta;
-
-			scope.move(- velocity.y * delta);
+			velocity.y -= direction.y * omega / 1000;
 
 		}
 		
+		scope.move( velocity );
+
 	};
 	
-	this.move = function ( distance ) {
+	this.move = function ( velocity ) {
 
-		vec.setFromMatrixColumn( object.matrix, 0 );
+		for (let index = 0; index < THOUSENDS; index++) {
 
-		object.position.addScaledVector( vec, distance );
+			object.position.addScaledVector( velocity, ONE );
+
+		}
 
 	};
 
@@ -208,8 +193,6 @@ var MainControl = function ( object ) {
 			direction.y = y > 1 || y < -1 ? Math.sign( y ) : 0;
 
 			direction.normalize();
-
-			//positionChanger( direction );
 
 			setObjectPosition(direction);
 
