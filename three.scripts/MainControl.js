@@ -45,24 +45,24 @@ var MainControl = function ( object ) {
 	};
 	var setObjectPosition = function ( direction ) {
 
-		var omega = 20;
+		var omega = 10;
 
 		if(direction.x == 0)
-			velocity.x -= velocity.x * .9999;
+			velocity.x -= velocity.x * .999999999;
 		else {
 
 			velocity.x -= direction.x * omega / 1000;
 
 		}
 		if(direction.z == 0)
-			velocity.z -= velocity.z  * .9999;
+			velocity.z -= velocity.z  * .9999999999;
 		else {
 
 			velocity.z -= direction.z * omega / 1000;
 
 		}
 		if(direction.y == 0)
-			velocity.y -= velocity.y  * .9999;
+			velocity.y -= velocity.y  * .9999999999;
 		else {
 
 			velocity.y -= direction.y * omega / 1000;
