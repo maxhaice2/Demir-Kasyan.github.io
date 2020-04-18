@@ -46,8 +46,8 @@ var MainControl = function ( object ) {
 					var time = performance.now();
 					var delta = ( time - prevTime ) / 1000;
 
-					velocity.x -= velocity.x * 2.5 * delta;
-					velocity.z -= velocity.z * 2.5 * delta;
+					velocity.x -= velocity.x * delta;
+					velocity.z -= velocity.z * delta;
 
 					if ( direction.z != 0 ) velocity.z -= direction.z * 40.0 * delta;
 					if ( direction.x != 0) velocity.x -= direction.x * 40.0 * delta;
@@ -85,11 +85,15 @@ var MainControl = function ( object ) {
 	
 	this.move = function ( velocity ) {
 
-		this.object.translateX(  - velocity.x );
+		this.scope.object.addScaledVector( velocity, ( performance.now() - prevTime )/1000 );
+
+
+
+		//this.object.translateX(  - velocity.x );
 		
 		//this.object.translateY( velocity.y );
 
-		this.object.translateZ( - velocity.z );
+		//this.object.translateZ( - velocity.z );
 
 	};
 
