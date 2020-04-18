@@ -9,7 +9,7 @@ import {
 
 var MainControl = function ( object ) {
 
-	var scope = this;//, gn = new GyroNorm();
+	var scope = this, prevTime = performance.now();//, gn = new GyroNorm();
 
 	var old = new Vector3(), velocity = new Vector3(), vec = new Vector3();
 
@@ -43,31 +43,18 @@ var MainControl = function ( object ) {
 	};
 	var setObjectPosition = function ( direction ) {
 
-		var omega = 2.5;
+		var time = performance.now();
+					var delta = ( time - prevTime ) / 1000;
 
-		if(direction.x == 0)
-			velocity.x -= velocity.x;
-		else {
+					velocity.x -= velocity.x * 10.0 * delta;
+					velocity.z -= velocity.z * 10.0 * delta;
 
-			velocity.x -= direction.x * omega;
+					if ( direction.z != 0 ) velocity.z -= direction.z * 400.0 * delta;
+					if ( direction.x != 0) velocity.x -= direction.x * 400.0 * delta;
 
-		}
-		if(direction.z == 0)
-			velocity.z -= velocity.z;
-		else {
+					controls.move( - velocity );
 
-			velocity.z -= direction.z * omega;
-
-		}
-		if(direction.y == 0)
-			velocity.y -= velocity.y;
-		else {
-
-			velocity.y -= direction.y * omega;
-
-		}
-		
-		scope.move( velocity );
+					prevTime = time;
 
 	};
 	
@@ -184,7 +171,7 @@ var MainControl = function ( object ) {
 			// 	  let x = data.dm.x,//		( devicemotion event acceleration x value )
 			// 	   y = data.dm.y,//		( devicemotion event acceleration y value )
 			// 	  z = data.dm.z;//		( devicemotion event acceleration z value )
-			// 	});
+			// 	});ssss
 			//   }).catch(function(e){
 			// 	console.error("erro");
 			//   });
@@ -199,7 +186,7 @@ var MainControl = function ( object ) {
 
 			direction.y = y < 1 || y > -1 ? Math.sign( y ) : 0;
 
-			direction.normalize();
+			//direction.normalize();
 
 			setObjectPosition(direction);
 
