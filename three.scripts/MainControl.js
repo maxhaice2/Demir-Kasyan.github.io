@@ -43,18 +43,43 @@ var MainControl = function ( object ) {
 	};
 	var setObjectPosition = function ( direction ) {
 
-		var time = performance.now();
-					var delta = ( time - prevTime ) / 1000;
+					// var time = performance.now();
+					// var delta = ( time - prevTime ) / 1000;
 
-					velocity.x -= velocity.x * 10.0 * delta;
-					velocity.z -= velocity.z * 10.0 * delta;
+					// velocity.x -= velocity.x * 10.0 * delta;
+					// velocity.z -= velocity.z * 10.0 * delta;
 
-					if ( direction.z != 0 ) velocity.z -= direction.z * 400.0 * delta;
-					if ( direction.x != 0) velocity.x -= direction.x * 400.0 * delta;
+					// if ( direction.z != 0 ) velocity.z -= direction.z * 400.0 * delta;
+					// if ( direction.x != 0) velocity.x -= direction.x * 400.0 * delta;
 
-					controls.move( - velocity );
+					// scope.move( - velocity );
 
-					prevTime = time;
+					// prevTime = time;
+					var omega = 2.5;
+
+		if(direction.x == 0)
+			velocity.x -= velocity.x;
+		else {
+
+			velocity.x -= direction.x * omega;
+
+		}
+		if(direction.z == 0)
+			velocity.z -= velocity.z;
+		else {
+
+			velocity.z -= direction.z * omega;
+
+		}
+		if(direction.y == 0)
+			velocity.y -= velocity.y;
+		else {
+
+			velocity.y -= direction.y * omega;
+
+		}
+		
+		scope.move( velocity );
 
 	};
 	
@@ -62,9 +87,9 @@ var MainControl = function ( object ) {
 
 		this.object.translateX( velocity.x );
 		
-		this.object.translateX( velocity.x );
+		this.object.translateY( velocity.y );
 
-		this.object.translateX( velocity.x );
+		this.object.translateZ( velocity.z );
 
 	};
 
