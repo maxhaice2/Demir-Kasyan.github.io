@@ -75,8 +75,11 @@ var MainControl = function ( object ) {
 	
 	this.move = function ( velocity ) {
 
-		object.position.addScaledVector( velocity, ONE );
+		this.object.translateX( velocity.x );
+		
+		this.object.translateX( velocity.x );
 
+		this.object.translateX( velocity.x );
 
 	};
 
