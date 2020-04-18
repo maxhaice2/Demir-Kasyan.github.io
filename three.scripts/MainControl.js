@@ -85,7 +85,7 @@ var MainControl = function ( object ) {
 	
 	this.move = function ( velocity ) {
 
-		this.object.addScaledVector( velocity, ( performance.now() - prevTime )/1000 );
+		this.object.position.addScaledVector( velocity, ( performance.now() - prevTime )/1000 );
 
 
 
