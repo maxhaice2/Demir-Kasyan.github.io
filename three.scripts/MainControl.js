@@ -5,15 +5,13 @@ import {
 	Vector3
 } from "../three.addons/three.module.js";
 
+// import GyroNorm from 'gyronorm';
+
 var MainControl = function ( object ) {
 
-	var scope = this;
+	var scope = this;//, gn = new GyroNorm();
 
 	var old = new Vector3(), velocity = new Vector3(), vec = new Vector3();
-
-	const THOUSENDS = 1000, ONE = 1;
-
-	var prevTime = performance.now();
 
 	this.object = object;
 	this.object.rotation.reorder( 'YXZ' );
@@ -181,16 +179,25 @@ var MainControl = function ( object ) {
 		if( motion.acceleration != undefined ) {
 
 			let direction = new Vector3();
+			// gn.init().then(function(){
+			// 	gn.start(function(data){
+			// 	  let x = data.dm.x,//		( devicemotion event acceleration x value )
+			// 	   y = data.dm.y,//		( devicemotion event acceleration y value )
+			// 	  z = data.dm.z;//		( devicemotion event acceleration z value )
+			// 	});
+			//   }).catch(function(e){
+			// 	console.error("erro");
+			//   });
 
 			let x = Math.round(motion.acceleration.x) - old.x,
 				y = Math.round(motion.acceleration.y) - old.y,
 				z = Math.round(motion.acceleration.z) - old.z;
 
-			direction.z = z > 1 || z < -1 ? Math.sign( z ) : 0;
+			direction.z = z < 1 || z > -1 ? Math.sign( z ) : 0;
 
-			direction.x = x > 1 || x < -1 ? Math.sign( x ) : 0;
+			direction.x = x < 1 || x > -1 ? Math.sign( x ) : 0;
 
-			direction.y = y > 1 || y < -1 ? Math.sign( y ) : 0;
+			direction.y = y < 1 || y > -1 ? Math.sign( y ) : 0;
 
 			direction.normalize();
 
