@@ -85,11 +85,11 @@ var MainControl = function ( object ) {
 	
 	this.move = function ( velocity ) {
 
-		this.object.translateX( velocity.x );
+		this.object.translateX(  - velocity.x );
 		
 		//this.object.translateY( velocity.y );
 
-		this.object.translateZ( velocity.z );
+		this.object.translateZ( - velocity.z );
 
 	};
 
