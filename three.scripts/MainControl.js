@@ -51,21 +51,21 @@ var MainControl = function ( object ) {
 			velocity.x -= velocity.x * .999999999;
 		else {
 
-			velocity.x -= direction.x * omega / 1000;
+			velocity.x -= direction.x * omega;
 
 		}
 		if(direction.z == 0)
 			velocity.z -= velocity.z  * .9999999999;
 		else {
 
-			velocity.z -= direction.z * omega / 1000;
+			velocity.z -= direction.z * omega;
 
 		}
 		if(direction.y == 0)
 			velocity.y -= velocity.y  * .9999999999;
 		else {
 
-			velocity.y -= direction.y * omega / 1000;
+			velocity.y -= direction.y * omega;
 
 		}
 		
@@ -75,11 +75,8 @@ var MainControl = function ( object ) {
 	
 	this.move = function ( velocity ) {
 
-		for (let index = 0; index < THOUSENDS; index++) {
+		object.position.addScaledVector( velocity, ONE );
 
-			object.position.addScaledVector( velocity, ONE );
-
-		}
 
 	};
 
