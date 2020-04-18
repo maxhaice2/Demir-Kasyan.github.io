@@ -35,7 +35,7 @@ var MainControl = function ( object ) {
 	var onDeviceOrientationChangeEvent = function ( event ) {
 
 		scope.deviceOrientation = event;
-		console.log("update v0.4.1")
+		console.log("update v0.4.5")
 	};
 
 	var onScreenOrientationChangeEvent = function () {
@@ -45,24 +45,24 @@ var MainControl = function ( object ) {
 	};
 	var setObjectPosition = function ( direction ) {
 
-		var omega = 10;
+		var omega = 2.5;
 
 		if(direction.x == 0)
-			velocity.x -= velocity.x * .999999999;
+			velocity.x -= velocity.x;
 		else {
 
 			velocity.x -= direction.x * omega;
 
 		}
 		if(direction.z == 0)
-			velocity.z -= velocity.z  * .9999999999;
+			velocity.z -= velocity.z;
 		else {
 
 			velocity.z -= direction.z * omega;
 
 		}
 		if(direction.y == 0)
-			velocity.y -= velocity.y  * .9999999999;
+			velocity.y -= velocity.y;
 		else {
 
 			velocity.y -= direction.y * omega;
