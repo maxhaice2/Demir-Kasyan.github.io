@@ -87,7 +87,7 @@ var MainControl = function ( object ) {
 
 		this.object.translateX( velocity.x );
 		
-		this.object.translateY( velocity.y );
+		//this.object.translateY( velocity.y );
 
 		this.object.translateZ( velocity.z );
 
