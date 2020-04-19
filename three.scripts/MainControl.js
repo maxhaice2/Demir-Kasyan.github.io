@@ -160,13 +160,13 @@ var MainControl = function ( object ) {
 		}
 
 		if( motion.acceleration != undefined ) {
-
+			let x, z, y;
 			let direction = new Vector3();
 			gn.init().then(function(){
 				gn.start(function(data){
-				  let x = data.dm.x,//		( devicemotion event acceleration x value )
-				   y = data.dm.y,//		( devicemotion event acceleration y value )
-				  z = data.dm.z;//		( devicemotion event acceleration z value )
+				x = data.dm.x,//		( devicemotion event acceleration x value )
+				y = data.dm.y,//		( devicemotion event acceleration y value )
+				z = data.dm.z;//		( devicemotion event acceleration z value )
 				});
 			  }).catch(function(e){
 				console.error("erro");
