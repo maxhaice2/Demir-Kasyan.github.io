@@ -5,11 +5,11 @@ import {
 	Vector3
 } from "../three.addons/three.module.js";
 
-// import GyroNorm from 'gyronorm';
+ import GyroNorm from 'gyronorm';
 
 var MainControl = function ( object ) {
 
-	var scope = this, prevTime = performance.now();//, gn = new GyroNorm();
+	var scope = this, prevTime = performance.now(), gn = new GyroNorm();
 
 	var old = new Vector3(), velocity = new Vector3(), vec = new Vector3();
 
@@ -33,7 +33,7 @@ var MainControl = function ( object ) {
 	var onDeviceOrientationChangeEvent = function ( event ) {
 
 		scope.deviceOrientation = event;
-		console.log("update v0.5.2")
+		console.log("update v0.5.7")
 	};
 
 	var onScreenOrientationChangeEvent = function () {
@@ -56,45 +56,12 @@ var MainControl = function ( object ) {
 					scope.move( velocity );
 
 					prevTime = time;
-		// 			var omega = 2.5;
-
-		// if(direction.x == 0)
-		// 	velocity.x -= velocity.x;
-		// else {
-
-		// 	velocity.x -= direction.x * omega;
-
-		// }
-		// if(direction.z == 0)
-		// 	velocity.z -= velocity.z;
-		// else {
-
-		// 	velocity.z -= direction.z * omega;
-
-		// }
-		// if(direction.y == 0)
-		// 	velocity.y -= velocity.y;
-		// else {
-
-		// 	velocity.y -= direction.y * omega;
-
-		// }
-		
-		//scope.move( velocity );
 
 	};
 	
 	this.move = function ( velocity ) {
 
 		this.object.position.addScaledVector( velocity, ( performance.now() - prevTime )/1000 );
-
-
-
-		//this.object.translateX(  - velocity.x );
-		
-		//this.object.translateY( velocity.y );
-
-		//this.object.translateZ( - velocity.z );
 
 	};
 
@@ -181,13 +148,13 @@ var MainControl = function ( object ) {
 		
 		if ( device ) {
 
-			var alpha = device.alpha ? MathUtils.degToRad( device.alpha ) + scope.alphaOffset : 0; // Z
+			var alpha = device.alpha ? MathUtils.degToRad( device.alpha ) + scope.alphaOffset : 0;
 
-			var beta = device.beta ? MathUtils.degToRad( device.beta ) : 0; // X'
+			var beta = device.beta ? MathUtils.degToRad( device.beta ) : 0;
 
-			var gamma = device.gamma ? MathUtils.degToRad( device.gamma ) : 0; // Y''
+			var gamma = device.gamma ? MathUtils.degToRad( device.gamma ) : 0;
 
-			var orient = scope.screenOrientation ? MathUtils.degToRad( scope.screenOrientation ) : 0; // O
+			var orient = scope.screenOrientation ? MathUtils.degToRad( scope.screenOrientation ) : 0;
 
 			setObjectQuaternion( scope.object.quaternion, alpha, beta, gamma, orient );
 
@@ -196,19 +163,19 @@ var MainControl = function ( object ) {
 		if( motion.acceleration != undefined ) {
 
 			let direction = new Vector3();
-			// gn.init().then(function(){
-			// 	gn.start(function(data){
-			// 	  let x = data.dm.x,//		( devicemotion event acceleration x value )
-			// 	   y = data.dm.y,//		( devicemotion event acceleration y value )
-			// 	  z = data.dm.z;//		( devicemotion event acceleration z value )
-			// 	});ssss
-			//   }).catch(function(e){
-			// 	console.error("erro");
-			//   });
+			gn.init().then(function(){
+				gn.start(function(data){
+				  let x = data.dm.x,//		( devicemotion event acceleration x value )
+				   y = data.dm.y,//		( devicemotion event acceleration y value )
+				  z = data.dm.z;//		( devicemotion event acceleration z value )
+				});
+			  }).catch(function(e){
+				console.error("erro");
+			  });
 
-			let x = Math.round(motion.acceleration.x) - old.x,
-				y = Math.round(motion.acceleration.y) - old.y,
-				z = Math.round(motion.acceleration.z) - old.z;
+			// let x = Math.round(motion.acceleration.x) - old.x,
+			// 	y = Math.round(motion.acceleration.y) - old.y,
+			// 	z = Math.round(motion.acceleration.z) - old.z;
 
 			direction.z = z < 1 || z > -1 ? Math.sign( z ) : 0;
 
