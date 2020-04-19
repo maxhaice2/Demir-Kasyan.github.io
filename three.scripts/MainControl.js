@@ -5,7 +5,7 @@ import {
 	Vector3
 } from "../three.addons/three.module.js";
 
- import { GyroNorm }  from "https://raw.githubusercontent.com/dorukeker/gyronorm.js/master/dist/gyronorm.complete.js";
+ import { GyroNorm }  from "../three.addons/gyronorm.js";
 
 var MainControl = function ( object ) {
 
