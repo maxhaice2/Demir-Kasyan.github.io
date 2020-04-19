@@ -5,7 +5,7 @@ import {
 	Vector3
 } from "../three.addons/three.module.js";
 
- import * as GyroNorm from "../three.addons/gyronorm.js";
+ import { GyroNorm }  from "../three.addons/gyronorm";
 
 var MainControl = function ( object ) {
 
@@ -33,7 +33,7 @@ var MainControl = function ( object ) {
 	var onDeviceOrientationChangeEvent = function ( event ) {
 
 		scope.deviceOrientation = event;
-		console.log("update v0.5.7")
+		console.log("update v0.6.0")
 	};
 
 	var onScreenOrientationChangeEvent = function () {
