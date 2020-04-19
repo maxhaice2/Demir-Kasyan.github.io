@@ -48,9 +48,9 @@ var MainControl = function ( object ) {
 					velocity.x -= velocity.x * delta;
 					velocity.z -= velocity.z * delta;
 					velocity.y -= velocity.y * delta;
-					if ( direction.z != 0 ) velocity.z -= direction.z * 500.0 * delta;
-					if ( direction.x != 0 ) velocity.x -= direction.x * 500.0 * delta;
-					if ( direction.y != 0 ) velocity.y -= direction.y * 500.0 * delta;
+					if ( direction.z != 0 ) velocity.z -= direction.z * 1000.0 * delta;
+					if ( direction.x != 0 ) velocity.x -= direction.x * 1000.0 * delta;
+					if ( direction.y != 0 ) velocity.y -= direction.y * 1000.0 * delta;
 
 					scope.move( velocity );
 
@@ -60,7 +60,7 @@ var MainControl = function ( object ) {
 	
 	this.move = function ( velocity ) {
 
-		this.object.position.addScaledVector( velocity, ( performance.now() - prevTime )/1000 );
+		this.object.position.addScaledVector( velocity, 1 );
 
 	};
 
