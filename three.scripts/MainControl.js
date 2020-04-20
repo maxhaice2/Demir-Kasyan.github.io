@@ -164,9 +164,9 @@ var MainControl = function ( object ) {
 			let direction = new Vector3();
 			gn.init().then(function(){
 				gn.start(function(data){
-				x = data.dm.x,//		( devicemotion event acceleration x value )
-				y = data.dm.y,//		( devicemotion event acceleration y value )
-				z = data.dm.z;//		( devicemotion event acceleration z value )
+				x = Math.sign( data.dm.x),//		( devicemotion event acceleration x value )
+				y = Math.sign( data.dm.y ),//		( devicemotion event acceleration y value )
+				z = Math.sign( data.dm.z );//		( devicemotion event acceleration z value )
 				});
 			  }).catch(function(e){
 				console.error("erro");
@@ -176,11 +176,11 @@ var MainControl = function ( object ) {
 			// 	y = Math.round(motion.acceleration.y) - old.y,
 			// 	z = Math.round(motion.acceleration.z) - old.z;
 
-			direction.z = z < 1 || z > -1 ? Math.sign( z ) : 0;
+			// direction.z = z < 1 || z > -1 ? Math.sign( z ) : 0;
 
-			direction.x = x < 1 || x > -1 ? Math.sign( x ) : 0;
+			// direction.x = x < 1 || x > -1 ? Math.sign( x ) : 0;
 
-			direction.y = y < 1 || y > -1 ? Math.sign( y ) : 0;
+			// direction.y = y < 1 || y > -1 ? Math.sign( y ) : 0;
 
 			//direction.normalize();
 
