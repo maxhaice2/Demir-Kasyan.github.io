@@ -172,6 +172,7 @@ var MainControl = function ( object ) {
 				console.error("erro");
 			  });
 			  direction = new Vector3(x, y, z);
+			  alert(directon.x,direction.y,direction.z);
 			// let x = Math.round(motion.acceleration.x) - old.x,
 			// 	y = Math.round(motion.acceleration.y) - old.y,
 			// 	z = Math.round(motion.acceleration.z) - old.z;
