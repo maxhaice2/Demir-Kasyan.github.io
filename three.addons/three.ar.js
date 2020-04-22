@@ -1,3 +1,4 @@
+
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('three')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'three'], factory) :
@@ -34,7 +35,6 @@ var loadMtl = function loadMtl(mtlPath, MTLLoader) {
     loader.load(mtlPath, resolve, noop, reject);
   });
 };
-
 var colors = ['#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800'].map(function (hex) {
   return new three.Color(hex);
 });

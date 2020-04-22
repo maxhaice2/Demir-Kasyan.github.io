@@ -1,3 +1,4 @@
+import * as THREE from '../three.addons/three.module.js';
 THREE.VRControls = function ( object, onError ) {
 
 	var scope = this;
