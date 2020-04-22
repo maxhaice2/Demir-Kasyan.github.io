@@ -155,10 +155,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         let newFlower = arObject.clone();
         newFlower.visible = true;
         newFlower.matrix = matrix;
+        setTimeOut(newFlower.rotation(new Float32Array([0, 90, 0, 1])),5000);
         scene.addNode(newFlower);
-        setTimeOut(function(){
-         newFlower.setOrientation(0, 90, 0, 1, 1, 1);
-        },5000);
         flowers.push(newFlower);
 
         // For performance reasons if we add too many objects start
