@@ -17,8 +17,10 @@ var BOX_DISTANCE = 1.5;
 var BOX_SIZE = 0.25;
 var BOX_QUANTITY = 6;
 var boxesAdded = false;
-vrDisplay = display;
-init();
+THREE.ARUtils.getARDisplay().then(function (display) {
+    vrDisplay = display;
+    init();
+});
 function init() {
   renderer = new THREE.WebGLRenderer({ alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);
