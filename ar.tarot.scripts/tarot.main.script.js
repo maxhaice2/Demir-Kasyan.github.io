@@ -5,7 +5,7 @@ import {Node} from '../ar.tarot.scripts/js.module/render/core/node.js';
 import {Gltf2Node} from '../ar.tarot.scripts/js.module/render/nodes/gltf2.js';
 import {DropShadowNode} from '../ar.tarot.scripts/js.module/render/nodes/drop-shadow.js';
 import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
-
+import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
 // XR globals.
       let xrButton = null;
       let xrRefSpace = null;
@@ -22,7 +22,7 @@ import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
       arObject.visible = false;
       scene.addNode(arObject);
 
-      let taroCard = new Gltf2Node({url: '../ar.tarot.resourses/gltf.tarot.models/card_imp/card.gltf'});
+      let taroCard = new Gltf2Node({url: '../ar.tarot.resourses/gltf.tarot.models/card_imp/Сard.gltf'});
       arObject.addNode(taroCard);
 
       let reticle = new Gltf2Node({url: '../ar.tarot.resourses/gltf.tarot.models/reticle/reticle.gltf'});
@@ -40,7 +40,6 @@ import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
 
       function initXR() {
         xrButton = new WebXRButton({
-          
           onRequestSession: onRequestSession,
           onEndSession: onEndSession,
           textEnterXRTitle: "Throw Cards",
@@ -119,6 +118,8 @@ import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
         //setTimeOut(newTaro.rotation = new Float32Array([0, 90, 0, 1]),5000);
         scene.addNode(newTaro);
       }
+      let rayOrigin = vec3.create();
+      let rayDirection = vec3.create();
 
       function onSelect(event) {
         if (reticle.visible) {
