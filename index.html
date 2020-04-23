@@ -154,7 +154,8 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
         let card = arObject.clone();
         card.visible = true;
         card.matrix = matrix;
-        card.rotation =  new Float32Array([180, 0, 0, 1]);
+        arObject.rotation[1] = 90;
+        card.rotation =  arObject.rotation;
         scene.addNode(card);
 
         cards.push(card);
