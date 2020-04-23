@@ -5,14 +5,21 @@
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
     <meta name='mobile-web-app-capable' content='yes'>
     <meta name='apple-mobile-web-app-capable' content='yes'>
-    <link rel="icon" href="favicon.ico" type="image/ico">
-    <link href="https://allfont.ru/allfont.css?fonts=popularscript" rel="stylesheet" type="text/css" />
       <style>
+        @font-face {
+        font-family: 'PopularScript';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PopularScript'), local('PopularScript-Normal'),
+        url(https://allfont.ru/cache/fonts/popularscript_fdbc09ac9b3bb4bf0c475e1c416772a7.woff) format('woff'),
+        url(https://allfont.ru/cache/fonts/popularscript_fdbc09ac9b3bb4bf0c475e1c416772a7.ttf) format('truetype');
+}
         details {
           font-family: 'PopularScript', arial;
-          font-size: 48px;
+          font-size: 24px;
           text-shadow: 4px 4px 4px #aaa;
         }
+        
       </style>
     <title>B&W WEBXR TARO</title>
   </head>
@@ -25,169 +32,6 @@
         </p>
       </details>
     </header>
-    <script type="module">
-      import {WebXRButton} from './js/util/webxr-button.js';
-      import {Scene} from './js/render/scenes/scene.js';
-      import {Renderer, createWebGLContext} from './js/render/core/renderer.js';
-      import {Node} from './js/render/core/node.js';
-      import {Gltf2Node} from './js/render/nodes/gltf2.js';
-      import {DropShadowNode} from './js/render/nodes/drop-shadow.js';
-      import {vec3} from './js/render/math/gl-matrix.js';
-      import {Ray} from './js/render/math/ray.js';
-
-      // XR globals.
-      let xrButton = null;
-      let xrRefSpace = null;
-      let xrViewerSpace = null;
-      let xrHitTestSource = null;
-
-      // WebGL scene globals.
-      let gl = null;
-      let renderer = null;
-      let scene = new Scene();
-      scene.enableStats(false);
-
-      let arObject = new Node();
-      arObject.visible = false;
-      scene.addNode(arObject);
-
-      let taroCard = new Gltf2Node({url: 'three.models/card_01/Card.gltf'});
-      arObject.addNode(taroCard);
-
-      let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
-      reticle.visible = false;
-      scene.addNode(reticle);
-
-      // Having a really simple drop shadow underneath an object helps ground
-      // it in the world without adding much complexity.
-      let shadow = new DropShadowNode();
-      vec3.set(shadow.scale, 0.15, 0.15, 0.15);
-      arObject.addNode(shadow);
-
-      const MAX_FLOWERS = 5;
-      let flowers = [];
-
-      // Ensure the background is transparent for AR.
-      scene.clear = false;
-
-      function initXR() {
-        xrButton = new WebXRButton({
-          onRequestSession: onRequestSession,
-          onEndSession: onEndSession,
-          textEnterXRTitle: "START AR",
-          textXRNotFoundTitle: "AR NOT FOUND",
-          textExitXRTitle: "EXIT  AR",
-        });
-        document.querySelector('header').appendChild(xrButton.domElement);
-
-        if (navigator.xr) {
-          navigator.xr.isSessionSupported('immersive-ar')
-                      .then((supported) => {
-            xrButton.enabled = supported;
-          });
-        }
-      }
-
-      function onRequestSession() {
-        return navigator.xr.requestSession('immersive-ar', {requiredFeatures: ['local', 'hit-test']})
-                           .then((session) => {
-          xrButton.setSession(session);
-          onSessionStarted(session);
-        });
-      }
-
-      function onSessionStarted(session) {
-        session.addEventListener('end', onSessionEnded);
-        session.addEventListener('select', onSelect);
-
-        if (!gl) {
-          gl = createWebGLContext({
-            xrCompatible: true
-          });
-
-          renderer = new Renderer(gl);
-
-          scene.setRenderer(renderer);
-        }
-
-        session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
-
-        // In this sample we want to cast a ray straight out from the viewer's
-        // position and render a reticle where it intersects with a real world
-        // surface. To do this we first get the viewer space, then create a
-        // hitTestSource that tracks it.
-        session.requestReferenceSpace('viewer').then((refSpace) => {
-          xrViewerSpace = refSpace;
-          session.requestHitTestSource({ space: xrViewerSpace }).then((hitTestSource) => {
-            xrHitTestSource = hitTestSource;
-          });
-        });
-
-        session.requestReferenceSpace('local').then((refSpace) => {
-          xrRefSpace = refSpace;
-
-          session.requestAnimationFrame(onXRFrame);
-        });
-      }
-
-      function onEndSession(session) {
-        xrHitTestSource.cancel();
-        xrHitTestSource = null;
-        session.end();
-      }
-
-      function onSessionEnded(event) {
-        xrButton.setSession(null);
-      }
-
-      // Adds a new object to the scene at the
-      // specificed transform.
-      function addARObjectAt(matrix) {
-        let newTaro = arObject.clone();
-        newTaro.visible = true;
-        newTaro.matrix = matrix;
-        setTimeOut(newTaro.rotation = new Float32Array([0, 90, 0, 1]),5000);
-        scene.addNode(newTaro);
-      }
-
-      let rayOrigin = vec3.create();
-      let rayDirection = vec3.create();
-
-      function onSelect(event) {
-        if (reticle.visible) {
-          addARObjectAt(reticle.matrix);
-        }
-      }
-
-      // Called every time a XRSession requests that a new frame be drawn.
-      function onXRFrame(t, frame) {
-        let session = frame.session;
-        let pose = frame.getViewerPose(xrRefSpace);
-
-        reticle.visible = false;
-
-        // If we have a hit test source, get its results for the frame
-        // and use the pose to display a reticle in the scene.
-        if (xrHitTestSource && pose) {
-          let hitTestResults = frame.getHitTestResults(xrHitTestSource);
-          if (hitTestResults.length > 0) {
-            let pose = hitTestResults[0].getPose(xrRefSpace);
-            reticle.visible = true;
-            reticle.matrix = pose.transform.matrix;
-          }
-        }
-
-        scene.startFrame();
-
-        session.requestAnimationFrame(onXRFrame);
-
-        scene.drawXRFrame(frame, pose);
-
-        scene.endFrame();
-      }
-
-      // Start the XR application.
-      initXR();
-    </script>
+    <script type="module" src="ar.tarot.scripts/tarot.main.script.js"></script>
   </body>
 </html>
