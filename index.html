@@ -151,18 +151,20 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
 // Adds a new object to the scene at the
 // specificed transform.
       function addARObjectAt(matrix) {
-        if(cards.length > MAX_CARDS) return;
+        let newFlower = arObject.clone();
+        newFlower.visible = true;
+        newFlower.matrix = matrix;
+        scene.addNode(newFlower);
 
-        let newTaro = arObject.clone();
-        newTaro.visible = true;
-       // newTaro.scale = new Float32Array([0.25, 0.25, 0.25]);
-        newTaro.matrix = matrix;
+        cards.push(newFlower);
 
-        setTimeout(newTaro.rotation = new Float32Array([0, 90, 0, 1]),10000);
-        
-        scene.addNode(newTaro);
-
-        cards.push(newTaro);
+        // For performance reasons if we add too many objects start
+        // removing the oldest ones to keep the scene complexity
+        // from growing too much.
+        if (cards.length > MAX_CARDS) {
+          let oldFlower = cards.shift();
+          scene.removeNode(oldFlower);
+        }
       }
       let rayOrigin = vec3.create();
       let rayDirection = vec3.create();
