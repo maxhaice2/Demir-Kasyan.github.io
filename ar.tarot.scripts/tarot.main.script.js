@@ -34,7 +34,6 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
       let shadow = new DropShadowNode();
       vec3.set(shadow.scale, 0.15, 0.15, 0.15);
       arObject.addNode(shadow);
-      setTimeout(alert('ok',2000));
 
       scene.clear = false;
 
@@ -114,7 +113,7 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
         let newTaro = arObject.clone();
         newTaro.visible = true;
         newTaro.matrix = matrix;
-        //setTimeOut(newTaro.rotation = new Float32Array([0, 90, 0, 1]),5000);
+        setTimeout(newTaro.rotation = new Float32Array([0, 90, 0, 1]),10000);
         scene.addNode(newTaro);
       }
       let rayOrigin = vec3.create();
