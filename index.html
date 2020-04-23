@@ -155,7 +155,9 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
 
         let newTaro = arObject.clone();
         newTaro.visible = true;
+        newTaro.scale = new Float32Array([0.25, 0.25, 0.25]);
         newTaro.matrix = matrix;
+
         setTimeout(newTaro.rotation = new Float32Array([0, 90, 0, 1]),10000);
         
         scene.addNode(newTaro);
