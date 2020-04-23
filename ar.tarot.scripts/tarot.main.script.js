@@ -1,19 +1,19 @@
-import {WebXRButton} from './js/util/webxr-button.js';
-      import {Scene} from './js/render/scenes/scene.js';
-      import {Renderer, createWebGLContext} from './js/render/core/renderer.js';
-      import {Node} from './js/render/core/node.js';
-      import {Gltf2Node} from './js/render/nodes/gltf2.js';
-      import {DropShadowNode} from './js/render/nodes/drop-shadow.js';
-      import {vec3} from './js/render/math/gl-matrix.js';
-      import {Ray} from './js/render/math/ray.js';
+import {WebXRButton} from '../ar.tarot.scripts/js.module/util/webxr-button.js';
+import {Scene} from '../ar.tarot.scripts/js.module/render/scenes/scene.js';
+import {Renderer, createWebGLContext} from '../ar.tarot.scripts/js.module/render/core/renderer.js';
+import {Node} from '../ar.tarot.scripts/js.module/render/core/node.js';
+import {Gltf2Node} from '../ar.tarot.scripts/js.module/render/nodes/gltf2.js';
+import {DropShadowNode} from '../ar.tarot.scripts/js.module/render/nodes/drop-shadow.js';
+import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
+import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
 
-      // XR globals.
+// XR globals.
       let xrButton = null;
       let xrRefSpace = null;
       let xrViewerSpace = null;
       let xrHitTestSource = null;
 
-      // WebGL scene globals.
+// WebGL scene globals.
       let gl = null;
       let renderer = null;
       let scene = new Scene();
@@ -23,15 +23,15 @@ import {WebXRButton} from './js/util/webxr-button.js';
       arObject.visible = false;
       scene.addNode(arObject);
 
-      let taroCard = new Gltf2Node({url: 'three.models/card_01/Card.gltf'});
+      let taroCard = new Gltf2Node({url: '../ar.tarot.resourses/gltf.tarot.models/card_imp/card.gltf'});
       arObject.addNode(taroCard);
 
-      let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
+      let reticle = new Gltf2Node({url: '../ar.tarot.resourses/gltf.tarot.models/reticle/reticle.gltf'});
       reticle.visible = false;
       scene.addNode(reticle);
 
-      // Having a really simple drop shadow underneath an object helps ground
-      // it in the world without adding much complexity.
+// Having a really simple drop shadow underneath an object helps ground
+// it in the world without adding much complexity.
       let shadow = new DropShadowNode();
       vec3.set(shadow.scale, 0.15, 0.15, 0.15);
       arObject.addNode(shadow);
@@ -39,7 +39,7 @@ import {WebXRButton} from './js/util/webxr-button.js';
       const MAX_FLOWERS = 5;
       let flowers = [];
 
-      // Ensure the background is transparent for AR.
+// Ensure the background is transparent for AR.
       scene.clear = false;
 
       function initXR() {
@@ -84,10 +84,10 @@ import {WebXRButton} from './js/util/webxr-button.js';
 
         session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
 
-        // In this sample we want to cast a ray straight out from the viewer's
-        // position and render a reticle where it intersects with a real world
-        // surface. To do this we first get the viewer space, then create a
-        // hitTestSource that tracks it.
+// In this sample we want to cast a ray straight out from the viewer's
+// position and render a reticle where it intersects with a real world
+// surface. To do this we first get the viewer space, then create a
+// hitTestSource that tracks it.
         session.requestReferenceSpace('viewer').then((refSpace) => {
           xrViewerSpace = refSpace;
           session.requestHitTestSource({ space: xrViewerSpace }).then((hitTestSource) => {
@@ -112,8 +112,8 @@ import {WebXRButton} from './js/util/webxr-button.js';
         xrButton.setSession(null);
       }
 
-      // Adds a new object to the scene at the
-      // specificed transform.
+// Adds a new object to the scene at the
+// specificed transform.
       function addARObjectAt(matrix) {
         let newTaro = arObject.clone();
         newTaro.visible = true;
@@ -131,15 +131,15 @@ import {WebXRButton} from './js/util/webxr-button.js';
         }
       }
 
-      // Called every time a XRSession requests that a new frame be drawn.
+// Called every time a XRSession requests that a new frame be drawn.
       function onXRFrame(t, frame) {
         let session = frame.session;
         let pose = frame.getViewerPose(xrRefSpace);
 
         reticle.visible = false;
 
-        // If we have a hit test source, get its results for the frame
-        // and use the pose to display a reticle in the scene.
+// If we have a hit test source, get its results for the frame
+// and use the pose to display a reticle in the scene.
         if (xrHitTestSource && pose) {
           let hitTestResults = frame.getHitTestResults(xrHitTestSource);
           if (hitTestResults.length > 0) {
@@ -158,5 +158,5 @@ import {WebXRButton} from './js/util/webxr-button.js';
         scene.endFrame();
       }
 
-      // Start the XR application.
+// Start the XR application.
       initXR();

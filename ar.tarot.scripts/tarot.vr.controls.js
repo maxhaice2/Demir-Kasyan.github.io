@@ -40,18 +40,10 @@ THREE.VRControls = function ( object, onError ) {
 
 	}
 
-	// the Rift SDK returns the position in meters
-	// this scale factor allows the user to define how meters
-	// are converted to scene units.
-
 	this.scale = 1;
 
-	// If true will use "standing space" coordinate system where y=0 is the
-	// floor and x=0, z=0 is the center of the room.
 	this.standing = false;
 
-	// Distance from the users eyes to the floor in meters. Used when
-	// standing=true but the VRDisplay doesn't provide stageParameters.
 	this.userHeight = 1.6;
 
 	this.getVRDisplay = function () {
