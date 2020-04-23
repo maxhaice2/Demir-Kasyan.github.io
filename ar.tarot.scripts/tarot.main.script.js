@@ -5,7 +5,6 @@ import {Node} from '../ar.tarot.scripts/js.module/render/core/node.js';
 import {Gltf2Node} from '../ar.tarot.scripts/js.module/render/nodes/gltf2.js';
 import {DropShadowNode} from '../ar.tarot.scripts/js.module/render/nodes/drop-shadow.js';
 import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
-import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
 
 // XR globals.
       let xrButton = null;
@@ -36,9 +35,6 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
       vec3.set(shadow.scale, 0.15, 0.15, 0.15);
       arObject.addNode(shadow);
 
-      const MAX_FLOWERS = 5;
-      let flowers = [];
-
 // Ensure the background is transparent for AR.
       scene.clear = false;
 
@@ -46,9 +42,9 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
         xrButton = new WebXRButton({
           onRequestSession: onRequestSession,
           onEndSession: onEndSession,
-          textEnterXRTitle: "START AR",
-          textXRNotFoundTitle: "AR NOT FOUND",
-          textExitXRTitle: "EXIT  AR",
+          textEnterXRTitle: "THROW CARDS",
+          textXRNotFoundTitle: "AR Spirits not found ",
+          textExitXRTitle: "collect a deck",
         });
         document.querySelector('header').appendChild(xrButton.domElement);
 
@@ -118,12 +114,9 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
         let newTaro = arObject.clone();
         newTaro.visible = true;
         newTaro.matrix = matrix;
-        setTimeOut(newTaro.rotation = new Float32Array([0, 90, 0, 1]),5000);
+        //setTimeOut(newTaro.rotation = new Float32Array([0, 90, 0, 1]),5000);
         scene.addNode(newTaro);
       }
-
-      let rayOrigin = vec3.create();
-      let rayDirection = vec3.create();
 
       function onSelect(event) {
         if (reticle.visible) {
