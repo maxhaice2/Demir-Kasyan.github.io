@@ -22,7 +22,7 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
       arObject.visible = false;
       scene.addNode(arObject);
 
-      let taroCard = new Gltf2Node({url: '../ar.tarot.resourses/gltf.tarot.models/card_imp/Сard.gltf'});
+      let taroCard = new Gltf2Node({url: '../ar.tarot.resourses/gltf.tarot.models/reticle/reticle.gltf'});
       arObject.addNode(taroCard);
 
       let reticle = new Gltf2Node({url: '../ar.tarot.resourses/gltf.tarot.models/reticle/reticle.gltf'});
