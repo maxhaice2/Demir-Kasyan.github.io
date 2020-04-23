@@ -154,6 +154,7 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
         let card = arObject.clone();
         card.visible = true;
         card.matrix = matrix;
+        card.rotation =  new Float32Array([180, 0, 0, 1]);
         scene.addNode(card);
 
         cards.push(card);
@@ -162,7 +163,7 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
         // removing the oldest ones to keep the scene complexity
         // from growing too much.
         setTimeout(function(){
-          card.rotation = new Float32Array([0, 90, 0, 1]);
+        //  card.rotation = new Float32Array([car, 90, 0, 1]);
         },10000)
       }
       let rayOrigin = vec3.create();
