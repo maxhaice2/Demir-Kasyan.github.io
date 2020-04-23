@@ -266,8 +266,8 @@ export class Node {
 
   set rotation(value) {
     if (value != null) {
-      this._dirtyTRS = true;
-      this.setMatrixDirty();
+     // this._dirtyTRS = true;
+      // this.setMatrixDirty();
     }
     this._rotation = value;
   }
