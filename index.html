@@ -18,8 +18,9 @@
         // Import three
         import * as THREE from 'https://unpkg.com/three/build/three.module.js';
         // Import the default VRButton
-        import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
-
+        //import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
+        
+        import { ARButton } from 'https://unpkg.com/three/examples/jsm/webxr/ARButton.js';
         // Make a new scene
         let scene = new THREE.Scene();
         // Set background color of the scene to gray
@@ -56,10 +57,8 @@
         document.body.appendChild(renderer.domElement);
 
         // Add a button to enter/exit vr to the page
-        document.body.appendChild(VRButton.createButton(renderer));
 
         // For AR instead, import ARButton at the top
-           import { ARButton } from 'https://unpkg.com/three/examples/jsm/webxr/ARButton.js';
         // then create the button
          document.body.appendChild(ARButton.createButton(renderer));
 
