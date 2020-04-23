@@ -6,15 +6,22 @@
     <meta name='mobile-web-app-capable' content='yes'>
     <meta name='apple-mobile-web-app-capable' content='yes'>
     <link rel="shortcut icon" href="favicon.ico" type="image/ico">
-
+    <link href="http://allfont.ru/allfont.css?fonts=popularscript" rel="stylesheet" type="text/css" />
+      <style>
+        details {
+          font-family: 'PopularScript', arial;
+          font-size: 48px;
+          text-shadow: 4px 4px 4px #aaa;
+        }
+      </style>
     <title>B&W WEBXR TARO</title>
   </head>
   <body>
     <header>
       <details open>
-        <summary>Hit Test</summary>
+        <summary>TAROT by B&W</summary>
         <p>
-          This sample demonstrates use of hit testing to place virtual objects on real-world surfaces.
+          In order to turn to the spirits of prediction, you must enable the AR function ...
         </p>
       </details>
     </header>
@@ -45,7 +52,7 @@
       scene.addNode(arObject);
 
       let taroCard = new Gltf2Node({url: 'three.models/card_01/Card.gltf'});
-      arObject.addNode(flower);
+      arObject.addNode(taroCard);
 
       let reticle = new Gltf2Node({url: 'media/gltf/reticle/reticle.gltf'});
       reticle.visible = false;
@@ -139,7 +146,7 @@
         let newTaro = arObject.clone();
         newTaro.visible = true;
         newTaro.matrix = matrix;
-        //setTimeOut(newFlower.rotation(new Float32Array([0, 90, 0, 1])),5000);
+        setTimeOut(newTaro.rotation = new Float32Array([0, 90, 0, 1]),5000);
         scene.addNode(newTaro);
       }
 
