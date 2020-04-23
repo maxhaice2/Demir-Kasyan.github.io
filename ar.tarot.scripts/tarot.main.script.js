@@ -42,9 +42,9 @@ import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
         xrButton = new WebXRButton({
           onRequestSession: onRequestSession,
           onEndSession: onEndSession,
-          textEnterXRTitle: "THROW CARDS",
+          textEnterXRTitle: "Throw Cards",
           textXRNotFoundTitle: "AR Spirits not found ",
-          textExitXRTitle: "collect a deck",
+          textExitXRTitle: "Collect a Deck",
         });
         document.querySelector('header').appendChild(xrButton.domElement);
 
