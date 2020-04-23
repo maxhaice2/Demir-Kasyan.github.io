@@ -34,17 +34,19 @@ import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
       let shadow = new DropShadowNode();
       vec3.set(shadow.scale, 0.15, 0.15, 0.15);
       arObject.addNode(shadow);
+      setTimeout(alert('ok',2000));
 
-// Ensure the background is transparent for AR.
       scene.clear = false;
 
       function initXR() {
         xrButton = new WebXRButton({
+          
           onRequestSession: onRequestSession,
           onEndSession: onEndSession,
           textEnterXRTitle: "Throw Cards",
           textXRNotFoundTitle: "AR Spirits not found ",
           textExitXRTitle: "Collect a Deck",
+          cssprefix: "display: block; margin-left: auto; margin-right: auto;"
         });
         document.querySelector('header').appendChild(xrButton.domElement);
 
@@ -151,5 +153,4 @@ import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
         scene.endFrame();
       }
 
-// Start the XR application.
       initXR();
