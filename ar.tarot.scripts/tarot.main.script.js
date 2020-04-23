@@ -45,7 +45,6 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
           textEnterXRTitle: "Throw Cards",
           textXRNotFoundTitle: "AR Spirits not found ",
           textExitXRTitle: "Collect a Deck",
-          cssprefix: "display: block; margin-left: auto; margin-right: auto;"
         });
         document.querySelector('header').appendChild(xrButton.domElement);
 
