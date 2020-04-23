@@ -35,6 +35,9 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
       vec3.set(shadow.scale, 0.15, 0.15, 0.15);
       arObject.addNode(shadow);
 
+      const MAX_CARDS = 6;
+      let cards = [];
+
       scene.clear = false;
 
       function initXR() {
@@ -110,11 +113,16 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
 // Adds a new object to the scene at the
 // specificed transform.
       function addARObjectAt(matrix) {
+        if(cards.length > MAX_CARDS) return;
+
         let newTaro = arObject.clone();
         newTaro.visible = true;
         newTaro.matrix = matrix;
         setTimeout(newTaro.rotation = new Float32Array([0, 90, 0, 1]),10000);
+        
         scene.addNode(newTaro);
+
+        cards.push(newTaro);
       }
       let rayOrigin = vec3.create();
       let rayDirection = vec3.create();
