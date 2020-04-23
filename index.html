@@ -60,10 +60,10 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
       arObject.visible = false;
       scene.addNode(arObject);
 
-      let taroCard = new Gltf2Node({url: './ar.tarot.resourses/gltf.tarot.models/card_imp/Card.gltf'});
+      let taroCard = new Gltf2Node({url: './ar.tarot.resourses/gltf.tarot.models/sunflower/sunflower.gltf'});
       arObject.addNode(taroCard);
 
-      let reticle = new Gltf2Node({url: './ar.tarot.resourses/gltf.tarot.models/glyph/glyph.gltf'});
+      let reticle = new Gltf2Node({url: './ar.tarot.resourses/gltf.tarot.models/reticle/reticle.gltf'});
       reticle.visible = false;
       scene.addNode(reticle);
 
@@ -155,7 +155,7 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
 
         let newTaro = arObject.clone();
         newTaro.visible = true;
-        newTaro.scale = new Float32Array([0.25, 0.25, 0.25]);
+       // newTaro.scale = new Float32Array([0.25, 0.25, 0.25]);
         newTaro.matrix = matrix;
 
         setTimeout(newTaro.rotation = new Float32Array([0, 90, 0, 1]),10000);
