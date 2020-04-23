@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <link rel='icon' type='image/ico' sizes='16x16' href='favicon.ico'>
+    <link rel='icon' type='image/png' sizes='32x32' href='faviconX30.png'>
+      <style>
+        @font-face {
+        font-family: 'PopularScript';
+        font-style: normal;
+        font-weight: 400;
+        src: local('PopularScript'), local('PopularScript-Normal'),
+        url(https://allfont.ru/cache/fonts/popularscript_fdbc09ac9b3bb4bf0c475e1c416772a7.woff) format('woff'),
+        url(https://allfont.ru/cache/fonts/popularscript_fdbc09ac9b3bb4bf0c475e1c416772a7.ttf) format('truetype');
+        }
+        p {
+          font-family: 'PopularScript', arial;
+          font-size: 32px;
+          color: cadetblue;
+          text-align: center;
+          text-shadow: 4px 4px 4px rgb(218, 126, 255);
+        }
+        body {
+          background:url(ar.tarot.resourses/ico.tarot.icons/background.jpg);
+        }
+      </style>
+    <title>B&W WEBXR TARO</title>
+  </head>
+  <body>
+    <header >
+        <p class="magicP">
+          In order to turn to the spirits of prediction, you must enable the AR function ...
+        </p>
+    </header>
+    <script type="module">
+import {WebXRButton} from './ar.tarot.scripts/js.module/util/webxr-button.js';
+import {Scene} from './ar.tarot.scripts/js.module/render/scenes/scene.js';
+import {Renderer, createWebGLContext} from './ar.tarot.scripts/js.module/render/core/renderer.js';
+import {Node} from './ar.tarot.scripts/js.module/render/core/node.js';
+import {Gltf2Node} from './ar.tarot.scripts/js.module/render/nodes/gltf2.js';
+import {DropShadowNode} from './ar.tarot.scripts/js.module/render/nodes/drop-shadow.js';
+import {vec3} from './ar.tarot.scripts/js.module/render/math/gl-matrix.js';
+import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
+// XR globals.
+      let xrButton = null;
+      let xrRefSpace = null;
+      let xrViewerSpace = null;
+      let xrHitTestSource = null;
+
+// WebGL scene globals.
+      let gl = null;
+      let renderer = null;
+      let scene = new Scene();
+      scene.enableStats(false);
+
+      let arObject = new Node();
+      arObject.visible = false;
+      scene.addNode(arObject);
+
+      let taroCard = new Gltf2Node({url: './ar.tarot.resourses/gltf.tarot.models/card_imp/Card.gltf'});
+      arObject.addNode(taroCard);
+
+      let reticle = new Gltf2Node({url: './ar.tarot.resourses/gltf.tarot.models/reticle/reticle.gltf'});
+      reticle.visible = false;
+      scene.addNode(reticle);
+
+// Having a really simple drop shadow underneath an object helps ground
+// it in the world without adding much complexity.
+      let shadow = new DropShadowNode();
+      vec3.set(shadow.scale, 0.15, 0.15, 0.15);
+      arObject.addNode(shadow);
+
+      const MAX_CARDS = 6;
+      let cards = [];
+
+      scene.clear = false;
+
+      function initXR() {
+        xrButton = new WebXRButton({
+          onRequestSession: onRequestSession,
+          onEndSession: onEndSession,
+          textEnterXRTitle: "Throw Cards",
+          textXRNotFoundTitle: "AR Spirits not found ",
+          textExitXRTitle: "Collect a Deck",
+        });
+        document.querySelector('header').appendChild(xrButton.domElement);
+
+        if (navigator.xr) {
+          navigator.xr.isSessionSupported('immersive-ar')
+                      .then((supported) => {
+            xrButton.enabled = supported;
+          });
+        }
+      }
+
+      function onRequestSession() {
+        return navigator.xr.requestSession('immersive-ar', {requiredFeatures: ['local', 'hit-test']})
+                           .then((session) => {
+          xrButton.setSession(session);
+          onSessionStarted(session);
+        });
+      }
+
+      function onSessionStarted(session) {
+        session.addEventListener('end', onSessionEnded);
+        session.addEventListener('select', onSelect);
+
+        if (!gl) {
+          gl = createWebGLContext({
+            xrCompatible: true
+          });
+
+          renderer = new Renderer(gl);
+
+          scene.setRenderer(renderer);
+        }
+
+        session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
+
+// In this sample we want to cast a ray straight out from the viewer's
+// position and render a reticle where it intersects with a real world
+// surface. To do this we first get the viewer space, then create a
+// hitTestSource that tracks it.
+        session.requestReferenceSpace('viewer').then((refSpace) => {
+          xrViewerSpace = refSpace;
+          session.requestHitTestSource({ space: xrViewerSpace }).then((hitTestSource) => {
+            xrHitTestSource = hitTestSource;
+          });
+        });
+
+        session.requestReferenceSpace('local').then((refSpace) => {
+          xrRefSpace = refSpace;
+
+          session.requestAnimationFrame(onXRFrame);
+        });
+      }
+
+      function onEndSession(session) {
+        xrHitTestSource.cancel();
+        xrHitTestSource = null;
+        session.end();
+      }
+
+      function onSessionEnded(event) {
+        xrButton.setSession(null);
+      }
+
+// Adds a new object to the scene at the
+// specificed transform.
+      function addARObjectAt(matrix) {
+        let card = arObject.clone();
+        card.visible = true;
+        card.matrix = matrix;
+        arObject.rotation[1] = 90;
+        card.rotation =  arObject.rotation;
+        scene.addNode(card);
+
+        cards.push(card);
+
+        // For performance reasons if we add too many objects start
+        // removing the oldest ones to keep the scene complexity
+        // from growing too much.
+        setTimeout(function(){
+        //  card.rotation = new Float32Array([car, 90, 0, 1]);
+        },10000)
+      }
+      let rayOrigin = vec3.create();
+      let rayDirection = vec3.create();
+
+      function onSelect(event) {
+        if (reticle.visible) {
+          addARObjectAt(reticle.matrix);
+        }
+      }
+
+// Called every time a XRSession requests that a new frame be drawn.
+      function onXRFrame(t, frame) {
+        let session = frame.session;
+        let pose = frame.getViewerPose(xrRefSpace);
+
+        reticle.visible = false;
+
+// If we have a hit test source, get its results for the frame
+// and use the pose to display a reticle in the scene.
+        if (xrHitTestSource && pose) {
+          let hitTestResults = frame.getHitTestResults(xrHitTestSource);
+          if (hitTestResults.length > 0) {
+            let pose = hitTestResults[0].getPose(xrRefSpace);
+            reticle.visible = true;
+            reticle.matrix = pose.transform.matrix;
+          }
+        }
+
+        scene.startFrame();
+
+        session.requestAnimationFrame(onXRFrame);
+
+        scene.drawXRFrame(frame, pose);
+
+        scene.endFrame();
+      }
+
+      initXR();
+    </script>
+  </body>
+</html>
