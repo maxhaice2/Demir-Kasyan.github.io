@@ -1,82 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style type="text/css">
-        body {
-            margin: 0;
-            background-color: #000;
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello, World! • aframe-ar</title>
+    <meta name="description" content="Hello, World! • aframe-ar" />
+    <!-- First, include whichever version of A-Frame you like. -->
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
+    <!-- Last, include aframe-ar. -->
+    <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
+    <script>
+      //let sound = new Audio('sound.mp3');
+      AFRAME.registerComponent("clicked", {
+        init: function() {
+          this.el.addEventListener("mousedown", function(ev, target) {
+            //if(sound.paused){
+            //sound.play();
+            // }
+            document
+              .querySelector("#card-model1")
+              .setAttribute(
+                "animation",
+                "property: rotation; dur: 4000; to: -90 0 0; loop: false"
+              );
+          });
         }
-        canvas {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <script type="module">
-        // Import three
-        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
-        // Import the default VRButton
-        //import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
-        
-        import { ARButton } from 'https://unpkg.com/three/examples/jsm/webxr/ARButton.js';
-        // Make a new scene
-        let scene = new THREE.Scene();
-        // Set background color of the scene to gray
-        scene.background = new THREE.Color(0x505050);
-
-        // Make a camera. note that far is set to 100, which is better for realworld sized environments
-        let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 1.6, 3);
-        scene.add(camera);
-
-        // Add some lights
-        var light = new THREE.DirectionalLight(0xffffff,0.5);
-        light.position.set(1, 1, 1).normalize();
-        scene.add(light);
-        scene.add(new THREE.AmbientLight(0xffffff,0.5))
-
-        // Make a red cube
-        let cube = new THREE.Mesh(
-            new THREE.BoxBufferGeometry(1,1,1),
-            new THREE.MeshLambertMaterial({color:'red'})
-        );
-        cube.position.set(0, 1.5, -10);
-        scene.add(cube);
-
-        // Make a renderer that fills the screen
-        let renderer = new THREE.WebGLRenderer({antialias: true});
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        // Turn on VR support
-        renderer.vr.enabled = true;
-        // Set animation loop
-        renderer.setAnimationLoop(render);
-        // Add canvas to the page
-        document.body.appendChild(renderer.domElement);
-
-        // Add a button to enter/exit vr to the page
-
-        // For AR instead, import ARButton at the top
-        // then create the button
-         document.body.appendChild(ARButton.createButton(renderer));
-
-        // Handle browser resize
-        window.addEventListener('resize', onWindowResize, false);
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        function render(time) {
-            // Rotate the cube
-            cube.rotation.y = time / 1000;
-            // Draw everything
-            renderer.render(scene, camera);
-        }
+      });
     </script>
-</body>
+  </head>
+  <body>
+    <a-scene ar>
+      <a-entity
+        rotation="90 0 0"
+        id="card-model1"
+        src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)"
+        scale="7 7 7"
+      ></a-entity>
+      <a-cursor
+        geometry="primitive: ring"
+        material="color: #FFC0CB shader: flat"
+      ></a-cursor>
+    </a-scene>
+  </body>
 </html>
