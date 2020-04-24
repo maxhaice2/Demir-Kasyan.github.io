@@ -1,45 +1,32 @@
-<!DOCTYPE html>
+<!DOCTYPE html>+*
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>Hello, World! • aframe-ar</title>
-    <meta name="description" content="Hello, World! • aframe-ar" />
-    <!-- First, include whichever version of A-Frame you like. -->
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
-    <!-- Last, include aframe-ar. -->
+    <meta charset="utf-8">
+    <title>Tarot by B&W</title>
+		<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
     <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
     <script>
-      //let sound = new Audio('sound.mp3');
-      AFRAME.registerComponent("clicked", {
-        init: function() {
-          this.el.addEventListener("mousedown", function(ev, target) {
-            //if(sound.paused){
-            //sound.play();
-            // }
-            document
-              .querySelector("#card-model1")
-              .setAttribute(
-                "animation",
-                "property: rotation; dur: 4000; to: -90 0 0; loop: false"
-              );
-          });
-        }
-      });
+      AFRAME.registerComponent('click', {
+          init: function () {
+              this.el.addEventListener('click', function (evt) {
+                  this.setAttribute("animation",
+                                    "property: rotation; dur: 4000; to: 0 0 0; loop: false");
+                                                               }
+                                      );
+                            }
+                                                        }
+                              );
     </script>
   </head>
   <body>
     <a-scene ar>
-      <!-- <a-entity
-        rotation="90 0 0"
-        id="card-model1"
-        src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)"
-        scale="7 7 7"
-      ></a-entity> -->
-      <a-plane id="card-model1" position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="#7BC8A4" shadow></a-plane>
-      <a-cursor
-        geometry="primitive: ring"
-        material="color: #FFC0CB shader: flat"
-      ></a-cursor>
+      <a-plane click = "" position="-1.5 1 -2" rotation="-90 0 0" width="1" height="1" color="#7BC8A4" shadow></a-plane>
+      <a-plane click = "" position="0 1 -2" rotation="-90 0 0" width="1" height="1" color="#7BC8A4" shadow></a-plane>
+      <a-plane click = "" position="1.5 1 -2" rotation="-90 0 0" width="1" height="1" color="#7BC8A4" shadow></a-plane>
+      <a-camera>
+        <a-cursor geometry="primitive: ring" color: "#FFC0CB">
+        </a-cursor>
+      </a-camera>
     </a-scene>
   </body>
 </html>
