@@ -29,12 +29,13 @@
   </head>
   <body>
     <a-scene ar>
-      <a-entity
+      <!-- <a-entity
         rotation="90 0 0"
         id="card-model1"
         src="url(https://cdn.jsdelivr.net/gh/Demir-Kasyan/files/Card.gltf)"
         scale="7 7 7"
-      ></a-entity>
+      ></a-entity> -->
+      <a-plane id="card-model1" position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="#7BC8A4" shadow></a-plane>
       <a-cursor
         geometry="primitive: ring"
         material="color: #FFC0CB shader: flat"
