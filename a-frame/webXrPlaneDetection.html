@@ -19,6 +19,12 @@
     </script>
   </head>
   <body>
+      
+    <header >
+        <p class="magicP">
+          In order to turn to the spirits of prediction, you must enable the AR function ...
+        </p>
+    </header>
     <a-scene ar visible = false>
       <a-gltf-model id="obj" click = ""
                     visible = "false"
@@ -30,11 +36,6 @@
         <a-cursor geometry="primitive: ring" color: "#FFC0CB"></a-cursor>
       </a-camera>
     </a-scene>
-    <header >
-        <p class="magicP">
-          In order to turn to the spirits of prediction, you must enable the AR function ...
-        </p>
-    </header>
     <script type="module">
 import {WebXRButton} from '../ar.tarot.scripts/js.module/util/webxr-button.js';
 import {Scene} from '../ar.tarot.scripts/js.module/render/scenes/scene.js';
