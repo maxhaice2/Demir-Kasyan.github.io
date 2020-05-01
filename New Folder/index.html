@@ -90,18 +90,12 @@
                   geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1" 
                   material="color: yellow; shader: flat; transparent:true"></a-entity>
         
-        <!-- Heads-up text display. -->
-        <a-text id="hud" 
-                scale="0.01 0.01 0.01" position="0 -0.025 -0.1" 
-                color="yellow" align="center" 
-                value="Hi there"></a-text>
       </a-camera>
     </a-scene>    
     
     <script>
       var sc = document.querySelector('a-scene');
       var ball = document.querySelector('#ball');
-      function showHUD(msg) { sc.querySelector('#hud').setAttribute('value', msg); }
       
       function addARRaycasterListeners() {
         var raycaster = sc.querySelector('[ar-raycaster]');
@@ -134,8 +128,6 @@
             var point = evt.detail.point;
             var distance = evt.detail.distance;
             var el = evt.detail.object.el;
-            showHUD('cursor-intersection-changed ' + distance + '\n' + JSON.stringify(point) + '\n' + el.id /*el.outerHTML*/);
-            if (el.getAttribute('class') === 'plane') { el.setAttribute('opacity', 1.0); }
             ball.setAttribute('position', point);
             ball.setAttribute('visible', true);
           }
@@ -182,26 +174,14 @@
           // Show plane info on click.
           var planes = sc.components['ar-planes'].getPlanes();
           if (planes) {
-            var keys = Object.keys(planes);
-            var msg = '(' + keys.length + ': ' + keys.join(',') + ')\n\n';
 
             planes.forEach(function (plane) {
               // Decompose into pos / quat / scale, and make euler.
               tempMat4.fromArray(plane.modelMatrix);
               tempMat4.decompose(tempPos, tempQuat, tempScale);
               tempEuler.setFromQuaternion(tempQuat);
-
-              // Write out what we got, for debugging.
-              msg += 
-              '\nidentifier: ' + plane.id + // string, per latest spec
-              ' ' + JSON.stringify(tempPos) +
-              ' ' + plane.extent + '\n' + // number[2], per latest spec
-              ' ' + JSON.stringify(tempEuler.toVector3().multiplyScalar(THREE.Math.RAD2DEG)) +
-              (plane.vertices ? (' vertices: ' + plane.vertices.length) : '') + // number[3*n], per latest spec
-              '\n';
             });
           }          
-          showHUD(msg);
         });
         
         addEventListeners();
