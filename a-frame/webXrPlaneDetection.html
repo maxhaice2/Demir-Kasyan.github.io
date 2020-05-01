@@ -19,8 +19,8 @@
     </script>
   </head>
   <body>
-    <a-scene ar>
-      <a-gltf-model click = ""
+    <a-scene ar visible = "false">
+      <a-gltf-model id="obj" click = ""
                     visible = "false"
                     rotation = "90 0 0" 
                     id = "card-model" 
@@ -53,8 +53,11 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
 // WebGL scene globals.
       let gl = null;
       let renderer = null;
+      let aScene = document.querySelector('a-scene');
       let scene = new Scene();
       scene.enableStats(false);
+    
+      let obj = document.querySelector('#obj'); 
 
       let reticle = new Gltf2Node({url: './ar.tarot.resourses/gltf.tarot.models/reticle/reticle.gltf'});
       reticle.visible = false;
@@ -89,6 +92,7 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
       }
 
       function onSessionStarted(session) {
+        aScene.setAttribute('visible',true);
         session.addEventListener('end', onSessionEnded);
         session.addEventListener('select', onSelect);
 
@@ -129,14 +133,8 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
       }
 
       function addARObjectAt(matrix) {
-        let card = arObject.clone();
-        card.visible = true;
-        card.matrix = matrix;
-        arObject.rotation[1] = 90;
-        card.rotation =  arObject.rotation;
-        scene.addNode(card);
-
-        cards.push(card);
+        obj.setAttribute('visible', true);
+        obj.setAttribute('position', {x:matrix[0],z:matrix[1],z:matrix[2]});
       }
       let rayOrigin = vec3.create();
       let rayDirection = vec3.create();
