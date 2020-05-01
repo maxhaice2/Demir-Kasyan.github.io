@@ -1,35 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
-    <meta name='mobile-web-app-capable' content='yes'>
-    <meta name='apple-mobile-web-app-capable' content='yes'>
-    <link rel='icon' type='image/ico' sizes='16x16' href='favicon.ico'>
-    <link rel='icon' type='image/png' sizes='32x32' href='faviconX30.png'>
-      <style>
-        @font-face {
-        font-family: 'PopularScript';
-        font-style: normal;
-        font-weight: 400;
-        src: local('PopularScript'), local('PopularScript-Normal'),
-        url(https://allfont.ru/cache/fonts/popularscript_fdbc09ac9b3bb4bf0c475e1c416772a7.woff) format('woff'),
-        url(https://allfont.ru/cache/fonts/popularscript_fdbc09ac9b3bb4bf0c475e1c416772a7.ttf) format('truetype');
-        }
-        p {
-          font-family: 'PopularScript', arial;
-          font-size: 32px;
-          color: cadetblue;
-          text-align: center;
-          text-shadow: 4px 4px 4px rgb(218, 126, 255);
-        }
-        body {
-          background:url(ar.tarot.resourses/ico.tarot.icons/background.jpg);
-        }
-      </style>
-    <title>B&W WEBXR TARO</title>
+    <meta charset="utf-8">
+    <title>Tarot by B&W</title>
+		<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
+        <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
+    <script>
+      AFRAME.registerComponent('click', {
+          init: function () {
+              this.el.addEventListener('click', function (evt) {
+                  this.setAttribute("animation",
+                                    "property: rotation; dur: 4000; to: 0 0 0; loop: false");
+                                                               }
+                                      );
+                            }
+                                                        }
+                              );
+    </script>
   </head>
   <body>
+    <a-scene ar>
+      <a-gltf-model click = ""
+                    visible = "false"
+                    rotation = "90 0 0" 
+                    id = "card-model" 
+                    src = "url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card.gltf)">
+      </a-gltf-model>
+      <a-camera>
+        <a-cursor geometry="primitive: ring" color: "#FFC0CB"></a-cursor>
+      </a-camera>
+    </a-scene>
     <header >
         <p class="magicP">
           In order to turn to the spirits of prediction, you must enable the AR function ...
@@ -53,38 +53,12 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
 // WebGL scene globals.
       let gl = null;
       let renderer = null;
-      let scene = new THREE.Scene();
-    
+      let scene = new Scene();
+      scene.enableStats(false);
 
-      let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 1.6, 3);
-        scene.add(camera);
-
-    var light = new THREE.DirectionalLight(0xffffff,0.5);
-        light.position.set(1, 1, 1).normalize();
-        scene.add(light);
-        scene.add(new THREE.AmbientLight(0xffffff,0.5))
-
-        let cube = new THREE.Mesh(
-            new THREE.BoxBufferGeometry(1,1,1),
-            new THREE.MeshLambertMaterial({color:'red'})
-        );
-        cube.visible = false;
-      scene.add(cube);
-
-      let reticle = new THREE.Mesh(
-            new THREE.BoxBufferGeometry(1,1,1),
-            new THREE.MeshLambertMaterial({color:'green'})
-        );
+      let reticle = new Gltf2Node({url: './ar.tarot.resourses/gltf.tarot.models/reticle/reticle.gltf'});
       reticle.visible = false;
-      scene.add(reticle);
-
-// Having a really simple drop shadow underneath an object helps ground
-// it in the world without adding much complexity.
-    
-
-      const MAX_CARDS = 6;
-      let cards = [];
+      scene.addNode(reticle);
 
       scene.clear = false;
 
@@ -122,23 +96,14 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
           gl = createWebGLContext({
             xrCompatible: true
           });
-        renderer =  new THREE.WebGLRenderer({antialias: true});
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        // Turn on VR support
-        renderer.vr.enabled = true;
-        // Set animation loop
-        renderer.setAnimationLoop(render);
-        // Add canvas to the page
-        document.body.appendChild(renderer.domElement);
+
+          renderer = new Renderer(gl);
+
+          scene.setRenderer(renderer);
         }
 
         session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
 
-// In this sample we want to cast a ray straight out from the viewer's
-// position and render a reticle where it intersects with a real world
-// surface. To do this we first get the viewer space, then create a
-// hitTestSource that tracks it.
         session.requestReferenceSpace('viewer').then((refSpace) => {
           xrViewerSpace = refSpace;
           session.requestHitTestSource({ space: xrViewerSpace }).then((hitTestSource) => {
@@ -163,8 +128,6 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
         xrButton.setSession(null);
       }
 
-// Adds a new object to the scene at the
-// specificed transform.
       function addARObjectAt(matrix) {
         let card = arObject.clone();
         card.visible = true;
@@ -174,13 +137,6 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
         scene.addNode(card);
 
         cards.push(card);
-
-        // For performance reasons if we add too many objects start
-        // removing the oldest ones to keep the scene complexity
-        // from growing too much.
-        setTimeout(function(){
-        //  card.rotation = new Float32Array([car, 90, 0, 1]);
-        },10000)
       }
       let rayOrigin = vec3.create();
       let rayDirection = vec3.create();
