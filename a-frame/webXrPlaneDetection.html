@@ -25,7 +25,7 @@
           In order to turn to the spirits of prediction, you must enable the AR function ...
         </p>
     </header>
-    <a-scene ar visible = false>
+    <a-scene ar style="display: none;" disp>
       <a-gltf-model id="obj" click = ""
                     visible = "false"
                     rotation = "90 0 0" 
@@ -92,7 +92,7 @@ import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
       }
 
       function onSessionStarted(session) {
-        aScene.setAttribute('visible',true);
+        aScene.style.display = 'inline';
         session.addEventListener('end', onSessionEnded);
         session.addEventListener('select', onSelect);
 
