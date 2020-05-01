@@ -133,10 +133,12 @@
         }
   
         function addARObjectAt(matrix) {
+            
           scene.visible = false;
           aScene.style.display = 'inline';
           obj.setAttribute('visible', true);
           obj.setAttribute('position', {x:matrix[0],y:matrix[1],z:matrix[2]});
+          alert(matrix[0]+" "+matrix[1]+" "+matrix[2]);
         }
   
         let rayOrigin = vec3.create();
