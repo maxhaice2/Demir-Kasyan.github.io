@@ -134,7 +134,7 @@ import {Ray} from './ar.tarot.scripts/js.module/render/math/ray.js';
 
       function addARObjectAt(matrix) {
         obj.setAttribute('visible', true);
-        obj.setAttribute('position', {x:matrix[0],z:matrix[1],z:matrix[2]});
+        obj.setAttribute('position', {x:matrix[0],y:matrix[1],z:matrix[2]});
       }
       let rayOrigin = vec3.create();
       let rayDirection = vec3.create();
