@@ -4,22 +4,16 @@
     <meta charset="utf-8">
     <title>aframe-ar-plane</title>
     <meta name="description" content="aframe-ar-plane">
-    <!-- First, include whichever version of A-Frame you like. -->
 		<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
-    <!-- Last, include aframe-ar. -->
     <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
     
-    <!-- Include grid shader. -->
     <script src="grid-shader.js"></script>
 
-    <!-- Include polygon component. -->
     <script src="polygon.js"></script>
         
-    <!-- Prevent touch causing flicker on iOS. -->
     <style> * { -webkit-tap-highlight-color: rgba(0,0,0,0); } </style>    
   </head>
   <body>    
-    <!-- This is the thing we stick in the middle of planes we detect. -->
     <script>
       AFRAME.registerComponent('thing', {
         init: function () {
@@ -30,20 +24,15 @@
     </script>    
 
     <script>
-/////////////////////////////////////////////////////////////////////////////////////////
-// NOTE: for A-Frame 0.8.x, we need to listen for cursor intersection changes separately
-//        
       AFRAME.registerComponent('track-cursor-intersection', {
         init: function () {
           this.point = new THREE.Vector3();
         },
         
         tick: function (t, dt) {
-          // NOTE: not throttled to raycaster checkIntersections interval!
           var cursor = this.el.components.cursor;
           var raycaster = this.el.components.raycaster;
           var newIntersection;
-          // NOTE: A-Frame 0.7.1 (which doesn't need this) does not have raycaster.intersections
           if (cursor && raycaster && raycaster.intersections) {
             newIntersection = raycaster.intersections.length ? raycaster.intersections[0] : undefined;
             // NOTE: the intersections are always different (!) so check object
@@ -62,29 +51,22 @@
           }
         }
       });            
-//
-/////////////////////////////////////////////////////////////////////////////////////////
+
     </script>    
     
-    <!-- Include planes handling example code. -->
-    <script src="planes-example.js"></script>        
+    <script src="plane_example.js"></script>        
 
-    <!-- Our scene uses the ar component. -->
     <a-scene ar="worldSensing:true">
-      <!-- When we have a raycaster hit, we use this ball to show where. -->
+
       <a-sphere id="ball" radius="0.01" position="0 0.005 -0.5"></a-sphere>
 
       <a-camera>
-        <!-- A hit from AR, rather than A-Frame objects, hits this entity. -->
         <a-entity id="ar-world"></a-entity>
         
-        <!-- Declare a cursor, and what objects its raycaster hit (including AR). -->
-        <!-- NOTE: ar-raycaster VRHit uses a "tolerance" fudge factor, so imprecise -->
         <a-entity cursor="fuse:false" track-cursor-intersection
                   raycaster="objects:.plane;recursive:false" 
                   ar-raycaster="el:#ar-world"></a-entity>
-        
-        <!-- Separate the cursor appearance.-->
+
         <a-entity position="0 0 -0.1"
                   scale="0.001 0.001 0.001"
                   geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1" 
@@ -99,32 +81,23 @@
       
       function addARRaycasterListeners() {
         var raycaster = sc.querySelector('[ar-raycaster]');
-        // Note, -intersection is what the raycaster gets; the hit object gets -intersected.
         raycaster.addEventListener('raycaster-intersection', function (evt) {
-          // Use first hit (which should be nearest).
           var point = evt.detail.intersections[0].point;
           var distance = evt.detail.intersections[0].distance;
           var el = evt.detail.els[0];
-          showHUD('raycaster-intersection ' + distance + '\n' + JSON.stringify(point) + '\n' + el.id /*el.outerHTML*/);
-          if (el.getAttribute('class') === 'plane') { el.setAttribute('opacity', 1.0); }
           ball.setAttribute('position', point);
           ball.setAttribute('visible', true);
         });
         raycaster.addEventListener('raycaster-intersection-cleared', function (evt) {
           var clearedEls = evt.detail.clearedEls;
-          showHUD('raycaster-intersection-cleared\n');// + el.outerHTML);
           for (var i=0; i<clearedEls.length; i++) {
             var el = clearedEls[i];
             if (el.getAttribute('class') === 'plane') { el.setAttribute('opacity', 0.5); }
           }
           ball.setAttribute('visible', false);
         });
-/////////////////////////////////////////////////////////////////////////////////////////
-// NOTE: for A-Frame 0.8.x, we need to listen for cursor intersection changes separately
-//        
         raycaster.addEventListener('cursor-intersection-changed', function (evt) {
           if (evt.detail) {
-            // Use provided hit.
             var point = evt.detail.point;
             var distance = evt.detail.distance;
             var el = evt.detail.object.el;
@@ -132,8 +105,6 @@
             ball.setAttribute('visible', true);
           }
         });
-//
-/////////////////////////////////////////////////////////////////////////////////////////
       }
       
       function addEventListeners() {
@@ -148,15 +119,8 @@
         var tempEuler = new THREE.Euler(0, 0, 0, 'YXZ');
         var tempMat4 = new THREE.Matrix4();
         
-/////////////////////////////////////////////////////////////////////////////////////////
-// NOTE: first surprise with master, we never get window click anymore? worked around.
-// NOTE: second surprise with master, we have no cursor intersection... fixed!
-//        
         window.addEventListener('touchstart'/*'click'*/, function() {
-//          
-/////////////////////////////////////////////////////////////////////////////////////////
 
-          // If the cursor has an intersection, place a marker.
           var cursor = sc.querySelector('[ar-raycaster]').components.cursor;
           if (cursor.intersection) {
             var marker = document.createElement('a-box');
@@ -171,12 +135,10 @@
             sc.appendChild(marker);         
           }
           
-          // Show plane info on click.
           var planes = sc.components['ar-planes'].getPlanes();
           if (planes) {
 
             planes.forEach(function (plane) {
-              // Decompose into pos / quat / scale, and make euler.
               tempMat4.fromArray(plane.modelMatrix);
               tempMat4.decompose(tempPos, tempQuat, tempScale);
               tempEuler.setFromQuaternion(tempQuat);
