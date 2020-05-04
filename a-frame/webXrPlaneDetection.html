@@ -27,7 +27,6 @@
     </header>
     <a-scene ar style="display: none;" disp>
       <a-gltf-model id="obj" click = ""
-                    visible = "false"
                     rotation = "90 0 0" 
                     id = "card-model" 
                     src = "url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card.gltf)">
@@ -136,7 +135,7 @@
             
           scene.visible = false;
           aScene.style.display = 'inline';
-          obj.setAttribute('visible', true);
+          scene.style.display = 'none';
           obj.setAttribute('position', {x:matrix[0],y:matrix[1],z:matrix[2]});
           alert(matrix[0]+" "+matrix[1]+" "+matrix[2]);
         }
