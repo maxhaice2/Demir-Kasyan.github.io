@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Обчислення  </title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script language="javascript">
+function area1 (a,h) 
+{
+form1.output1.value=(a.value*h.value)/2; 
+}
+</script>
+</head>
+<body>
+<p> Обчислення площі прямокутного трикутника </p>
+<form name="form1">
+<fieldset style="width: 40%">
+<legend> Введення даних </legend>
+Основа <input type="text" size="7" name="st1">
+Висота <input type="text" size="7" name="st2"> <br> 
+</fieldset>
+<fieldset style="width: 40%">
+<legend>Обробка та виведення даних </legend>
+Площа: <input type="text" size="7" name="output1" readonly > <br>
+<input type="button" value="Обчислити" style="margin:10px;"  onClick="area1(form1.st1, form1.st2)">
+</fieldset>
+</form>
+</body>
+</html>
