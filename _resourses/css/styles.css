@@ -1,0 +1,66 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: consolas;
+    box-sizing: border-box;
+}
+.main
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    background: #050801;
+    
+    text-shadow: 0 0 1px darkred,
+                0 0 5px darkred,
+                0 0 10px darkred,
+                0 0 40px darkred;
+}
+a
+{
+    position: relative;
+    display: inline-block;
+    padding: 10px 10px;
+    margin: 30px 0;
+    color: black;
+    font-size: 24px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    text-shadow: 0 0 1px darkred,
+                0 0 5px darkred,
+                0 0 10px darkred,
+                0 0 40px darkred;
+}
+a:hover
+{
+    background: darkred;
+    color: #050801;
+    box-shadow: 0 0 5px darkred,
+                0 0 25px darkred,
+                0 0 50px darkred,
+                0 0 200px darkred;
+}
+.TitleWin 
+{
+    align-items: center;
+    margin-top: -120px;
+    font-size: 120px;
+    color: black;
+    text-shadow: 0 0 1px darkred,
+                0 0 5px darkred,
+                0 0 10px darkred,
+                0 0 40px darkred;
+}
+hr
+{
+    color: black;
+    box-shadow: 0 0 1px darkred,
+                0 0 5px darkred,
+                0 0 10px darkred,
+                0 0 40px darkred;
+}

@@ -1,3 +1,3 @@
-# Recreating AR on the web
+# Kult. Git Hub Repository
 
-* Using three.js, gyroscope and accelerometer are the future of ar web technologies.
+* All rights reserved. Copyright © Kult. 2020
