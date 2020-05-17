@@ -76,28 +76,32 @@
 				}
 			}
 		});
-		function stop (){
-			this.hidden = true;
-			stand = true;
-			alert('op');
-		}
+		AFRAME.registerComponent('click', {
+          init: function () {
+              this.el.addEventListener('click', function (evt) {
+				 if(stand) 
+                  this.setAttribute("animation",
+                                    "property: rotation; dur: 4000; to: 0 0 0; loop: false");
+                                                               }
+                                      );
+                            }
+                                                        }
+                              );
+		AFRAME.registerComponent('stop', {
+          init: function () {
+              this.el.addEventListener('click', function (evt) {
+                  this.setAttribute("visible",
+                                    "false");
+					stand = true;
+			
+                                                               }
+                                      );
+                            }
+                                                        }
+                              );
 	</script>
 </head>
 <body>
-	<div style="position:absolute; height: 100%; width: 100%; bottom: 20px;">
-		<button style="    background-size: 90% 90%;
-		cursor: pointer;
-		min-width: 58px;
-		min-height: 34px;
-		background: red;
-		position: absolute;
-		left: 10px;
-		transition: background-color .05s ease;
-		-webkit-transition: background-color .05s ease;
-		z-index: 99999;
-		border-radius: 8px;
-		touch-action: manipulation;" onclick="stop()"></button>
-	</div>
 <a-scene ar webxr="requiredFeatures: hit-test,local-floor;" disp>
 	<a-assets>
 		<a-asset-item id="card"
@@ -110,9 +114,10 @@
 	</a-assets>
 
 	<a-camera position="0 1.2 0">
+		<a-cursor geometry="primitive: ring" color: "#FFC0CB"></a-cursor>
 	</a-camera>
 
-	<a-entity id="cards" position="-1 0 -3" scale="0.6 0.6 0.6">
+	<a-entity click='' id="cards" position="-1 0 -3" scale="0.6 0.6 0.6">
 		<a-entity position="0 2.12 0" rotation="90 0 0"
 				  gltf-model="#card"></a-entity>
         <a-entity position="0 2.128 0" rotation="90 0 0"
@@ -129,9 +134,10 @@
                   gltf-model="#card"></a-entity>
         <a-entity position="0 2.174 0" rotation="90 0 0"
 				  gltf-model="#card"></a-entity>
+		<a-text stop="" value="Закрепить?" color="#BBB" position="0 2.6 0" scale="1.5 1.5 1.5"></a-text>
 	</a-entity>
 
-	<a-entity gltf-model="#reticle" animation-mixer scale="0.04 0.04 0.04" rotation="90 0 0" ar-hit-test></a-entity>
+	<a-entity gltf-model="#reticle" animation-mixer scale="0.01 0.01 0.01" rotation="90 0 0" ar-hit-test></a-entity>
 
 </a-scene>
 
