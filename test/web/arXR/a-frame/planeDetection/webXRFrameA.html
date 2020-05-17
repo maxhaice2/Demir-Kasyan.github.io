@@ -76,10 +76,14 @@
 					session.addEventListener('select', function () {
 						let position = element.getAttribute('position');
 
-						document.getElementById('dino').setAttribute('position', position);
+						document.getElementById('dino').setAttribute('position', {
+                            x: (position.x),
+							y: (position.y - 2),
+							z: (position.z)
+                        });
 						document.getElementById('light').setAttribute('position', {
 							x: (position.x - 2),
-							y: (position.y),
+							y: (position.y + 4),
 							z: (position.z + 2)
 						});
 					});
