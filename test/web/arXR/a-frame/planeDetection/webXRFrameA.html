@@ -11,6 +11,7 @@
 
 	<script>
 		var stand = false;
+		var timer = true;
 		AFRAME.registerComponent('ar-hit-test', {
 			init: function () {
 				this.xrHitTestSource = null;
@@ -29,12 +30,13 @@
 					session.addEventListener('select', function () {
 					  if(!stand) {
 						let position = element.getAttribute('position');
-
+						setTimeout(()=>timer = true,8000);
 						document.getElementById('cards').setAttribute('position', {
                             x: (position.x),
 							y: (position.y - 1.255),
 							z: (position.z)
                         });
+						timer = false;
 					  }
 					});
 
@@ -61,7 +63,7 @@
 					if (this.xrHitTestSource && xrViewerPose) {
 						let hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
 						if (hitTestResults.length > 0) {
-						  if(!stand) {
+						  if(!stand && timer) {
 							let pose = hitTestResults[0].getPose(this.refSpace);
 
 							let inputMat = new THREE.Matrix4();
@@ -76,6 +78,7 @@
 				}
 			}
 		});
+		let sound = new Audio('https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/intro2.mp3');
 		AFRAME.registerComponent('click', {
           init: function () {
               this.el.addEventListener('click', function (evt) {
@@ -84,7 +87,9 @@
 				  					"property: position; to: 0 2.5 0; dur: 3000; easing: linear; loop: false");
 				  setTimeout(() => document.getElementById('first').setAttribute("animation",
                                     "property: rotation; dur: 2000; to: -90 0 0; loop: false"),3001);
-					
+									if(sound.paused){
+              								sound.play();
+            										}
                                                                }}
                                       );
                             }
@@ -120,7 +125,8 @@
 		<a-cursor geometry="primitive: ring" color: "#FFC0CB"></a-cursor>
 	</a-camera>
 
-	<a-entity click='' id="cards" position="-1 0 -3" scale="0.6 0.6 0.6">
+	<a-entity  id="cards" position="-1 0 -3" scale="0.6 0.6 0.6">
+		<a-entity click=''>
 		<a-entity position="0 2.12 0" rotation="90 0 0"
 				  gltf-model="#card"></a-entity>
         <a-entity position="0 2.128 0" rotation="90 0 0"
@@ -136,7 +142,7 @@
         <a-entity position="0 2.168 0" rotation="90 0 0"
                   gltf-model="#card"></a-entity>
         <a-entity id='first' position="0 2.174 0" rotation="90 0 0"
-				  gltf-model="#card"></a-entity>
+				  gltf-model="#card"></a-entity></a-entity>
 	<a-entity stop='' position="0 2.8 0" scale='0.1 0.1 0.1' animation="property: rotation; to:0 360 0; dur: 8000; loop: true">
 		<a-box></a-box>
 	</a-entity>
