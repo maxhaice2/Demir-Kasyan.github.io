@@ -10,6 +10,7 @@
 	<script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
 
 	<script>
+		var stand = false;
 		AFRAME.registerComponent('ar-hit-test', {
 			init: function () {
 				this.xrHitTestSource = null;
@@ -26,13 +27,15 @@
 
 					let element = this.el;
 					session.addEventListener('select', function () {
+					  if(!stand) {
 						let position = element.getAttribute('position');
 
 						document.getElementById('cards').setAttribute('position', {
                             x: (position.x),
-							y: (position.y - 1.25),
+							y: (position.y - 1.255),
 							z: (position.z)
                         });
+					  }
 					});
 
 					session.requestReferenceSpace('viewer').then((space) => {
@@ -58,6 +61,7 @@
 					if (this.xrHitTestSource && xrViewerPose) {
 						let hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
 						if (hitTestResults.length > 0) {
+						  if(!stand) {
 							let pose = hitTestResults[0].getPose(this.refSpace);
 
 							let inputMat = new THREE.Matrix4();
@@ -66,12 +70,23 @@
 							let position = new THREE.Vector3();
 							position.setFromMatrixPosition(inputMat);
 							this.el.setAttribute('position', position);
+							}
 						}
 					}
 				}
 			}
 		});
-
+		AFRAME.registerComponent('stop', {
+          init: function () {
+              this.el.addEventListener('click', function (evt) {
+				this.setAttribute("visible",
+                                    "false");
+				stand = true;
+                                                               }
+                                      );
+                            }
+                                                        }
+                              );
 	</script>
 </head>
 <body>
@@ -83,11 +98,13 @@
 					  response-type="arraybuffer"></a-asset-item>
 
 		<a-asset-item id="reticle"
-					  src="https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/gltf.tarot.models/reticle/reticle.gltf"
+					  src="https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/gltf.tarot.models/scene/scene.gltf"
 					  response-type="arraybuffer"></a-asset-item>
 	</a-assets>
 
-	<a-camera position="0 1.2 0"></a-camera>
+	<a-camera position="0 1.2 0">
+		<a-entity stop="" id="refresh-button" geometry="primitive: box" material="color: red" position="-1.25 -0.75 0"></a>
+	</a-camera>
 
 	<a-entity id="cards" position="-1 0 -3" scale="0.6 0.6 0.6">
 		<a-entity position="0 2.12 0" rotation="90 0 0"
@@ -108,7 +125,8 @@
 				  gltf-model="#card"></a-entity>
 	</a-entity>
 
-	<a-entity gltf-model="#reticle" scale="0.6 0.6 0.6" ar-hit-test></a-entity>
+	<a-entity gltf-model="#reticle" animation-mixer scale="0.04 0.04 0.04" rotation="90 0 0" ar-hit-test></a-entity>
+	
 </a-scene>
 
 </body>
