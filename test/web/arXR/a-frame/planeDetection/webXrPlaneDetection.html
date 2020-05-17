@@ -25,11 +25,11 @@
           In order to turn to the spirits of prediction, you must enable the AR function ...
         </p>
     </header>
-    <a-scene ar disp>
+    <a-scene ar style="display: none;" disp>
       <a-gltf-model id="obj" click = ""
                     rotation = "90 0 0" 
                     id = "card-model" 
-                    src = "url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io/Card.gltf)">
+                    src = "url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io1/Card.gltf)">
       </a-gltf-model>
       <a-camera>
         <a-cursor geometry="primitive: ring" color: "#FFC0CB"></a-cursor>
@@ -45,6 +45,7 @@
         import {vec3} from '../ar.tarot.scripts/js.module/render/math/gl-matrix.js';
         import {Ray} from '../ar.tarot.scripts/js.module/render/math/ray.js';
   
+        let session = null;
         // XR globals.
         let xrButton = null;
         let xrRefSpace = null;
@@ -58,7 +59,7 @@
         scene.enableStats(false);
   
         let obj = document.querySelector('#obj'); 
-
+  
         let reticle = new Gltf2Node({url: 'https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/gltf.tarot.models/reticle/reticle.gltf'});
         reticle.visible = false;
         scene.addNode(reticle);
@@ -87,6 +88,8 @@
           return navigator.xr.requestSession('immersive-ar', {requiredFeatures: ['local', 'hit-test']})
                              .then((session) => {
             xrButton.setSession(session);
+            
+          aScene.style.display = 'inline';
             onSessionStarted(session);
           });
         }
@@ -132,13 +135,9 @@
         }
   
         function addARObjectAt(matrix) {
-          try{
-
-            obj.setAttribute('position', {x:matrix[0],y:matrix[1],z:matrix[2]});
-          }
-          catch{
-            alert('u idipt');
-          }
+          scene.visible = false;
+          obj.setAttribute('position', {x:matrix[0],y:matrix[1],z:matrix[2]});
+          onEndSession(session);
         }
   
         let rayOrigin = vec3.create();
@@ -150,7 +149,7 @@
         }
   
         function onXRFrame(t, frame) {
-          let session = frame.session;
+          session = frame.session;
           let pose = frame.getViewerPose(xrRefSpace);
   
           reticle.visible = false;
