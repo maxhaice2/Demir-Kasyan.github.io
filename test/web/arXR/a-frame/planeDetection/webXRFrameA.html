@@ -79,10 +79,13 @@
 		AFRAME.registerComponent('click', {
           init: function () {
               this.el.addEventListener('click', function (evt) {
-				 if(stand) 
-                  this.setAttribute("animation",
-                                    "property: rotation; dur: 4000; to: 0 0 0; loop: false");
-                                                               }
+				 if(stand){
+				  document.getElementById('first').setAttribute("animation",
+				  					"property: position; to: 0 2.5 0; dur: 6000; easing: linear; loop: false");
+				  setTimeout(() => document.getElementById('first').setAttribute("animation",
+                                    "property: rotation; dur: 4000; to: -90 0 0; loop: false"),6001);
+					
+                                                               }}
                                       );
                             }
                                                         }
@@ -132,7 +135,7 @@
                   gltf-model="#card"></a-entity>
         <a-entity position="0 2.168 0" rotation="90 0 0"
                   gltf-model="#card"></a-entity>
-        <a-entity position="0 2.174 0" rotation="90 0 0"
+        <a-entity id='first' position="0 2.174 0" rotation="90 0 0"
 				  gltf-model="#card"></a-entity>
 	<a-entity stop='' position="0 2.8 0" scale='0.1 0.1 0.1' animation="property: rotation; to:0 360 0; dur: 8000; loop: true">
 		<a-box></a-box>
