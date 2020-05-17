@@ -90,6 +90,7 @@
 		AFRAME.registerComponent('stop', {
           init: function () {
               this.el.addEventListener('click', function (evt) {
+				  alert('ss');
                   this.setAttribute("visible",
                                     "false");
 					stand = true;
@@ -134,7 +135,7 @@
                   gltf-model="#card"></a-entity>
         <a-entity position="0 2.174 0" rotation="90 0 0"
 				  gltf-model="#card"></a-entity>
-		<a-text stop="" value="Закрепить?" color="#BBB" position="0 2.6 0" scale="1.5 1.5 1.5"></a-text>
+		<a-text stop="" value="Fix?" color="#BBB" position="0 2.6 0.8" scale="1.5 1.5 1.5"></a-text>
 	</a-entity>
 
 	<a-entity gltf-model="#reticle" animation-mixer scale="0.01 0.01 0.01" rotation="90 0 0" ar-hit-test></a-entity>
