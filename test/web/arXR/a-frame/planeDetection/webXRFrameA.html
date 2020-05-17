@@ -135,7 +135,10 @@
                   gltf-model="#card"></a-entity>
         <a-entity position="0 2.174 0" rotation="90 0 0"
 				  gltf-model="#card"></a-entity>
-		<a-text stop="" value="Fix?" color="#BBB" position="0 2.6 0.8" scale="1.5 1.5 1.5"></a-text>
+	<a-entity stop='' position="0 0 0" animation="property: rotation; to:0 360 0; dur: 8000; loop: true">
+		<a-text position='0 2.6 0.8' value="Fix?" color="#BBB" ></a-text>
+		<a-text position='0 2.6 0.8' rotation='0 180 0' value="Fix?" color="#BBB" ></a-text>
+	</a-entity>
 	</a-entity>
 
 	<a-entity gltf-model="#reticle" animation-mixer scale="0.01 0.01 0.01" rotation="90 0 0" ar-hit-test></a-entity>
