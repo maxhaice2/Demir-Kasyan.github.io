@@ -3,7 +3,7 @@ let fixation = false,
     reSpace = true, 
     soundIntro = new Audio('https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/intro2.mp3'),
     soundName = new Audio('https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/hi-blair.mp3'),
-    soundCard = null;
+    soundCard = soundName;
     
     AFRAME.registerComponent('ar-hit-test', {
 			init: function () {
