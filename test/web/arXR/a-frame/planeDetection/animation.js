@@ -132,7 +132,7 @@ let fixation = false,
     function setAligmenting(elem, posit){
             let poseX = ( posit > 4 ? "-" : "") + ( 1.0 - posit * 0.20);
             let poseZ = ( posit < 5 ) ? ( -0.20 + posit * 0.20 ) : ( 0.80 - posit * 0.20);
-            let poseY = document.getElementById('cards').getAttribute('position').y;
+            let poseY = document.getElementById('cards').getAttribute('position').y- 1.255;
             elem.setAttribute("animation",
                                 "property: position; to: " + poseZ + " " + poseY + " " + poseX + "; dur: 1000; easing: linear; loop: false");
         }
@@ -148,7 +148,7 @@ let fixation = false,
             case 'fourth':
                 return "4.mp3";
             default:
-                return "1.mp3";
+                return "2.mp3";
         }
         }
   
