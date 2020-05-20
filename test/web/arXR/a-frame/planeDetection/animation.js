@@ -1,8 +1,10 @@
 let fixation = false,
     alignment = false,
     reSpace = true, 
-    sound = new Audio('https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/intro2.mp3');
-    console.log('okey!');alert(" ");
+    soundIntro = new Audio('https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/intro2.mp3'),
+    soundName = new Audio('https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/hi-blair.mp3'),
+    soundCard = null;
+    
     AFRAME.registerComponent('ar-hit-test', {
 			init: function () {
 				this.xrHitTestSource = null;
@@ -84,6 +86,8 @@ let fixation = false,
                 this.el.addEventListener('click', function (evt) {
                     this.setAttribute("visible",
                                       "false");
+                      soundName.play();
+                      soundName.addEventListener("ended",function(){soundIntro.play();})
                       fixation = true;
               
                                                                  }
@@ -93,54 +97,58 @@ let fixation = false,
     AFRAME.registerComponent('click-card', {
             init: function () {
                 this.el.addEventListener('click', function (evt) {
-                    if( !sound.paused ){
-                        sound.pause();
-                    }
-                    sound = new Audio("https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/"+setSound(this.getId()));
-                    sound.play();
-
-                    elem.setAttribute("animation",
-                    "property: rotation; to: -90 0 0; dur: 1200; loop: false");
+                  if(alignment && soundCard.paused) {
+                    this.setAttribute("animation",
+                    "property: rotation; to: -90 0 0; dur: 800; loop: false");
+                                                               
+                    soundCard = new Audio("https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/love/"+setSound(this.id));
+                    soundCard.play();
+                        soundCard.addEventListener('ended',function (){
+                          let sound1 = new Audio("https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/name/"+setSound(this.id));
+                            sound1.play();
+                        });
                                                                  }
-                                        );
+                                                                 } );
+                                                                
         }});
 
 	AFRAME.registerComponent('aligmenting-4-on-8', {
           init: function () {
               this.el.addEventListener('click', function (evt) {
-				 if( fixation ){
+				 if( fixation && !alignment && (soundName.paused && soundIntro.paused) ){
 
                     setAligmenting(document.getElementById('first'),1);
 
-                    setTimeout(() => setAligmenting(document.getElementById('second'), 2 ) , 40001 );
+                    setTimeout(() => setAligmenting(document.getElementById('second'), 2 ) , 1001 );
 
-                    setTimeout(() => setAligmenting(document.getElementById('third'), 3 ) , 80002 );
+                    setTimeout(() => setAligmenting(document.getElementById('third'), 3 ) , 2002 );
 
-                    setTimeout(() => setAligmenting(document.getElementById('fourth'), 4 ) , 120003 );
+                    setTimeout(() => setAligmenting(document.getElementById('fourth'), 4 ) , 3003 );
+                    alignment = true;
                  }});
         }});
                               
     
     function setAligmenting(elem, posit){
-            let poseX = ( posit > 4 ? "-" : "") + ( 0.50 - posit * 0.10);
-            let poseZ = ( posit < 5 ) ? ( -0.10 + posit * 0.10 ) : ( 0.40 - posit * 0.10);
-            let poseY = 2.5;
+            let poseX = ( posit > 4 ? "-" : "") + ( 1.0 - posit * 0.20);
+            let poseZ = ( posit < 5 ) ? ( -0.20 + posit * 0.20 ) : ( 0.80 - posit * 0.20);
+            let poseY = document.getElementById('cards').getAttribute('position').y+3.1;
             elem.setAttribute("animation",
-                                "property: position; to: " + poseZ + " " + poseY + " " + poseX + "; dur: 4000; easing: linear; loop: false");
+                                "property: position; to: " + poseZ + " " + poseY + " " + poseX + "; dur: 1000; easing: linear; loop: false");
         }
 
     function setSound(posit){
         switch (posit){
             case 'first':
-                return "intro2.mp3";
+                return "1.mp3";
             case 'second':
-                return "intro2.mp3";
+                return "2.mp3";
             case 'third':
-                return "intro2.mp3";
+                return "3.mp3";
             case 'fourth':
-                return "intro2.mp3";
+                return "4.mp3";
             default:
-                return "intro2.mp3";
+                return "1.mp3";
         }
         }
   
