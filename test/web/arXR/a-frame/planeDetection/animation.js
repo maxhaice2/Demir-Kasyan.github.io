@@ -100,11 +100,11 @@ let fixation = false,
                   if(alignment && soundCard.paused) {
                     this.setAttribute("animation",
                     "property: rotation; to: -90 0 0; dur: 800; loop: false");
-                                                               
-                    soundCard = new Audio("https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/love/"+setSound(this.id));
+                    let path = setSound(this.id);              
+                    soundCard = new Audio("https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/love/"+path);
                     soundCard.play();
                         soundCard.addEventListener('ended',function (){
-                          let sound1 = new Audio("https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/name/"+setSound(this.id));
+                          let sound1 = new Audio("https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/mp3.tarot.sounds/name/"+path);
                             sound1.play();
                         });
                                                                  }
