@@ -8,106 +8,8 @@
 
 	<script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script>
 	<script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
-
-	<script>
-		var stand = false;
-		var timer = true;
-		AFRAME.registerComponent('ar-hit-test', {
-			init: function () {
-				this.xrHitTestSource = null;
-				this.viewerSpace = null;
-				this.refSpace = null;
-
-				this.el.sceneEl.renderer.xr.addEventListener('sessionend', (ev) => {
-					this.viewerSpace = null;
-					this.refSpace = null;
-					this.xrHitTestSource = null;
-				});
-				this.el.sceneEl.renderer.xr.addEventListener('sessionstart', (ev) => {
-					let session = this.el.sceneEl.renderer.xr.getSession();
-
-					let element = this.el;
-					session.addEventListener('select', function () {
-					  if(!stand) {
-						let position = element.getAttribute('position');
-						setTimeout(()=>timer = true,8000);
-						document.getElementById('cards').setAttribute('position', {
-                            x: (position.x),
-							y: (position.y - 1.255),
-							z: (position.z)
-                        });
-						timer = false;
-					  }
-					});
-
-					session.requestReferenceSpace('viewer').then((space) => {
-						this.viewerSpace = space;
-						session.requestHitTestSource({space: this.viewerSpace})
-								.then((hitTestSource) => {
-									this.xrHitTestSource = hitTestSource;
-								});
-					});
-
-					session.requestReferenceSpace('local-floor').then((space) => {
-						this.refSpace = space;
-					});
-				});
-			},
-			tick: function () {
-				if (this.el.sceneEl.is('ar-mode')) {
-					if (!this.viewerSpace) return;
-
-					let frame = this.el.sceneEl.frame;
-					let xrViewerPose = frame.getViewerPose(this.refSpace);
-
-					if (this.xrHitTestSource && xrViewerPose) {
-						let hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
-						if (hitTestResults.length > 0) {
-						  if(!stand && timer) {
-							let pose = hitTestResults[0].getPose(this.refSpace);
-
-							let inputMat = new THREE.Matrix4();
-							inputMat.fromArray(pose.transform.matrix);
-
-							let position = new THREE.Vector3();
-							position.setFromMatrixPosition(inputMat);
-							this.el.setAttribute('position', position);
-							}
-						}
-					}
-				}
-			}
-		});
-		let sound = new Audio('https://cdn.jsdelivr.net/gh/Demir-Kasyan/Demir-Kasyan.github.io/resourses/trash/intro2.mp3');
-		AFRAME.registerComponent('click', {
-          init: function () {
-              this.el.addEventListener('click', function (evt) {
-				 if(stand){
-				  document.getElementById('first').setAttribute("animation",
-				  					"property: position; to: 0 2.5 0; dur: 3000; easing: linear; loop: false");
-				  setTimeout(() => document.getElementById('first').setAttribute("animation",
-                                    "property: rotation; dur: 2000; to: -90 0 0; loop: false"),3001);
-									if(sound.paused){
-              								sound.play();
-            										}
-                                                               }}
-                                      );
-                            }
-                                                        }
-                              );
-		AFRAME.registerComponent('stop', {
-          init: function () {
-              this.el.addEventListener('click', function (evt) {
-                  this.setAttribute("visible",
-                                    "false");
-					stand = true;
-			
-                                                               }
-                                      );
-                            }
-                                                        }
-                              );
-	</script>
+	<script scr="/animation.js"></script>
+	
 </head>
 <body>
 <a-scene ar webxr="requiredFeatures: hit-test,local-floor;" disp>
@@ -125,25 +27,25 @@
 		<a-cursor geometry="primitive: ring" color: "#FFC0CB"></a-cursor>
 	</a-camera>
 
-	<a-entity  id="cards" position="-1 0 -3" scale="0.6 0.6 0.6">
-		<a-entity click=''>
-		<a-entity position="0 2.12 0" rotation="90 0 0"
+	<a-entity id="cards" position="-1 0 -3" scale="0.6 0.6 0.6">
+		<a-entity aligmenting-4-on-8>
+		<a-entity click-card id = "first" position="0 2.12 0" rotation="90 0 0"
 				  gltf-model="#card"></a-entity>
-        <a-entity position="0 2.128 0" rotation="90 0 0"
+        <a-entity click-card id = "second" position="0 2.128 0" rotation="90 0 0"
                   gltf-model="#card"></a-entity>
-        <a-entity position="0 2.136 0" rotation="90 0 0"
+        <a-entity click-card id = "third" position="0 2.136 0" rotation="90 0 0"
                   gltf-model="#card"></a-entity>
-        <a-entity position="0 2.144 0" rotation="90 0 0"
+        <a-entity click-card id = "fourth" position="0 2.144 0" rotation="90 0 0"
                   gltf-model="#card"></a-entity>
-        <a-entity position="0 2.152 0" rotation="90 0 0"
+        <a-entity click-card position="0 2.152 0" rotation="90 0 0"
                   gltf-model="#card"></a-entity>
-        <a-entity position="0 2.16 0" rotation="90 0 0"
+        <a-entity click-card position="0 2.16 0" rotation="90 0 0"
                   gltf-model="#card"></a-entity>
-        <a-entity position="0 2.168 0" rotation="90 0 0"
+        <a-entity click-card position="0 2.168 0" rotation="90 0 0"
                   gltf-model="#card"></a-entity>
-        <a-entity id='first' position="0 2.174 0" rotation="90 0 0"
+        <a-entity click-card id='first' position="0 2.174 0" rotation="90 0 0"
 				  gltf-model="#card"></a-entity></a-entity>
-	<a-entity stop='' position="0 2.8 0" scale='0.1 0.1 0.1' animation="property: rotation; to:0 360 0; dur: 8000; loop: true">
+	<a-entity fix position="0 2.8 0" scale='0.1 0.1 0.1' animation="property: rotation; to:0 360 0; dur: 8000; loop: true">
 		<a-box></a-box>
 	</a-entity>
 	</a-entity>
