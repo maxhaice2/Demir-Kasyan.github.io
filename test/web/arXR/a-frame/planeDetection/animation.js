@@ -84,12 +84,11 @@ let fixation = false,
     AFRAME.registerComponent('fix', {
             init: function () {
                 this.el.addEventListener('click', function (evt) {
-                    this.setAttribute("visible",
-                                      "false");
+                    if( !fixation ) {
                       soundName.play();
                       soundName.addEventListener("ended",function(){soundIntro.play();})
                       fixation = true;
-              
+                    }
                                                                  }
                                         );
         }});
