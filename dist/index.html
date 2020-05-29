@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>AR with YOU!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./style2.css">
+<link rel="stylesheet" href="./dist/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<section class="strips">
+  <article class="strips__strip">
+    <div class="strip__content">
+      <h1 class="strip__title" data-name="Lorem">Introduction</h1>
+      <div style="top: 60%;" class="strip__inner-text">
+        <h2>AR with YOU!</h2>
+        <p>This software allows you to easily create custom augmented reality markers. Only the web, only Ar, only yours!</p>
+        <h3>Licence</h3>
+        <p>Copyright (c) 2020 by Demir Kasyan<br><br>
+          Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+          <br><br>
+          The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+          <br><br>
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+          </p>
+        <p style="left: 44%;">
+          Accept
+          <div style="top: 74%; left: 48.7%;" class="cbx">
+            <input id="cbx" type="checkbox"/>
+            <label for="cbx"></label>
+            <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+              <path d="M2 8.36364L6.23077 12L13 2"></path>
+            </svg>
+          </div>
+          <!-- Gooey-->
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+              <filter id="goo">
+                <fegaussianblur in="SourceGraphic" stddeviation="4" result="blur"></fegaussianblur>
+                <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo"></fecolormatrix>
+                <feblend in="SourceGraphic" in2="goo"></feblend>
+              </filter>
+            </defs>
+          </svg>
+        </p>
+      </div>
+      
+    </div>
+  </article>
+  <article class="strips__strip">
+    <div class="strip__content">
+      <h1 class="strip__title" data-name="Ipsum">Marker</h1>
+      <div class="strip__inner-text" style="top: 50%;">
+        <h2>Set your image for marker!</h2>
+        <p>
+          Choose good images <br><br>
+If you want to understand the creation of markers in more depth, check out the NFT Marker Creator wiki. It explains also why certain images work way better than others. An important factor is the DPI of the image: a good dpi (300 or more) will give a very good stabilization, while low DPI (like 72) will require the user to stay very still and close to the image, otherwise tracking will lag.
+          </p>
+        <p>
+          <div class="avatar-upload">
+            <div style="top: 0%;" class="avatar-edit">
+                <input type='file' style="background: black;" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                <label for="imageUpload"></label>
+            </div>
+            <div class="avatar-preview">
+                <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                </div>
+            </div>
+        </div>
+        </p>
+      </div>
+    </div>
+  </article>
+  <article class="strips__strip">
+    <div class="strip__content">
+      <h1 class="strip__title" data-name="Dolor">Model</h1>
+      <div class="strip__inner-text">
+        <h2>Load your model!</h2>
+        <p>GLTF (GL Transmission Format) is an open project by Khronos providing a common, extensible format for 3D assets that is both efficient and highly interoperable with modern web technologies.
+          The gltf-model component loads a 3D model using a glTF (.gltf or .glb) file.
+          Note that glTF is a fairly new specification and adoption is still growing. Work on the three.js glTF loader and converters are still active.</p>
+        <p>
+          <form class="form" action="upload.php" method="POST">
+            <input type="file" multiple>
+            <p>Drag your files here or click in this area.</p>
+            <button type="submit">Upload</button>
+          </form>
+        </p>
+      </div>
+    </div>
+  </article>
+  <article class="strips__strip">
+    <div class="strip__content">
+      <h1 class="strip__title" data-name="Sit">Preview</h1>
+      <div class="strip__inner-text" style="top: 20%;">
+          <h2>Preview</h2>
+          <p>A-Frame is a web framework for building virtual reality (VR) experiences. A-Frame is based on top of HTML, making it simple to get started. But A-Frame is not just a 3D scene graph or a markup language; the core is a powerful entity-component framework that provides a declarative, extensible, and composable structure to three.js.</p>
+        <a-scene style="margin-top: 15px; position: absolute; left: 28%;" class="aframebox" embedded>
+          <a-cylinder position="1 0.75 1" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+          <a-plane rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+          <a-sky color="#ECECEC"></a-sky>
+          <a-entity position="0 0 3.8">
+              <a-camera></a-camera>
+          </a-entity>
+      </a-scene>
+        
+      </div>
+    </div>
+  </article>
+  <article class="strips__strip">
+    <div class="strip__content">
+      <h1 class="strip__title" data-name="Amet">Link</h1>
+      <div class="strip__inner-text">
+        <h2>Getting a link</h2>
+        <p>Now, if you have completed all the previous steps, you must wait to generate the marker and bind it to the model, do not forget to also generate the link! So be patient and do not close the tab, please. Relax, we will inform you about the completion of the generation.</p>
+        <button></button>
+      </div>
+    </div>
+  </article>
+  <i class="fa fa-close strip__close"></i>
+</section>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
+  <script src="dist/script.js"></script>
+</body>
+</html>
