@@ -21,12 +21,12 @@ let fixation = false,
 
 					let element = this.el;
 					session.addEventListener('select', function () {
-					  if(!fixation) {
+					  if(!fixation && reSpace) {
                         element.setAttribute('visible','false');
 
 						let position = element.getAttribute('position');
                         
-                        setTimeout(() => reSpace = true, 8000);
+                        setTimeout(() => reSpace = true, 7000);
                         
 						document.getElementById('cards').setAttribute('position', {
                             x: (position.x),
