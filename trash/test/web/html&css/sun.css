@@ -1,0 +1,152 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: consolas;
+    box-sizing: border-box;
+}
+.main
+{
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    background: #050801;
+    
+    text-shadow: 0 0 1px darkred,
+                0 0 5px darkred,
+                0 0 10px darkred,
+                0 0 40px darkred;
+}
+a
+{
+    position: relative;
+    display: inline-block;
+    padding: 10px 10px;
+    margin: 30px 0;
+    color: black;
+    font-size: 24px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    text-shadow: 0 0 1px darkred,
+                0 0 5px darkred,
+                0 0 10px darkred,
+                0 0 40px darkred;
+}
+.uper
+{
+    background: black;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    margin: 0px auto;
+    width: 100%;
+    height: 10px;
+    box-shadow: 0px 0px 40px 15px darkred;
+}
+.downer
+{
+    background: black;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    margin-top: auto;
+    width: 100%;
+    height: 0px;
+    box-shadow:  0 -20px 40px 15px darkred;
+}
+a:hover
+{
+    background: darkred;
+    color: #050801;
+    box-shadow: 0 0 5px darkred,
+                0 0 25px darkred,
+                0 0 50px darkred,
+                0 0 200px darkred;
+}
+.TitleWin 
+{
+    z-index: 3;
+    align-items: center;
+    margin-top: -250px;
+    font-size: 120px;
+    color: black;
+    text-shadow: 0 0 1px darkred,
+                0 0 5px darkred,
+                0 0 10px darkred,
+                0 0 40px darkred;
+}
+hr
+{
+    color: black;
+    box-shadow: 0 0 1px darkred,
+                0 0 5px darkred,
+                0 0 10px darkred,
+                0 0 40px darkred;
+}
+.sun{
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: -300;
+    margin: -300px auto;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: black;
+    opacity: 0.9;
+    box-shadow: 0px 0px 80px 30px darkred;
+}
+.uper_blacksun
+{
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: -300;
+    margin: -300px auto;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: black;
+}
+.ray_box{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 70px;
+    -webkit-animation: ray_anim 120s linear infinite;
+    animation: ray_anim 120s linear infinite;
+}
+.ray{
+    background: -webkit-linear-gradient(top,darkred 0%,
+     darkred 50%,darkred 100%);
+    /*background: -webkit-linear-gradient(top,rgba(255,255,255,0)0%,
+    rgba(190, 43, 43, 0.8)50%,rgba(255,255,255,0)100%); */
+    margin-left: 10px;
+    border-radius: 80% 80% 0 0;
+    position: absolute;
+    opacity: 0.1;
+}
+.ray1{
+    height: 170px;
+    width: 30px;
+    -webkit-transform: rotate(180deg);
+    top: -175px;
+    left:15px
+}

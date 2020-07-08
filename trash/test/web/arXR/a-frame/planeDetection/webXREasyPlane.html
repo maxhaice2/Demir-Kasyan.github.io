@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sample plane</title>
+		<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e47f441/dist/aframe-master.min.js"></script>
+    <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/8a7ee3b/dist/aframe-ar.min.js"></script>
+    <script>
+      AFRAME.registerComponent('click', {
+          init: function () {
+              this.el.addEventListener('click', function (evt) {
+                  this.setAttribute("animation",
+                                    "property: rotation; dur: 4000; to: 0 0 0; loop: false");
+                                                               }
+                                      );
+                            }
+                                                        }
+                              );
+    </script>
+  </head>
+  <body>
+    <a-scene id="scene" ar>
+      <a-gltf-model id="card" click = ""
+                    position = "0 2 0" 
+                    rotation = "90 0 0" 
+                    id = "card-model" 
+                    src = "url(https://cdn.jsdelivr.net/gh/maxhaice/maxhaice.github.io1/Card.gltf)">
+      </a-gltf-model>
+      <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+      <a-light type="directional"
+               light="castShadow: true;
+                      shadowMapHeight: 1024;
+                      shadowMapWidth: 1024;
+                      shadowCameraLeft: -7;
+                      shadowCameraRight: 5;
+                      shadowCameraBottom: -5;
+                      shadowCameraTop: 5;"
+               id="light"
+               target="card"
+               position="-5 3 1.5"></a-light>
+
+      <a-plane height="15" width="15" position="0 0 -3" rotation="-90 0 0"
+               shadow="receive: true"
+               ar-shadows="opacity: 0.3"
+               visible="false"></a-plane>
+      <a-camera>
+        <a-cursor geometry="primitive: ring" color: "#FFC0CB"></a-cursor>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>
